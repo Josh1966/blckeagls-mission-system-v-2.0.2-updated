@@ -11,11 +11,20 @@ I assume that you already have created an init.sqf, or used one provided with an
 
 Unpack your mission pbo. Open the folder you just created.
 Open this directory and copy the debug folder and file called start_black.sqf from MPMissions into the folder you just created by unpacking your mission pbo.
-Add the following at the top of your init.sqf:
+Add the following to your init.sqf:
 
 	[] execVM "start_blck.sqf"
+	
+	NOTE: you may have to move this to last line of your init.sqf if you run multiple missions systems, such as VEMF and SEM.
+	
 Repack your mission pbo and you should be good to go.
 
-If you have already modified your scripts.txt to accomodate other addons, you will need to add this on line 22, which begins 7 exec:
+If you have already modified your scripts.txt to accomodate other addons, you will need to:
+
+ add this on line 22, which begins 7 exec:
 
 	!="execVM "\q\addons\custom_server\init.sqf";" !="execVM "start_blck.sqf";" !="	[] execVM "debug\addmarkers.sqf"; !="execVM "debug\addmarkers2.sqf";" !="execVM "debug\addmarkers75.sqf";" !="execVM "debug\addmarkers752.sqf";	
+	
+  add this to line 41, which begins 7 deletemarker
+  
+    !=deleteMarker "MainMarker";" !="deleteMarker "MainMarker2";" !="deleteMarker "MainMarker75";" !="deleteMarker "MainMarker752";"
