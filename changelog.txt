@@ -1,0 +1,32 @@
+Change log
+
+	build alpha
+	- added AIFunctions.sqf in which functions are defined and frequently used .sqf are precompiled
+	- code revised to call precompiled functions where possible
+	- added a basic "killed" event handler and moved cleanup of AI bodies to this script (AIKilled.sqf)
+	- added waypoints for each group which gets AI moving
+	- divided AI at each mission into smaller groups that move and engage independently
+	- defined a number of functions for code blocks used many times
+	- added many user-definable parameters for AI skills
+	- all variables, including loot tables and lists of weapons, were moved to AIConfig.sqf
+	- coding refinements including moving most code into memory as precompiled code, and moving some code to functions.
+	- AIfunctions.sqf and AIConfig.sqf added which contain functions an configuration information, respectively.
+
+	build 1.0	
+	- set up timers for each mission class
+	- added user-configurable settings for the mission timer for each mission type
+	- added beverage and food list to items to be added to crates in AIConfig.
+	- added the function for alerting AI to killer location to AIKilled
+	- AIKilled added to precompiled scripts for performance enhancement
+
+	build 1.1 2-5-15
+	- added the ability to black list certain locations
+	- added the ability to black list spawn sites
+	- added a basic map detection routine which defines map size and center - needs refinement for stratis and chernarus
+	- marker colors and sizes changed to improve visibility. 
+	- messages broadcast clientside using systemChat
+	
+	build 1.1a 2-6-15
+	- several typo's corrected
+	- removed a few lines that log debug info to the RPT.
+

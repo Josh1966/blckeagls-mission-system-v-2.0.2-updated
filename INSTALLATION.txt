@@ -1,0 +1,21 @@
+Installation:
+
+1) Unpack the Zip file to a folder in a convenient location.
+2) Copy custom_server.pbo from the bin\@epochhive\addons folder to the @epochhive\addons folder in your server directory.
+3) Copy the epoch.Altis, epoch.Stratis and epoch.Chernarus from bin\MPMissions to MPMissions in your server directory.
+4) copy scripts.txt from \Battleye to the Battleye directory in your server directory.
+
+Customized installs:
+
+I assume that you already have created an init.sqf, or used one provided with another mod, and that it is already included it in your mission file (e.g., epoch.Altis.pbo)
+
+Unpack your mission pbo. Open the folder you just created.
+Open this directory and copy the debug folder and file called start_black.sqf from MPMissions into the folder you just created by unpacking your mission pbo.
+Add the following at the top of your init.sqf:
+
+	[] execVM "start_blck.sqf"
+Repack your mission pbo and you should be good to go.
+
+If you have already modified your scripts.txt to accomodate other addons, you will need to add this on line 22, which begins 7 exec:
+
+	!="execVM "\q\addons\custom_server\init.sqf";" !="execVM "start_blck.sqf";" !="	[] execVM "debug\addmarkers.sqf"; !="execVM "debug\addmarkers2.sqf";" !="execVM "debug\addmarkers75.sqf";" !="execVM "debug\addmarkers752.sqf";	
