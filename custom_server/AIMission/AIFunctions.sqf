@@ -8,7 +8,7 @@ private ["_blck_WorldName"];
 
 blck_spawnGroup = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\spawnai.sqf";
 blck_spawnAI = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\AI1.sqf";
-
+blck_spawnAIVehicle = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\spawnVehicle.sqf";
 blck_MessagePlayers = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\AIM.sqf";
 blck_AIKilled = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\AIKilled.sqf";
 

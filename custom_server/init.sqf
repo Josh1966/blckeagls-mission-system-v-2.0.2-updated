@@ -24,3 +24,5 @@ call compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\AIfunc
 [] execVM "\q\addons\custom_server\AIMission\Minor2\minor2Timer.sqf";//Starts minor mission system 2
 
 diag_log "[blckeagls] >>--- Completed initialization"; 
+sleep 30;
+{"blckeagles Mission system v 2.0.2 updated has been started"] call blck_MessagePlayers;

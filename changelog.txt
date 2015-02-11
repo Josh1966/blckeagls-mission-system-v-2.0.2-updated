@@ -29,4 +29,10 @@ Change log
 	build 1.1a 2-6-15
 	- several typo's corrected
 	- removed a few lines that log debug info to the RPT.
+	
+	build 1.2 2-10-2015
+	- calls to spawn vehicles and load AI into them removed from spawnai.sqf
+	- calls to spawn vehicles loaded with AI added to each of the mission files
+	- spawnVehicle.sqf redone to add a for loop that spawns _noVeh vehicles loaded with AI.
+	- The number of vehicles to be spawned is set in AIconfigs.sqf on lines 64 - 67.
 

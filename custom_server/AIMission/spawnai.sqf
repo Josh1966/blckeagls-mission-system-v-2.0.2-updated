@@ -3,15 +3,15 @@
   Modified by Ghostrider
 */
 //Sets Private Variables to they don't interfere when this script is called more than once
-private["_pos","_weaponlist","_ammolist","_skinlist","_itemlist","_randomNumberWeapon","_randomNumberSkin","_randomNumberItem","_numbertospawn","_whichweap","_whichitem","_whichskin","_weapon","_ammo","_item","_skin","_i","_skill","_aiGroup"];
-
-//Gets variables passed form SM1.sqf
+private["_pos","_weaponlist","_ammolist","_skinlist","_itemlist","_randomNumberWeapon","_randomNumberSkin","_randomNumberItem","_numbertospawn","_whichweap","_whichitem","_whichskin","_weapon","_ammo","_item",
+		"_skin","_i","_skill","_aiGroup","_numai1","_numai2","_safepos","_wppos","_xpos","_ypos","_wpradius","_wpnum","_oldpos","_newpos","_x","_wp"];	
+		
+//Gets variables passed from SM1.sqf
 _pos = _this select 0;
 _numai1 = _this select 1;
 _numai2 = _this select 2;
 _weaponList = _this select 3;  // Array with weapons which can be used to equip the AI 
-_spawnVehicle = _this select 4; // If true, vehicles will be spawned with AI
-_skill = _this select 5; // Array of AI skills
+_skill = _this select 4; // Array of AI skills
 
 //diag_log format["[blackeagls] spawnai.sqf _skill is set to %1",_skill];
 
@@ -67,20 +67,12 @@ while {_i < _numbertospawn} do {
 	//diag_log format["---<<<spawnai.sqf>>>--- this group contains the following units %1", units _aiGroup];
 };
 
-if (_spawnVehicle) then {
-	//Finds  a safe postion to spawn the vehicles
-	_safepos = [_pos,0,27,1,0,2000,0] call BIS_fnc_findSafePos;
-	//Spawns the vehicles
-	[_safepos, _aiGroup] execVM "\q\addons\custom_server\AIMission\spawnVehicle.sqf";
-};
-
 // Set the skill of the AI
 [_aiGroup,_skill] call blck_setSkill;
 
 _aiGroup setSpeedMode (["FULL","NORMAL","LIMITED"]call BIS_fnc_selectRandom);
 _aiGroup setFormation (["WEDGE","VEE","FILE","DIAMOND"]call BIS_fnc_selectRandom);
 
-private ["_wppos","_xpos","_ypos","_wpradius","_wpnum"];	
 _wpradius = 20;
 _wpnum = 6;
 _oldpos = _pos;

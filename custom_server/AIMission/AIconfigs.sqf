@@ -38,7 +38,7 @@ private["_blck_WorldName"];
 	blck_AIGrps_Minor2 = 3;
 	
 	//This defines how long after an AI dies that it's body disappears.
-	blck_aiCleanUpTimer = 600; // in seconds
+	blck_aiCleanUpTimer = 6; // in seconds
 	
 	// Time the marker remains after completing the mission in seconds - experimental not yet implemented
 	blck_MarkerPeristTime = 60;
@@ -61,10 +61,10 @@ private["_blck_WorldName"];
 	//blck_AISpawnTime = 60; //Time in seconds
 	
 	//Defines if it should spawn 3 AI Vehicles (Armed offroad)   true = yes spawn vehicles     false = no do not spawn vehicles
-	blck_SpawnVeh_Major = false;
-	blck_SpawnVeh_Major2 = false;
-	blck_SpawnVeh_Minor = false;
-	blck_SpawnVeh_Minor2 = false;
+	blck_SpawnVeh_Major = 3;
+	blck_SpawnVeh_Major2 = 2;
+	blck_SpawnVeh_Minor = -1;
+	blck_SpawnVeh_Minor2 = 1;
 
 	// Ghost
 	// Determines whether a penalty is applied when AI is run over. Experimental. Keep set to false

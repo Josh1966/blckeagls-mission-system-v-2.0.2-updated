@@ -35,11 +35,15 @@ for "_i" from 1 to blck_AIGrps_Major do {
 	_xpos = (_coords select 0) + sin (_dir) * _dist;
 	_ypos = (_coords select 1) + cos (_dir) * _dist;
 	_newPos = [_xpos,_ypos,0];
-	_aiGroup = [_newPos,_numAIGrp,_numAIGrp+1,blck_WeaponList_Major,blck_SpawnVeh_Major, blck_SkillsBlack] call blck_spawnGroup;
+	_aiGroup = [_newPos,_numAIGrp,_numAIGrp+1,blck_WeaponList_Major,blck_SkillsBlack] call blck_spawnGroup;
+	//diag_log format["----->>>>> Orange Mission _aiGroup returned as type %1 with values of %2", typeName _aiGroup, _aiGroup];
 	blck_AIMajor = blck_AIMajor + _aiGroup;
 	_dir = _dir + _arc;
 };
-
+if (blck_SpawnVeh_Major > 0) then {
+	_aiGroup = [_coords,blck_SpawnVeh_Major] call blck_spawnAIVehicle;
+	blck_AIMajor = blck_AIMajor + _aiGroup;
+};
 //Waits until player gets near the _crate to end mission
 waitUntil{{isPlayer _x && _x distance _crate < 10 && vehicle _x == _x } count playableunits > 0};
 
