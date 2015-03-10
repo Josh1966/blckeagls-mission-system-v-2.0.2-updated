@@ -13,10 +13,10 @@ Unpack your mission pbo. Open the folder you just created.
 Open this directory and copy the debug folder and file called start_black.sqf from MPMissions into the folder you just created by unpacking your mission pbo.
 Add the following to your init.sqf:
 
-	[] execVM "start_blck.sqf"
-	
-	NOTE: you may have to move this to last line of your init.sqf if you run multiple missions systems, such as VEMF and SEM.
-	
+	[] execVM "start_blck.sqf";
+
+If you run multiple mission systems you may have to either merge this file with the code for other mission systems or add this line above any code that executes and if (isServer) exitWith {};	
+
 Repack your mission pbo and you should be good to go.
 
 If you have already modified your scripts.txt to accomodate other addons, you will need to:
