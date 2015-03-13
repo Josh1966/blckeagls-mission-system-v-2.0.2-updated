@@ -2,7 +2,7 @@
 AI Mission Compiled by blckeagls @ Zombieville.net
 Code was modified by blckeagls using other peoples code.  Been over a year, don't have their names anymore.  Sorry =(
 Further modified by Ghostrider - 
-Contains most constants that define the mission system behavior
+This file contains most constants that define the behavior and loot for mission system 
 */
 private["_blck_WorldName"];
 
@@ -38,7 +38,7 @@ private["_blck_WorldName"];
 	blck_AIGrps_Minor2 = 3;
 	
 	//This defines how long after an AI dies that it's body disappears.
-	blck_aiCleanUpTimer = 6; // in seconds
+	blck_aiCleanUpTimer = 900; // in seconds
 	
 	// Time the marker remains after completing the mission in seconds - experimental not yet implemented
 	blck_MarkerPeristTime = 60;
@@ -46,21 +46,21 @@ private["_blck_WorldName"];
 	// Reduce to 1 sec for immediate spawns, or longer if you wish to space the missions out	
 	// These are setup for quick spawns and respawns	
 	//Minimum Spawn time between missions in seconds
-	blck_TMin_Major = 60;
-	blck_TMin_Major2 = 50;
-	blck_TMin_Minor = 30;
-	blck_TMin_Minor2 = 40;
+	blck_TMin_Major = 180;
+	blck_TMin_Major2 = 150;
+	blck_TMin_Minor = 100;
+	blck_TMin_Minor2 = 125;
 	
 	//Maximum Spawn time between missions in seconds
-	blck_TMax_Major = 150;
-	blck_TMax_Major2 = 120;
-	blck_TMax_Minor = 80;
-	blck_TMax_Minor2 = 100;
+	blck_TMax_Major = 360;
+	blck_TMax_Major2 = 300;
+	blck_TMax_Minor = 200;
+	blck_TMax_Minor2 = 250;
 	
 	// spawn timers now run for each mission type using parameters specific for that type
 	//blck_AISpawnTime = 60; //Time in seconds
 	
-	//Defines if it should spawn 3 AI Vehicles (Armed offroad)   true = yes spawn vehicles     false = no do not spawn vehicles
+	//Defines how many AI Vehicles (Armed offroad) to spawn. Set this to -1 to disable spawning of vehicles
 	blck_SpawnVeh_Major = 3;
 	blck_SpawnVeh_Major2 = 2;
 	blck_SpawnVeh_Minor = -1;
@@ -71,13 +71,14 @@ private["_blck_WorldName"];
 	blck_RunGear = false;
 	
 	// Range within which player locations will be revealed to AI after each AI killer set to -1 to disable
-	blck_AIAlertDistance = 200;
+	blck_AIAlertDistance = 300;
 	
 	//Define loot for crates
-	blck_lootCountsMajor = [4,10,12]; // values are: number of things from the weapons, magazines, and items arrays to add, respectively.
+	blck_lootCountsMajor = [6,18,22,1]; // values are: number of things from the weapons, magazines, items and backpacks arrays to add, respectively.
 	blck_BoxLoot_Major = 
 		// Loot is grouped as [weapons],[magazines],[items] in order to be able to use the correct function to load the item into the crate later on.
 		// Each item consist of the following information ["ItemName",minNum, maxNum] where min is the smallest number added and min+max is the largest number added.
+		
 		[  
 			[// Weapons
 				// loaded by a distinct subroutine that looks for the weapon name and magazine type
@@ -117,28 +118,38 @@ private["_blck_WorldName"];
 				["PartPlankPack",10,12],
 				["ItemLockbox",1,2],
 				["3rnd_HE_Grenade_Shell",3,6],
-				["EnergyPackLg",1,2],
+				["EnergyPackLg",1,3],
 				["30Rnd_65x39_caseless_green",3,6],
 				["30Rnd_556x45_Stanag",3,6],
 				["30Rnd_556x45_Stanag",3,6],
 				["30Rnd_45ACP_Mag_SMG_01",3,6],
 				["20Rnd_556x45_UW_mag",3,6],
-				["10Rnd_762x51_Mag",3,6],
-				["20Rnd_762x51_Mag",3,6],
+				["10Rnd_762x51_Mag",3,10],
+				["20Rnd_762x51_Mag",7,14],
+				["10Rnd_762x51_Mag",3,10],
+				["20Rnd_762x51_Mag",7,14],
 				["200Rnd_65x39_cased_Box",3,6],
 				["100Rnd_65x39_caseless_mag_Tracer",3,6],
 				["3rnd_HE_Grenade_Shell",1,3],
-				["HandGrenade",1,3],
+				["HandGrenade",1,4],
 				["EnergyPack",2,5]
 			],			
 			[//Items
-				["Heal_EPOCH",1,2],["Defib_EPOCH",1,2],["Repair_EPOCH",1,2],["FAK",1,2],["VehicleRepair",1,3],
+				// ["ItemKiloHemp",1,2],["ItemRuby",1,2],["ItemSilverBar,1,2],["ItemGoldBar10oz",1,2]
+				// _rifleOptics = ["optic_Aco",1,3],["optic_ACO_grn",1,3],["optic_Holosight"1,3],
+				["Heal_EPOCH",1,2],["Defib_EPOCH",1,2],["Repair_EPOCH",1,4],["FAK",1,4],["VehicleRepair",1,3],["Rangefinder",1,3],
+				["optic_Nightstalker",1,2],["optic_SOS",1,2],["optic_LRPS",1,2],["optic_DMS",1,2],
+				["optic_Aco",1,3],["optic_ACO_grn",1,3],["optic_Holosight",1,3],
+				["ItemKiloHemp",1,2],["ItemRuby",1,2],["ItemSilverBar",1,2],["ItemGoldBar10oz",1,2],
 				["ItemSodaRbull",1,3],["ItemSodaOrangeSherbet",1,3],["ItemSodaPurple",1,3],["ItemSodaMocha",1,3],["ItemSodaBurst",1,3],
 				["CookedChicken_EPOCH",1,3],["CookedGoat_EPOCH",1,3],["CookedSheep_EPOCH",1,3],["FoodSnooter",1,3],["FoodMeeps",1,3],["FoodBioMeat",1,3],["ItemTuna",1,3],["ItemSeaBass",1,3],["ItemTrout",1,3]
+			],
+			[ // Backpacks
+				["smallbackpack_pink_epoch",1,2],["smallbackpack_red_epoch",1,2],["smallbackpack_teal_epoch",1,2],["smallbackpack_green_epoch",1,2],["B_Carryall_cbr",1,2]
 			]
 	];		
 	
-	blck_lootCountsMajor2 = [3,8,10];	
+	blck_lootCountsMajor2 = [5,15,18,1];	
 	blck_BoxesLoot_Major2 = 
 		[
 			[// Weapons
@@ -186,8 +197,10 @@ private["_blck_WorldName"];
 				["30Rnd_556x45_Stanag",3,6],
 				["30Rnd_45ACP_Mag_SMG_01",3,6],
 				["20Rnd_556x45_UW_mag",3,6],
-				["10Rnd_762x51_Mag",3,6],
-				["20Rnd_762x51_Mag",3,6],
+				["10Rnd_762x51_Mag",3,8],
+				["20Rnd_762x51_Mag",3,11],
+				["10Rnd_762x51_Mag",3,8],
+				["20Rnd_762x51_Mag",3,11],
 				["200Rnd_65x39_cased_Box",3,6],
 				["100Rnd_65x39_caseless_mag_Tracer",3,6],
 				["3rnd_HE_Grenade_Shell",1,3],
@@ -196,13 +209,19 @@ private["_blck_WorldName"];
 			],			
 			[//Items
 				// Format is ["Item name, Minimum number to add, Maximum number to add],
-				["Heal_EPOCH",1,2],["Defib_EPOCH",1,2],["Repair_EPOCH",1,2],["FAK",1,2],["VehicleRepair",1,3],
+				["Heal_EPOCH",1,2],["Defib_EPOCH",1,2],["Repair_EPOCH",1,2],["FAK",1,2],["VehicleRepair",1,3],["Rangefinder",1,3],
+				["optic_Nightstalker",1,2],["optic_SOS",1,2],["optic_LRPS",1,2],["optic_DMS",1,2],
+				["optic_Aco",1,3],["optic_ACO_grn",1,3],["optic_Holosight",1,3],
+				["ItemKiloHemp",1,2],["ItemRuby",1,2],["ItemSilverBar",1,2],["ItemGoldBar10oz",1,2],
 				["ItemSodaRbull",1,3],["ItemSodaOrangeSherbet",1,3],["ItemSodaPurple",1,3],["ItemSodaMocha",1,3],["ItemSodaBurst",1,3],
 				["CookedChicken_EPOCH",1,3],["CookedGoat_EPOCH",1,3],["CookedSheep_EPOCH",1,3],["FoodSnooter",1,3],["FoodMeeps",1,3],["FoodBioMeat",1,3],["ItemTuna",1,3],["ItemSeaBass",1,3],["ItemTrout",1,3]
+			],
+			[ // Backpacks
+				["smallbackpack_pink_epoch",1,2],["smallbackpack_red_epoch",1,2],["smallbackpack_teal_epoch",1,2],["smallbackpack_green_epoch",1,2],["B_Carryall_cbr",1,2]
 			]
 		];
 		
-	blck_lootCountsMinor = [3,6,4];			
+	blck_lootCountsMinor = [3,10,8,1];			
 	blck_BoxesLoot_Minor = 
 		[
 			[// Weapons
@@ -249,7 +268,9 @@ private["_blck_WorldName"];
 				["30Rnd_45ACP_Mag_SMG_01",3,6],
 				["20Rnd_556x45_UW_mag",3,6],
 				["10Rnd_762x51_Mag",3,6],
-				["20Rnd_762x51_Mag",3,6],
+				["20Rnd_762x51_Mag",3,9],
+				["10Rnd_762x51_Mag",3,6],
+				["20Rnd_762x51_Mag",3,9],
 				["200Rnd_65x39_cased_Box",3,6],
 				["100Rnd_65x39_caseless_mag_Tracer",3,6],
 				["3rnd_HE_Grenade_Shell",1,2],
@@ -260,10 +281,13 @@ private["_blck_WorldName"];
 				["Heal_EPOCH",1,2],["Defib_EPOCH",1,2],["Repair_EPOCH",1,2],["FAK",1,2],["VehicleRepair",1,3],
 				["ItemSodaRbull",1,3],["ItemSodaOrangeSherbet",1,3],["ItemSodaPurple",1,3],["ItemSodaMocha",1,3],["ItemSodaBurst",1,3],
 				["CookedChicken_EPOCH",1,3],["CookedGoat_EPOCH",1,3],["CookedSheep_EPOCH",1,3],["FoodSnooter",1,3],["FoodMeeps",1,3],["FoodBioMeat",1,3],["ItemTuna",1,3],["ItemSeaBass",1,3],["ItemTrout",1,3]
+			],
+			[ // Backpacks
+				["smallbackpack_pink_epoch",0,2],["smallbackpack_red_epoch",0,2],["smallbackpack_teal_epoch",0,2],["smallbackpack_green_epoch",0,2],["B_Carryall_cbr",0,1]
 			]
 		];
 	
-	blck_lootCountsMinor2 = [3,8,8];
+	blck_lootCountsMinor2 = [4,13,8,1];
 	blck_BoxesLoot_Minor2 = 
 		[	
 			[// Weapons
@@ -310,7 +334,9 @@ private["_blck_WorldName"];
 				["30Rnd_45ACP_Mag_SMG_01",3,6],
 				["20Rnd_556x45_UW_mag",3,6],
 				["10Rnd_762x51_Mag",3,6],
-				["20Rnd_762x51_Mag",3,6],
+				["20Rnd_762x51_Mag",3,10],
+				["10Rnd_762x51_Mag",3,6],
+				["20Rnd_762x51_Mag",3,10],
 				["200Rnd_65x39_cased_Box",3,6],
 				["100Rnd_65x39_caseless_mag_Tracer",3,6],
 				["3rnd_HE_Grenade_Shell",1,2],
@@ -321,6 +347,9 @@ private["_blck_WorldName"];
 				["Heal_EPOCH",1,2],["Defib_EPOCH",1,2],["Repair_EPOCH",1,2],["FAK",1,2],["VehicleRepair",1,3],
 				["ItemSodaRbull",1,3],["ItemSodaOrangeSherbet",1,3],["ItemSodaPurple",1,3],["ItemSodaMocha",1,3],["ItemSodaBurst",1,3],
 				["CookedChicken_EPOCH",1,3],["CookedGoat_EPOCH",1,3],["CookedSheep_EPOCH",1,3],["FoodSnooter",1,3],["FoodMeeps",1,3],["FoodBioMeat",1,3],["ItemTuna",1,3],["ItemSeaBass",1,3],["ItemTrout",1,3]
+			],
+			[ // Backpacks
+				["smallbackpack_pink_epoch",0,2],["smallbackpack_red_epoch",0,1],["smallbackpack_teal_epoch",0,2],["smallbackpack_green_epoch",0,2],["B_Carryall_cbr",0,1]
 			]
 		];
 		

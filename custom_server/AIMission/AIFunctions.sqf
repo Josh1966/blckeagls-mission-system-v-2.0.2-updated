@@ -102,14 +102,15 @@ blck_setSkill = {
 
 // 
 blck_fillBoxes = {
-	private["_crate","_boxLoot","_wepCnt","_magCnt","_itemCnt","_a1","_item","_low","_high","_diff"];
+	private["_crate","_boxLoot","_wepCnt","_magCnt","_itemCnt","_a1","_item","_low","_high","_diff","_bkcPckCnt"];
 
 	_crate = _this select 0;
 	_boxLoot = _this select 1; // Array of [[weapons],[magazines],[items]]
 	_wepCnt = _this select 2; // number of types of weapons to load
 	_magCnt = _this select 3; // Number of types of additional, optional magazines to add (this includes building supplies)
 	_itemCnt = _this select 4; // number of items (first aid packs, multigun bits) to load
-
+	_bkcPckCnt = _this select 5; // Number of backpacks to add
+	
 	clearWeaponCargoGlobal _crate;
 	clearMagazineCargoGlobal _crate;
 	
@@ -125,15 +126,21 @@ blck_fillBoxes = {
 	for "_i" from 0 to _magCnt do {
 		_item = _a1 call BIS_fnc_selectRandom;
 		_diff = (_item select 2) - (_item select 1);  // Take difference between max and min number of items to load and randomize based on this value
-		_crate addMagazineCargoGlobal [_item select 0, (_item select 1) + _diff];
+		_crate addMagazineCargoGlobal [_item select 0, (_item select 1) + round(random(_diff))];
 	};
 	// Add Items (first aid kits, multitool bits, vehicle repair kits, food and drinks)
 	_a1 = _boxLoot select 2;
 	for "_i" from 0 to _itemCnt do {
 		_item = _a1 call BIS_fnc_selectRandom;
 		_diff = (_item select 2) - (_item select 1); 
-		_crate additemCargoGlobal [_item select 0, (_item select 1) + _diff];		
+		_crate additemCargoGlobal [_item select 0, (_item select 1) + round(random(_diff))];		
 	};	
+	_a1 = _boxLoot select 3;
+	for "_i" from 0 to _bkcPckCnt do {
+		_item = _a1 call BIS_fnc_selectRandom;
+		_diff = (_item select 2) - (_item select 1); 
+		_crate addbackpackcargoGlobal [_item select 0, (_item select 1) + round(random(_diff))];	
+	};
 };
 
 diag_log "[blckeagls] Functions Loaded";
