@@ -25,9 +25,9 @@ _crate setVariable ["permaLoot",true,true];
 // Parameters here are [_crate, _lootArray, num weapons to add, num items from the magazines array to add, num items from the item array to add]
 // Variables are: 
 //	blck_BoxLoot_Major, an array of items which can be added to the crate; 
-//	blck_lootCountsMajor, an array containing the number of weapons, magazines and items to be randomly selected from blck_BoxLoot_Major and added to the crate
+//	blck_lootCountsMajor, an array containing the number of weapons, magazines, items and backpacks to be randomly selected from blck_BoxLoot_Major and added to the crate
 
-[_crate,blck_BoxLoot_Major,blck_lootCountsMajor select 0, blck_lootCountsMajor select 1, blck_lootCountsMajor select 2] call blck_fillBoxes;
+[_crate,blck_BoxLoot_Major,blck_lootCountsMajor select 0, blck_lootCountsMajor select 1, blck_lootCountsMajor select 2, blck_lootCountsMajor select 3] call blck_fillBoxes;
 
 //Spawns the AI at several randomized locations relative to the loot box
 _numAIGrp = round((blck_MinAI_Major + round(random(blck_MaxAI_Major - blck_MinAI_Major)))/blck_AIGrps_Major);

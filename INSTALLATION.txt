@@ -27,6 +27,6 @@ If you have already modified your scripts.txt to accomodate other addons, you wi
 	
   add this to line 41, which begins 7 deletemarker
   
-    !=deleteMarker "MainMarker";" !="deleteMarker "MainMarker2";" !="deleteMarker "MainMarker75";" !="deleteMarker "MainMarker752";"
+    !="deleteMarker "MainMarker";" !="deleteMarker "MainMarker2";" !="deleteMarker "MainMarker75";" !="deleteMarker "MainMarker752";"
 	
   Merge addweaponcargo.txt with your existing BE script of the same name.

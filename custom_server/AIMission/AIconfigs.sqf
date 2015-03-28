@@ -61,10 +61,10 @@ private["_blck_WorldName"];
 	//blck_AISpawnTime = 60; //Time in seconds
 	
 	//Defines how many AI Vehicles (Armed offroad) to spawn. Set this to -1 to disable spawning of vehicles
-	blck_SpawnVeh_Major = 3;
-	blck_SpawnVeh_Major2 = 2;
+	blck_SpawnVeh_Major = 3; //3;
+	blck_SpawnVeh_Major2 = 2; //2;
 	blck_SpawnVeh_Minor = -1;
-	blck_SpawnVeh_Minor2 = 1;
+	blck_SpawnVeh_Minor2 = 1; //1;
 
 	// Ghost
 	// Determines whether a penalty is applied when AI is run over. Experimental. Keep set to false

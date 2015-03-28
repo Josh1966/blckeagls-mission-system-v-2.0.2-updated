@@ -56,7 +56,7 @@ for "_i" from 1 to _noVeh do {
 		//Spawns a AI Vehicle
 		_safepos = [_pos,0,27,0,0,20,0] call BIS_fnc_findSafePos;
 		_veh = ObjNull;
-		_veh = createVehicle["B_G_Offroad_01_armed_F", _safepos, [], 0, "NONE"];
+		_veh = createVehicle["B_G_Offroad_01_armed_EPOCH", _safepos, [], 0, "NONE"];
 		_veh setVariable["LASTLOGOUT_EPOCH",1000000000000];
 		_veh setVariable["LAST_CHECK",1000000000000];
 		//Moves 2 AI units into vehicle

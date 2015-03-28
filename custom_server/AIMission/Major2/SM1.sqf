@@ -24,7 +24,7 @@ _crate setVariable ["Mission",1,true];
 _crate setVariable ["ObjectID","1",true];
 _crate setVariable ["permaLoot",true,true];
 
-[_crate,blck_BoxesLoot_Major2,blck_lootCountsMajor2 select 0, blck_lootCountsMajor2 select 1, blck_lootCountsMajor2 select 2] call blck_fillBoxes;
+[_crate,blck_BoxesLoot_Major2,blck_lootCountsMajor2 select 0, blck_lootCountsMajor2 select 1, blck_lootCountsMajor2 select 2, blck_lootCountsMajor2 select 3] call blck_fillBoxes;
 
 _numAIGrp = round((blck_MinAI_Major2 + round(random(blck_MaxAI_Major2 - blck_MinAI_Major2)))/blck_AIGrps_Major2);
 _arc = 360/blck_AIGrps_Major2;
