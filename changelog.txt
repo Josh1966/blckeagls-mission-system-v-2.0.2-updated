@@ -36,6 +36,7 @@ Change log
 	- spawnVehicle.sqf redone to add a for loop that spawns _noVeh vehicles loaded with AI.
 	- The number of vehicles to be spawned is set in AIconfigs.sqf on lines 64 - 67.
 
-	build 2.0 3-27-15
+	build 2.0 3-28-15
 	- changed the type of vehicle spawned to B_G_Offroad_01_armed_EPOCH for compatability with Epoch 0.3.0.10-2015
 	- updated mission files to Epoch 0.3.0.1
+	- added checks for additional maps including panthera
