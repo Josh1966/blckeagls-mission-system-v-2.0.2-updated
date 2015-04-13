@@ -9,11 +9,13 @@ blck_Debug = false; // For some future purpose
 
 sleep 10; // wait for other systems to load before initializing
 
-diag_log "[blckeagls] loading version 03-28-15 build 2.0...... >>";
-// Get information about the map
-[] execVM "\q\addons\custom_server\AIMission\findWorld.sqf";
+diag_log "[blckeagls] loading version 02-06-15 build 1.1a...... >>";
 // Load Configuration information
 call compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\AIconfigs.sqf";
+// Get information about the map
+sleep 5;
+[] execVM "\q\addons\custom_server\AIMission\findWorld.sqf";
+sleep 5;
 // compile functions
 call compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\AIfunctions.sqf";
 

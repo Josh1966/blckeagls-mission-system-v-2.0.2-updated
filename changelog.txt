@@ -40,3 +40,20 @@ Change log
 	- changed the type of vehicle spawned to B_G_Offroad_01_armed_EPOCH for compatability with Epoch 0.3.0.10-2015
 	- updated mission files to Epoch 0.3.0.1
 	- added checks for additional maps including panthera
+	
+	Build 2.1 4-13-2015
+	- Added spawning of static weapons (.50 cal and grenade launcher)
+	- AI will move to man the static weapon when the gunner is killed
+	- Armed pickups removed as they were bugged
+	- You can now configure for each mission type (blue .. Orange) the distance at which AI learn of the killer's position (blck_AIAlertDistance) and how much they learn (blck_AIIntelligence) which allows more customization of difficulty.
+	- Major traders can be blacklisted as mission locations (blck_blacklistSpawns)
+	- Locations that are blacklisted can be specified (blck_locationBlackList)
+	- AI can carry launchers (blck_useLaunchers). 
+	- The number of AI with launchers can be specified (blck_launcherCleanup). 
+	- Launchers can be removed when AI are killed (blck_launchersPerGroup).
+	- Types of launchers AI carry can be configured (blck_launcherTypes)
+	- Code has been cleanup up and much unused code was removed.
+	- Some variables have been renamed based on the color of the marker of the mission they correspond to.
+	To Dos
+	- Better cleanup of static weapons
+	- modular system to randomly select a subtype of mission (convoy ambush, AI camp etc) from a list, spawn the landscape, and clean it up.

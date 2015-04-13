@@ -8,6 +8,8 @@ private["_blck_WorldName"];
 
 //Variables to Edit Below
 	
+	blck_debugON = false;
+
 	//Minimum distance for AI To spawn away form another AI
 	MinDistanceFromMission = 1000;
 	// list of locations that are protected against mission spawns
@@ -21,10 +23,10 @@ private["_blck_WorldName"];
 	blck_blacklistSpawns = true;
 	
 	//This defines the minimum number of AI to spawn per mission
-	blck_MinAI_Major = 20;
-	blck_MinAI_Major2 = 16;
-	blck_MinAI_Minor = 8;
-	blck_MinAI_Minor2 = 12;
+	blck_MinAI_Major = 20;  // Orange
+	blck_MinAI_Major2 = 16; // Green
+	blck_MinAI_Minor = 8;   // Blue
+	blck_MinAI_Minor2 = 12;  // Red
 	
 	//This defines the maximum number of AI to spawn per mission
 	blck_MaxAI_Major = 25;
@@ -32,6 +34,8 @@ private["_blck_WorldName"];
 	blck_MaxAI_Minor = 12;
 	blck_MaxAI_Minor2 = 15;
 	
+	// How many groups of AI are spawned.
+	// The total AI number as set above will be divided equally among these groups
 	blck_AIGrps_Major = 5;
 	blck_AIGrps_Major2 = 4;
 	blck_AIGrps_Minor = 2;
@@ -41,37 +45,46 @@ private["_blck_WorldName"];
 	blck_aiCleanUpTimer = 900; // in seconds
 	
 	// Time the marker remains after completing the mission in seconds - experimental not yet implemented
-	blck_MarkerPeristTime = 60;
+	blck_MarkerPeristTime = 120;
 
-	// Reduce to 1 sec for immediate spawns, or longer if you wish to space the missions out	
-	// These are setup for quick spawns and respawns	
 	//Minimum Spawn time between missions in seconds
-	blck_TMin_Major = 180;
-	blck_TMin_Major2 = 150;
-	blck_TMin_Minor = 100;
-	blck_TMin_Minor2 = 125;
+		blck_TMin_Major = 250; // Orange
+		blck_TMin_Major2 = 200; // Green
+		blck_TMin_Minor = 120;  // Blue
+		blck_TMin_Minor2 = 150; // Red
 	
 	//Maximum Spawn time between missions in seconds
-	blck_TMax_Major = 360;
-	blck_TMax_Major2 = 300;
-	blck_TMax_Minor = 200;
-	blck_TMax_Minor2 = 250;
+		blck_TMax_Major = 360;
+		blck_TMax_Major2 = 300;
+		blck_TMax_Minor = 200;
+		blck_TMax_Minor2 = 250;
 	
-	// spawn timers now run for each mission type using parameters specific for that type
-	//blck_AISpawnTime = 60; //Time in seconds
-	
-	//Defines how many AI Vehicles (Armed offroad) to spawn. Set this to -1 to disable spawning of vehicles
-	blck_SpawnVeh_Major = 3; //3;
-	blck_SpawnVeh_Major2 = 2; //2;
-	blck_SpawnVeh_Minor = -1;
-	blck_SpawnVeh_Minor2 = 1; //1;
-
+	// Set to false to disable spawning static weapons / armed vehicles altogether
+		blck_useStatic = true;  
+		
+	// Define the static weapons or armed vehicles to use
+	//  The armed pickups used in earlier veriosn of this mission system are bugged and have been replaced by a 0.50 cal and grenade luncher
+		blck_staticWeapons = ["B_HMG_01_high_F","B_GMG_01_high_F"];
+	//Defines how many AI Vehicles or static weapons () to spawn. Set this to -1 to disable spawning of static weapons or vehicles for that class of mission
+		blck_SpawnVeh_Major = 1; //3;  // Orange
+		blck_SpawnVeh_Major2 = 1; //2;  // Green
+		blck_SpawnVeh_Minor = -1;       // Blue
+		blck_SpawnVeh_Minor2 = -1; //1;  // Red
+		
 	// Ghost
 	// Determines whether a penalty is applied when AI is run over. Experimental. Keep set to false
 	blck_RunGear = false;
 	
 	// Range within which player locations will be revealed to AI after each AI killer set to -1 to disable
-	blck_AIAlertDistance = 300;
+	blck_AIAlertDistance = [100,150,225,300];  // [blue, red, green, orange] where the higher number is more difficult
+	// How much the AI learn about the location of the killer range [0 - 4] for easy to hard
+	blck_AIIntelligence = [0, 0.5, 2, 4];  
+	
+	blck_useLaunchers = true;
+	//blck_launcherTypes = ["launch_NLAW_F","launch_RPG32_F","launch_B_Titan_F","launch_I_Titan_F","launch_O_Titan_F","launch_B_Titan_short_F","launch_I_Titan_short_F","launch_O_Titan_short_F"];
+	blck_launcherTypes = ["launch_RPG32_F"];
+	blck_launchersPerGroup = 1;
+	blck_launcherCleanup = true;
 	
 	//Define loot for crates
 	blck_lootCountsMajor = [6,18,22,1]; // values are: number of things from the weapons, magazines, items and backpacks arrays to add, respectively.
@@ -106,13 +119,13 @@ private["_blck_WorldName"];
 				["srifle_GM6_LRPS_F","5Rnd_127x108_Mag"]
 			],
 			[//Magazines
-				["CinderBlocks",5,10],
+				["CinderBlocks",5,15],
 				["jerrycan_epoch",1,2],
 				["lighter_epoch",1,1],
 				["CircuitParts",2,3],
 				["WoodLog_EPOCH",10,20],
-				["ItemCorrugatedLg",1,2],
-				["ItemCorrugated",3,5],
+				["ItemCorrugatedLg",1,6],
+				["ItemCorrugated",3,6],
 				["ItemMixOil",1,2],
 				["MortarBucket",5,10],
 				["PartPlankPack",10,12],
@@ -145,7 +158,11 @@ private["_blck_WorldName"];
 				["CookedChicken_EPOCH",1,3],["CookedGoat_EPOCH",1,3],["CookedSheep_EPOCH",1,3],["FoodSnooter",1,3],["FoodMeeps",1,3],["FoodBioMeat",1,3],["ItemTuna",1,3],["ItemSeaBass",1,3],["ItemTrout",1,3]
 			],
 			[ // Backpacks
-				["smallbackpack_pink_epoch",1,2],["smallbackpack_red_epoch",1,2],["smallbackpack_teal_epoch",1,2],["smallbackpack_green_epoch",1,2],["B_Carryall_cbr",1,2]
+				["B_AssaultPack_dgtl",1,2],["B_AssaultPack_khk",1,2],["B_AssaultPack_mcamo",1,2],["B_AssaultPack_ocamo",1,2],["B_AssaultPack_rgr",1,2],["B_AssaultPack_sgg",1,2],
+				["B_Carryall_cbr",1,2],["B_Carryall_khk",1,2],["B_Carryall_mcamo",1,2],["B_Carryall_ocamo",1,2],["B_Carryall_oli",1,2],["B_Carryall_oucamo",1,2],["B_FieldPack_blk",1,2],
+				["B_FieldPack_cbr",1,2],["B_FieldPack_khk",1,2],["B_FieldPack_ocamo",1,2],["B_FieldPack_oli",1,2],["B_FieldPack_oucamo",1,2],["B_Kitbag_cbr",1,2],["B_Kitbag_mcamo",1,2],
+				["B_Kitbag_rgr",1,2],["B_Kitbag_sgg",1,2],["B_Parachute",1,2],["B_TacticalPack_blk",1,2],["B_TacticalPack_mcamo",1,2],["B_TacticalPack_ocamo",1,2],["B_TacticalPack_oli",1,2],
+				["B_TacticalPack_rgr",1,2],["smallbackpack_red_epoch",1,2],["smallbackpack_green_epoch",1,2],["smallbackpack_teal_epoch",1,2],["smallbackpack_pink_epoch",1,2]
 			]
 	];		
 	
@@ -179,13 +196,13 @@ private["_blck_WorldName"];
 			],
 			[//Magazines
 				// Format is ["Magazine name, Minimum number to add, Maximum number to add],
-				["CinderBlocks",4,8],
+				["CinderBlocks",4,12],
 				["jerrycan_epoch",1,2],
 				["lighter_epoch",1,1],
-				["CircuitParts",2,3],
+				["CircuitParts",2,5],
 				["WoodLog_EPOCH",10,20],
-				["ItemCorrugatedLg",1,2],
-				["ItemCorrugated",2,4],
+				["ItemCorrugatedLg",1,3],
+				["ItemCorrugated",2,6],
 				["ItemMixOil",1,2],
 				["MortarBucket",3,6],
 				["PartPlankPack",10,12],
@@ -217,7 +234,11 @@ private["_blck_WorldName"];
 				["CookedChicken_EPOCH",1,3],["CookedGoat_EPOCH",1,3],["CookedSheep_EPOCH",1,3],["FoodSnooter",1,3],["FoodMeeps",1,3],["FoodBioMeat",1,3],["ItemTuna",1,3],["ItemSeaBass",1,3],["ItemTrout",1,3]
 			],
 			[ // Backpacks
-				["smallbackpack_pink_epoch",1,2],["smallbackpack_red_epoch",1,2],["smallbackpack_teal_epoch",1,2],["smallbackpack_green_epoch",1,2],["B_Carryall_cbr",1,2]
+				["B_AssaultPack_dgtl",1,2],["B_AssaultPack_khk",1,2],["B_AssaultPack_mcamo",1,2],["B_AssaultPack_ocamo",1,2],["B_AssaultPack_rgr",1,2],["B_AssaultPack_sgg",1,2],
+				["B_Carryall_cbr",1,2],["B_Carryall_khk",1,2],["B_Carryall_mcamo",1,2],["B_Carryall_ocamo",1,2],["B_Carryall_oli",1,2],["B_Carryall_oucamo",1,2],["B_FieldPack_blk",1,2],
+				["B_FieldPack_cbr",1,2],["B_FieldPack_khk",1,2],["B_FieldPack_ocamo",1,2],["B_FieldPack_oli",1,2],["B_FieldPack_oucamo",1,2],["B_Kitbag_cbr",1,2],["B_Kitbag_mcamo",1,2],
+				["B_Kitbag_rgr",1,2],["B_Kitbag_sgg",1,2],["B_Parachute",1,2],["B_TacticalPack_blk",1,2],["B_TacticalPack_mcamo",1,2],["B_TacticalPack_ocamo",1,2],["B_TacticalPack_oli",1,2],
+				["B_TacticalPack_rgr",1,2],["smallbackpack_red_epoch",1,2],["smallbackpack_green_epoch",1,2],["smallbackpack_teal_epoch",1,2],["smallbackpack_pink_epoch",1,2]
 			]
 		];
 		
@@ -254,10 +275,10 @@ private["_blck_WorldName"];
 				["lighter_epoch",1,1],
 				["CircuitParts",2,3],
 				["WoodLog_EPOCH",10,20],
-				["ItemCorrugatedLg",0,1],
-				["ItemCorrugated",1,2],
+				["ItemCorrugatedLg",0,4],
+				["ItemCorrugated",1,4],
 				["ItemMixOil",1,2],
-				["MortarBucket",2,4],
+				["MortarBucket",1,8],
 				["PartPlankPack",10,12],
 				["ItemLockbox",1,2],
 				["3rnd_HE_Grenade_Shell",1,2],
@@ -273,17 +294,21 @@ private["_blck_WorldName"];
 				["20Rnd_762x51_Mag",3,9],
 				["200Rnd_65x39_cased_Box",3,6],
 				["100Rnd_65x39_caseless_mag_Tracer",3,6],
-				["3rnd_HE_Grenade_Shell",1,2],
+				["3rnd_HE_Grenade_Shell",1,4],
 				["HandGrenade",1,3],
 				["EnergyPack",2,5]
 			],			
 			[//Items
-				["Heal_EPOCH",1,2],["Defib_EPOCH",1,2],["Repair_EPOCH",1,2],["FAK",1,2],["VehicleRepair",1,3],
+				["Heal_EPOCH",1,2],["Defib_EPOCH",1,2],["Repair_EPOCH",1,2],["FAK",1,5],["VehicleRepair",1,5],
 				["ItemSodaRbull",1,3],["ItemSodaOrangeSherbet",1,3],["ItemSodaPurple",1,3],["ItemSodaMocha",1,3],["ItemSodaBurst",1,3],
 				["CookedChicken_EPOCH",1,3],["CookedGoat_EPOCH",1,3],["CookedSheep_EPOCH",1,3],["FoodSnooter",1,3],["FoodMeeps",1,3],["FoodBioMeat",1,3],["ItemTuna",1,3],["ItemSeaBass",1,3],["ItemTrout",1,3]
 			],
 			[ // Backpacks
-				["smallbackpack_pink_epoch",0,2],["smallbackpack_red_epoch",0,2],["smallbackpack_teal_epoch",0,2],["smallbackpack_green_epoch",0,2],["B_Carryall_cbr",0,1]
+				["B_AssaultPack_dgtl",0,2],["B_AssaultPack_khk",0,2],["B_AssaultPack_mcamo",0,2],["B_AssaultPack_ocamo",0,2],["B_AssaultPack_rgr",0,2],["B_AssaultPack_sgg",0,2],
+				["B_Carryall_cbr",0,2],["B_Carryall_khk",0,2],["B_Carryall_mcamo",0,2],["B_Carryall_ocamo",0,2],["B_Carryall_oli",0,2],["B_Carryall_oucamo",0,2],["B_FieldPack_blk",0,2],
+				["B_FieldPack_cbr",0,2],["B_FieldPack_khk",0,2],["B_FieldPack_ocamo",0,2],["B_FieldPack_oli",0,2],["B_FieldPack_oucamo",0,2],["B_Kitbag_cbr",0,2],["B_Kitbag_mcamo",0,2],
+				["B_Kitbag_rgr",0,2],["B_Kitbag_sgg",0,2],["B_Parachute",0,2],["B_TacticalPack_blk",0,2],["B_TacticalPack_mcamo",0,2],["B_TacticalPack_ocamo",0,2],["B_TacticalPack_oli",0,2],
+				["B_TacticalPack_rgr",0,2],["smallbackpack_red_epoch",0,2],["smallbackpack_green_epoch",0,2],["smallbackpack_teal_epoch",0,2],["smallbackpack_pink_epoch",0,2]
 			]
 		];
 	
@@ -318,15 +343,15 @@ private["_blck_WorldName"];
 				["CinderBlocks",2,7],
 				["jerrycan_epoch",1,2],
 				["lighter_epoch",1,1],
-				["CircuitParts",2,3],
+				["CircuitParts",2,6],
 				["WoodLog_EPOCH",10,20],
-				["ItemCorrugatedLg",0,1],
-				["ItemCorrugated",1,4],
+				["ItemCorrugatedLg",0,5],
+				["ItemCorrugated",1,6],
 				["ItemMixOil",1,2],
 				["MortarBucket",2,5],
 				["PartPlankPack",10,12],
 				["ItemLockbox",1,2],
-				["3rnd_HE_Grenade_Shell",1,2],
+				["3rnd_HE_Grenade_Shell",1,5],
 				["EnergyPackLg",0,1],
 				["30Rnd_65x39_caseless_green",3,6],
 				["30Rnd_556x45_Stanag",3,6],
@@ -349,12 +374,16 @@ private["_blck_WorldName"];
 				["CookedChicken_EPOCH",1,3],["CookedGoat_EPOCH",1,3],["CookedSheep_EPOCH",1,3],["FoodSnooter",1,3],["FoodMeeps",1,3],["FoodBioMeat",1,3],["ItemTuna",1,3],["ItemSeaBass",1,3],["ItemTrout",1,3]
 			],
 			[ // Backpacks
-				["smallbackpack_pink_epoch",0,2],["smallbackpack_red_epoch",0,1],["smallbackpack_teal_epoch",0,2],["smallbackpack_green_epoch",0,2],["B_Carryall_cbr",0,1]
+				["B_AssaultPack_dgtl",0,2],["B_AssaultPack_khk",0,2],["B_AssaultPack_mcamo",0,2],["B_AssaultPack_ocamo",0,2],["B_AssaultPack_rgr",0,2],["B_AssaultPack_sgg",0,2],
+				["B_Carryall_cbr",0,2],["B_Carryall_khk",0,2],["B_Carryall_mcamo",0,2],["B_Carryall_ocamo",0,2],["B_Carryall_oli",0,2],["B_Carryall_oucamo",0,2],["B_FieldPack_blk",0,2],
+				["B_FieldPack_cbr",0,2],["B_FieldPack_khk",0,2],["B_FieldPack_ocamo",0,2],["B_FieldPack_oli",0,2],["B_FieldPack_oucamo",0,2],["B_Kitbag_cbr",0,2],["B_Kitbag_mcamo",0,2],
+				["B_Kitbag_rgr",0,2],["B_Kitbag_sgg",0,2],["B_Parachute",0,2],["B_TacticalPack_blk",0,2],["B_TacticalPack_mcamo",0,2],["B_TacticalPack_ocamo",0,2],["B_TacticalPack_oli",0,2],
+				["B_TacticalPack_rgr",0,2],["smallbackpack_red_epoch",0,2],["smallbackpack_green_epoch",0,2],["smallbackpack_teal_epoch",0,2],["smallbackpack_pink_epoch",0,2]
 			]
 		];
 		
 	//This defines the random weapon to spawn on the AI
-	blck_WeaponList_Major = [
+	blck_WeaponList_Orange = [
 		//https://community.bistudio.com/wiki/Arma_3_CfgWeapons_Weapons
 		//["WEAPON","MAGAZINE"]
 			["arifle_Katiba_F","30Rnd_65x39_caseless_green"],
@@ -379,7 +408,7 @@ private["_blck_WorldName"];
 			["srifle_LRR_LRPS_F","7Rnd_408_Mag"],
 			["srifle_GM6_LRPS_F","5Rnd_127x108_Mag"]
 		];
-	blck_WeaponList_Major2 = [
+	blck_WeaponList_Green = [
 		//https://community.bistudio.com/wiki/Arma_3_CfgWeapons_Weapons
 		//["WEAPON","MAGAZINE"]
 			["arifle_Katiba_F","30Rnd_65x39_caseless_green"],
@@ -399,12 +428,12 @@ private["_blck_WorldName"];
 			["srifle_DMR_01_ACO_F","10Rnd_762x51_Mag"],
 			["srifle_LRR_SOS_F","7Rnd_408_Mag"],
 			["srifle_EBR_SOS_F","20Rnd_762x51_Mag"],
-			["srifle_GM6_SOS_F","5Rnd_127x108_APDS_Mag"],
+			//["srifle_GM6_SOS_F","5Rnd_127x108_APDS_Mag"],
 			["srifle_EBR_ARCO_pointer_snds_F","20Rnd_762x51_Mag"],
-			["srifle_LRR_LRPS_F","7Rnd_408_Mag"],
-			["srifle_GM6_LRPS_F","5Rnd_127x108_Mag"]
+			["srifle_LRR_LRPS_F","7Rnd_408_Mag"]
+			//["srifle_GM6_LRPS_F","5Rnd_127x108_Mag"]
 		];
-	blck_WeaponList_Minor = [
+	blck_WeaponList_Blue = [
 		//https://community.bistudio.com/wiki/Arma_3_CfgWeapons_Weapons
 		//["WEAPON","MAGAZINE"]
 			["arifle_Katiba_F","30Rnd_65x39_caseless_green"],
@@ -422,14 +451,14 @@ private["_blck_WorldName"];
 			["LMG_Mk200_F","200Rnd_65x39_cased_Box"],
 			["SMG_01_F","30Rnd_45ACP_Mag_SMG_01"],
 			["srifle_DMR_01_ACO_F","10Rnd_762x51_Mag"],
-			["srifle_LRR_SOS_F","7Rnd_408_Mag"],
+			//["srifle_LRR_SOS_F","7Rnd_408_Mag"],
 			["srifle_EBR_SOS_F","20Rnd_762x51_Mag"],
-			["srifle_GM6_SOS_F","5Rnd_127x108_APDS_Mag"],
-			["srifle_EBR_ARCO_pointer_snds_F","20Rnd_762x51_Mag"],
-			["srifle_LRR_LRPS_F","7Rnd_408_Mag"],
-			["srifle_GM6_LRPS_F","5Rnd_127x108_Mag"]
+			//["srifle_GM6_SOS_F","5Rnd_127x108_APDS_Mag"],
+			["srifle_EBR_ARCO_pointer_snds_F","20Rnd_762x51_Mag"]
+			//["srifle_LRR_LRPS_F","7Rnd_408_Mag"],
+			//["srifle_GM6_LRPS_F","5Rnd_127x108_Mag"]
 		];
-	blck_WeaponList_Minor2 = [
+	blck_WeaponList_Red = [
 		//https://community.bistudio.com/wiki/Arma_3_CfgWeapons_Weapons
 		//["WEAPON","MAGAZINE"]
 			["arifle_Katiba_F","30Rnd_65x39_caseless_green"],
@@ -447,12 +476,12 @@ private["_blck_WorldName"];
 			["LMG_Mk200_F","200Rnd_65x39_cased_Box"],
 			["SMG_01_F","30Rnd_45ACP_Mag_SMG_01"],
 			["srifle_DMR_01_ACO_F","10Rnd_762x51_Mag"],
-			["srifle_LRR_SOS_F","7Rnd_408_Mag"],
+			//["srifle_LRR_SOS_F","7Rnd_408_Mag"],
 			["srifle_EBR_SOS_F","20Rnd_762x51_Mag"],
 			["srifle_GM6_SOS_F","5Rnd_127x108_APDS_Mag"],
-			["srifle_EBR_ARCO_pointer_snds_F","20Rnd_762x51_Mag"],
-			["srifle_LRR_LRPS_F","7Rnd_408_Mag"],
-			["srifle_GM6_LRPS_F","5Rnd_127x108_Mag"]
+			["srifle_EBR_ARCO_pointer_snds_F","20Rnd_762x51_Mag"]
+			//["srifle_LRR_LRPS_F","7Rnd_408_Mag"],
+			//["srifle_GM6_LRPS_F","5Rnd_127x108_Mag"]
 		];
 		
 		
@@ -573,12 +602,11 @@ private["_blck_WorldName"];
 
 /////////////////////////////////////
 // this variable is used together with skill to determine the degree to which AI killers location is revealed
-blck_Intelligence = [0, 0.5, 2, 4];  // experimental - unused at present
 
 blck_SkillsBlue = [
-["aimingAccuracy",0.40],
-["aimingShake",0.40],
-["aimingSpeed",0.40],
+["aimingAccuracy",0.10],
+["aimingShake",0.20],
+["aimingSpeed",0.20],
 ["endurance",0.50],
 ["spotDistance",0.40],
 ["spotTime",0.50],
@@ -589,9 +617,9 @@ blck_SkillsBlue = [
 ];
 
 blck_SkillsRed = [
-["aimingAccuracy",0.55],
-["aimingShake",0.5],
-["aimingSpeed",0.55],
+["aimingAccuracy",0.2],
+["aimingShake",0.3],
+["aimingSpeed",0.35],
 ["endurance",0.60],
 ["spotDistance",0.4],
 ["spotTime",0.6],
@@ -602,8 +630,8 @@ blck_SkillsRed = [
 ];
 
 blck_SkillsGreen = [
-["aimingAccuracy",0.7],
-["aimingShake",0.6],
+["aimingAccuracy",0.65],
+["aimingShake",0.45],
 ["aimingSpeed",0.6],
 ["endurance",0.9],
 ["spotDistance",0.6],
@@ -614,10 +642,10 @@ blck_SkillsGreen = [
 ["general",1.00]
 ];
 
-blck_SkillsBlack = [
+blck_SkillsOrange = [
 ["aimingAccuracy",0.9],
 ["aimingShake",0.9],
-["aimingSpeed",0.8],
+["aimingSpeed",0.9],
 ["endurance",1.00],
 ["spotDistance",0.9],
 ["spotTime",1.0],
