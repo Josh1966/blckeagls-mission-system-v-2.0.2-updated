@@ -5,7 +5,6 @@
 private["_blck_WorldName"];
 // Lets get the map name for mission location purposes
 _blck_WorldName = toLower format ["%1", worldName];
-
 switch (_blck_WorldName) do {// These may need some adjustment - including a test for shore or water should help as well to avoid missions spawning on water.
 	case "altis":{
 		blck_mapCenter = [6322,7801,0]; 

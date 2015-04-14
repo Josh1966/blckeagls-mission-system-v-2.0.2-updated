@@ -28,44 +28,13 @@ for "_i" from 1 to blck_AIGrps_Minor2 do {
 	_xpos = (_coords select 0) + sin (_dir) * _dist;
 	_ypos = (_coords select 1) + cos (_dir) * _dist;
 	_newPos = [_xpos,_ypos,0];
-	_aiGroup = [_newPos,_numAIGrp,_numAIGrp+1,"red"] call blck_spawnGroup;
+	_aiGroup = [_newPos,_numAIGrp,_numAIGrp+1,blck_WeaponList_Minor2,blck_SkillsRed] call blck_spawnGroup;
 	blck_AIMinor2 = blck_AIMinor2 + _aiGroup;
 	_dir = _dir + _arc;
 };
-if (blck_useStatic) then 
-{
-	diag_log format["RED MISSION blck_useStatic is true and blck_SpawnVeh_Minor2 is %1",blck_SpawnVeh_Minor2];
-	if (blck_SpawnVeh_Minor2 == 1) then
-	{
-		//diag_log "RED MISSION blck_useStatic is == 1";
-		_aiGroup = [_coords,3,4,"RED"] call blck_spawnGroup;
-		blck_AIMinor2 = blck_AIMinor2 + _aiGroup;
-		// spawn a static MG at the crate order the group to man it.
-		//diag_log format["RED MISSION Static Group contains %1",_aiGroup];
-		//diag_log format["RED MISSION Static Group is %1", _aiGroup select 0];
-		[_coords,_aiGroup,blck_staticWeapons call BIS_fnc_selectRandom] call blck_spawnEmplacedWeapon;
-		//diag_log "RED MISSION stationary weapon spawned";
-	};
-	if (blck_SpawnVeh_Minor2 > 1) then
-	{
-		//diag_log "RED MISSION blck_useStatic is > 1";
-		_arc = 360/blck_SpawnVeh_Minor2;
-		_dir = random 360;
-		_dist = (15+(random 10));
-		for "_i" from 1 to blck_SpawnVeh_Minor2 do
-		{ 
-			_dir = _dir + _arc;
-			if (_dir > 360) then {_dir = _dir - 360};
-			_xpos = (_coords select 0) + sin (_dir) * _dist;
-			_ypos = (_coords select 1) + cos (_dir) * _dist;
-			_newPos = [_xpos,_ypos,0];		
-			_aiGroup = [_newPos,3,4,"RED"] call blck_spawnGroup;
-			blck_AIMinor2 = blck_AIMinor2 + _aiGroup;
-			// spawn a static MG at the crate order the group to man it.
-			[_newPos,_aiGroup,blck_staticWeapons call BIS_fnc_selectRandom] call blck_spawnEmplacedWeapon;
-			//diag_log "RED MISSION stationary weapon spawned";
-		};
-	};	
+if (blck_SpawnVeh_Minor2 > 0) then {
+	_aiGroup = [_coords,blck_SpawnVeh_Minor2] call blck_spawnAIVehicle;
+	blck_AIMajor = blck_AIMajor + _aiGroup;
 };
 waitUntil{{isPlayer _x && _x distance _crate < 10 && vehicle _x == _x  } count playableunits > 0};
 ["The Sector at the Red Marker is under survivor control!"] call blck_MessagePlayers;

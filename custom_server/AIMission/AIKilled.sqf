@@ -7,17 +7,14 @@
 	1) figure out how to detect the case when AI is killed by being run over and penalize the player
 	2) reward players who make legitimate kills
 */
-private ["_unit","_killer","_startTime","_grpUnits","_alertDist","_intelligence"];
+private ["_unit","_killer","_startTime","_grpUnits"];
 _unit = _this select 0;
 _killer = _this select 1;
 
-_alertDist = _unit getVariable ["alertDist",300];
-_intelligence = _unit getVariable ["intelligence",1];
-
-if (_alertDist > 0) then {
+if (blck_AIAlertDistance > 0) then {
 		{
-			if (((position _x) distance (position _unit)) <= _alertDist) then {
-				_x reveal [_killer, _intelligence];
+			if (((position _x) distance (position _unit)) <= blck_AIAlertDistance) then {
+				_x reveal [_killer, 1];
 				//diag_log "Killer revealed";
 			}
 		} forEach allUnits;
@@ -27,23 +24,6 @@ if ((count (units group _unit)) > 1) then {
 		_grpUnits = units group _unit;
 		_grpUnits = _grpUnits - [_unit];
 		(group _unit) selectLeader (_grpUnits call BIS_fnc_selectRandom);
-	};
-};
-
-if (blck_launcherCleanup) then 
-{
-	_Launcher = secondaryWeapon _unit;
-	if (_launcher != "") then 
-	{
-		_launcherRounds = getArray (configFile >> "CfgWeapons" >> _Launcher >> "magazines") select 0;
-		_unit removeWeapon _Launcher;
-		removeVest _unit;
-		{
-			if(_x == _launcherRounds) then {
-				_unit removeMagazine _x;
-			};
-		} count magazines _unit;
-			
 	};
 };
 

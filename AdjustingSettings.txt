@@ -5,8 +5,7 @@ First, create a backup of all files.
 Second, if your rpt log shows errors after a change, revert to the defaults and try again.
 Third, most settings are in AIconfig.sqf. 
 
-
-** Below is a listing of major settings you might want to change:
+** Below is a listing of settings you might want to change:
 
 blck_locationBlackList - To black list additional locations, add them here using the following format: [[xpos, ypos, 0], distance]
 
@@ -18,8 +17,6 @@ blck_AIGrps_Major, related variables for other missions: change this value to al
 
 Changing AI Skills:
 These are defined in the arrays at the bottom of AIconfig.sqf. The arrays are named based on the color of the mission marker on the map. These should be self explanatory.
-There is a secondary set of parameters that further refine AI skills. blck_AIAlertDistance is an array that contains distance in meters within which the AI will spot the killer and hone in on his location. 
-blck_AIIntelligence determines how effectively the AI use that information. AT 4 they will be very good, while at 0 they will be pretty poor.
 
 Changing loot added to the crates.
 

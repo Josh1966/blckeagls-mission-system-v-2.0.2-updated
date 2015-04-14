@@ -12,7 +12,7 @@ _coords = _this select 0;
 ["A group of AI was sighted ! Check the Green marker on your map for the location!"] call blck_MessagePlayers;
 
 C2coords = _coords;
-
+_skill = 2;
 publicVariable "C2coords";
 [] execVM "debug\addmarkers2.sqf";
 
@@ -35,46 +35,15 @@ for "_i" from 1 to blck_AIGrps_Major2 do {
 	_xpos = (_coords select 0) + sin (_dir) * _dist;
 	_ypos = (_coords select 1) + cos (_dir) * _dist;
 	_newPos = [_xpos,_ypos,0];
-	_aiGroup = [_newPos,_numAIGrp,_numAIGrp+1,"green"] call blck_spawnGroup;
+	_aiGroup = [_newPos,_numAIGrp,_numAIGrp+1,blck_WeaponList_Major2,blck_SkillsGreen] call blck_spawnGroup;
 	blck_AIMajor2 = blck_AIMajor2 + _aiGroup;
 	_dir = _dir + _arc;
 };
-if (blck_useStatic) then 
-{
-	diag_log format["GREEN MISSION blck_useStatic is true and blck_SpawnVeh_Major2 is %1",blck_SpawnVeh_Major2];
-	if (blck_SpawnVeh_Major2 == 1) then
-	{
-		diag_log "GREEN MISSION blck_useStatic is == 1";
-		_aiGroup = [_coords,3,4,"GREEN"] call blck_spawnGroup;
-		blck_AIMajor2 = blck_AIMajor2 + _aiGroup;
-		// spawn a static MG at the crate order the group to man it.
-		diag_log format["GREEN MISSION Static Group contains %1",_aiGroup];
-		diag_log format["GREEN MISSION Static Group is %1", _aiGroup select 0];
-		[_coords,_aiGroup,blck_staticWeapons call BIS_fnc_selectRandom] call blck_spawnEmplacedWeapon;
-		diag_log "GREEN MISSION stationary weapon spawned";
-	};
-	if (blck_SpawnVeh_Major2 > 1) then
-	{
-		diag_log "GREEN MISSION blck_useStatic is > 1";
-		_arc = 360/blck_SpawnVeh_Major2;
-		_dir = random 360;
-		_dist = (15+(random 10));
-		for "_i" from 1 to blck_SpawnVeh_Major2 do
-		{ 
-			_dir = _dir + _arc;
-			if (_dir > 360) then {_dir = _dir - 360};
-			_xpos = (_coords select 0) + sin (_dir) * _dist;
-			_ypos = (_coords select 1) + cos (_dir) * _dist;
-			_newPos = [_xpos,_ypos,0];		
-			_aiGroup = [_newPos,3,4,"GREEN"] call blck_spawnGroup;
-			blck_AIMajor2 = blck_AIMajor2 + _aiGroup;
-			// spawn a static MG at the crate order the group to man it.
-			[_newPos,_aiGroup,blck_staticWeapons call BIS_fnc_selectRandom] call blck_spawnEmplacedWeapon;
-			diag_log "GREEN MISSION stationary weapon spawned";
-		};
-	};	
+if (blck_SpawnVeh_Major2 > 0) then {
+	_aiGroup = [_coords,blck_SpawnVeh_Major2] call blck_spawnAIVehicle;
+	blck_AIMajor = blck_AIMajor + _aiGroup;
 };
 waitUntil{{isPlayer _x && _x distance _crate < 10 && vehicle _x == _x  } count playableunits > 0};
 ["The Sector at the Green Marker is under survivor control!"] call blck_MessagePlayers;
-diag_log "[blckeagls] End of GREEN mission SM1";
+
 MissionGoMajor2 = false;
