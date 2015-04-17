@@ -11,9 +11,9 @@ I assume that you already have created an init.sqf, or used one provided with an
 
 Unpack your mission pbo. Open the folder you just created.
 Open this directory and copy the debug folder and file called start_black.sqf from MPMissions into the folder you just created by unpacking your mission pbo.
-Add the following to your init.sqf:
+Add the following to the top of your init.sqf:
 
-	[] execVM "start_blck.sqf";
+	#include "start_blck.sqf";
 
 If you run multiple mission systems you may have to either merge this file with the code for other mission systems or add this line above any code that executes and if (isServer) exitWith {};	
 
@@ -23,10 +23,14 @@ If you have already modified your scripts.txt to accomodate other addons, you wi
 
  add this on line 22, which begins 7 exec:
 
-	!="execVM "\q\addons\custom_server\init.sqf";" !="execVM "start_blck.sqf";" !="	[] execVM "debug\addmarkers.sqf"; !="execVM "debug\addmarkers2.sqf";" !="execVM "debug\addmarkers75.sqf";" !="execVM "debug\addmarkers752.sqf";	
+	!="execVM "debug\addmarkers.sqf"; !="execVM "debug\addmarkers2.sqf";" !="execVM "debug\addmarkers75.sqf";" !="execVM "debug\addmarkers752.sqf";	
 	
   add this to line 41, which begins 7 deletemarker
   
     !="deleteMarker "MainMarker";" !="deleteMarker "MainMarker2";" !="deleteMarker "MainMarker75";" !="deleteMarker "MainMarker752";"
 	
-  Merge addweaponcargo.txt with your existing BE script of the same name.
+  Add to line 42 which begins 7 setMarker
+		!="setMarkerColor "ColorOrange";" !=setMarkerColor "ColorRed";" !="setMarkerColor "ColorRed";" 
+  
+  Add to line 43 which begins 7 createMarker
+		!="_MainMarker = createMarker ["MainMarker2", C2coords];" !="_MainMarker = createMarker ["MainMarker", Ccoords];" !="_MainMarker = createMarker ["MainMarker75", Ccoords];" !="_MainMarker = createMarker ["MainMarker752", Ccoords];"

@@ -20,15 +20,15 @@ These are defined in the arrays at the bottom of AIconfig.sqf. The arrays are na
 
 Changing loot added to the crates.
 
-The number of items in each category (weapons, magazines, items) to be added to the crate is specified in a variable just above the array for the loot.
+The number of items in each category (weapons, magazines, optics, items, backpacks) to be added to the crate is specified in a variable just above the array for the loot.
 
-example: blck_lootCountsMajor = [4,10,12];
-In the above example, 4 weapons, 10 items from the magazines array, and 12 things from the items array will be added to the crate. Addjust to your own liking.
+example: blck_lootCountsMajor = [4,10,12,12,3];
+In the above example, 4 weapons, 10 items from the magazines array, 12 optics, 12 things from the items array  and 3 backpacks will be added to the crate. Adjust to your own liking.
 
-Loot for each mission type is specified in a large array. That for the Orange missions (blck_BoxLoot_Major) appears first. Loot is organized based on how Arma treats the items (e.g., weapons, items or magazines).
+Loot for each mission type is specified in a large array. Loot is organized based on how Arma treats the items (e.g., weapons, items or magazines).
 
 The chance that any item will be selected by the loot randomizer is equal for all loot within a specific category. for example, all weapons listed have an equal chance of being added.
-Entries in the table for weapons include weapon name ammo name.
+Entries in the table for weapons include [weapon name, ammo name].
 Those for items and magazines include the name, minimum and maximum number to be added.
 There is plenty of room here for further modification.
 

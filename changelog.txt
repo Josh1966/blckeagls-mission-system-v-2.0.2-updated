@@ -40,3 +40,20 @@ Change log
 	- changed the type of vehicle spawned to B_G_Offroad_01_armed_EPOCH for compatability with Epoch 0.3.0.10-2015
 	- updated mission files to Epoch 0.3.0.1
 	- added checks for additional maps including panthera
+
+	Build 2.2 4-15-2015
+	- Replaced armed pickups with static MG or Grenade launcher
+	- Added script that forces the nearest AI to man static gun if the gunner is killed
+	- Added a routine to cleanup spawned objects such as machine guns or base objects
+	- Removed weapons fitted with sights from AI and crates as these were causing BE addweaponcargo issues. One that one can now run the default BE filter for addweaponcargo.txt
+	- Added new a category of items for the crates: optics which is configurable
+	- Added code which permits one to add customize mission with respect to the mission messages and items that spawn. This involved adding 'compositions' defined in arrays. See the examples in the composition folder for each mission class for examples.
+	- Unused code removed
+	- typo in routine to identify the map corrected
+	- pre-configured mission.pbo's updated to Epoch 0.3.0.2
+	
+	To Do: Add Marksman weapons - these were giving numberous Cfg not found errors.
+		Add routine to add optics and possible NVG
+		
+	
+	
