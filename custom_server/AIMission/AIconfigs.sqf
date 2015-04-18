@@ -47,28 +47,28 @@ This file contains most constants that define the behavior and loot for mission 
 	// These are setup for quick spawns and respawns	
 	//Minimum Spawn time between missions in seconds
 	
-		blck_TMin_Major = 250;
-		blck_TMin_Major2 = 200;
-		blck_TMin_Minor = 120;
-		blck_TMin_Minor2 = 150;
+	blck_TMin_Major = 250;
+	blck_TMin_Major2 = 200;
+	blck_TMin_Minor = 120;
+	blck_TMin_Minor2 = 150;
 	
-		//Maximum Spawn time between missions in seconds
-		blck_TMax_Major = 360;
-		blck_TMax_Major2 = 300;
-		blck_TMax_Minor = 200;
-		blck_TMax_Minor2 = 250;
+	//Maximum Spawn time between missions in seconds
+	blck_TMax_Major = 360;
+	blck_TMax_Major2 = 300;
+	blck_TMax_Minor = 200;
+	blck_TMax_Minor2 = 250;
 	
-		// spawn timers now run for each mission type using parameters specific for that type
-		//blck_AISpawnTime = 60; //Time in seconds
+	// spawn timers now run for each mission type using parameters specific for that type
+	//blck_AISpawnTime = 60; //Time in seconds
 	
-		//Defines how many AI Vehicles or static weapons () to spawn. Set this to -1 to disable spawning of static weapons or vehicles
-		blck_SpawnVeh_Major = 3; 
-		blck_SpawnVeh_Major2 = 2; 
-		blck_SpawnVeh_Minor = -1;
-		blck_SpawnVeh_Minor2 = 1; 
+	//Defines how many AI Vehicles or static weapons () to spawn. Set this to -1 to disable spawning of static weapons or vehicles
+	blck_SpawnVeh_Major = 2; 
+	blck_SpawnVeh_Major2 = 2; 
+	blck_SpawnVeh_Minor = -1;
+	blck_SpawnVeh_Minor2 = 1; 
 
 	blck_useStatic = true;
-	blck_staticWeapons = ["B_HMG_01_high_F","B_GMG_01_high_F"];  // [0.50 cal, grenade launcher]
+	blck_staticWeapons = ["B_HMG_01_high_F"/*,"B_GMG_01_high_F"*/];  // [0.50 cal, grenade launcher]
 	
 	// Ghost
 	// Determines whether a penalty is applied when AI is run over. Experimental. Keep set to false
@@ -760,8 +760,8 @@ This file contains most constants that define the behavior and loot for mission 
 	// this variable is used together with skill to determine the degree to which AI killers location is revealed
 
 	blck_SkillsBlue = [
-		["aimingAccuracy",0.10],
-		["aimingShake",0.20],
+		["aimingAccuracy",0.05],
+		["aimingShake",0.10],
 		["aimingSpeed",0.20],
 		["endurance",0.50],
 		["spotDistance",0.40],
@@ -773,9 +773,9 @@ This file contains most constants that define the behavior and loot for mission 
 	];
 
 	blck_SkillsRed = [
-		["aimingAccuracy",0.2],
+		["aimingAccuracy",0.1],
 		["aimingShake",0.3],
-		["aimingSpeed",0.35],
+		["aimingSpeed",0.2],
 		["endurance",0.60],
 		["spotDistance",0.4],
 		["spotTime",0.6],
@@ -786,9 +786,9 @@ This file contains most constants that define the behavior and loot for mission 
 	];
 
 	blck_SkillsGreen = [
-		["aimingAccuracy",0.65],
-		["aimingShake",0.45],
-		["aimingSpeed",0.6],
+		["aimingAccuracy",0.2],
+		["aimingShake",0.3],
+		["aimingSpeed",0.5],
 		["endurance",0.9],
 		["spotDistance",0.6],
 		["spotTime",0.8],
@@ -799,9 +799,9 @@ This file contains most constants that define the behavior and loot for mission 
 	];
 
 	blck_SkillsOrange = [
-		["aimingAccuracy",0.9],
-		["aimingShake",0.9],
-		["aimingSpeed",0.9],
+		["aimingAccuracy",0.3],
+		["aimingShake",0.3],
+		["aimingSpeed",0.5],
 		["endurance",1.00],
 		["spotDistance",0.9],
 		["spotTime",1.0],

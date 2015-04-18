@@ -62,7 +62,7 @@ blck_waitTimer = {
 // As written this relies on BIS_fnc_findSafePos to ensure that the spawn point is not on water or an excessively steep slope. 
 // The parameter for slope needs verification
 blck_FindSafePosn = {
-	private["_findNew","_coords"];
+	private["_findNew","_coords","_blackListCenter","_blackListRadius"];
 	_findNew = true;
 	while {_findNew} do {
 		_findNew = false;
@@ -75,9 +75,13 @@ blck_FindSafePosn = {
 			};
 		} forEach AllMissionCoords;
 		{
-			if ((_x select 0 distance _coords) < _x select 1) then {
+			_blackListCenter = _x select 0;
+			_blackListRadius = _x select 1;
+			if ( (_blackListCenter distance _coords) < _blackListRadius) exitWith
+			{
 				_FindNew = true;
 			};
+			//};
 		} forEach blck_locationBlackList;
 	};
 	_coords;
