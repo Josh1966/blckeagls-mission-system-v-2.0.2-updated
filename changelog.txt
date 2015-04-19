@@ -59,6 +59,9 @@ Change log
 	Build 2.22 4-18-15
 	- Addressed undefined variable errors in addons\addmarker.sqf and other addmarker scripts in the client's addons folder.
 	
+	Build 2.22 4-19-15
+	- vehicleMonitor.sqf reverted to older bug-free version for now.
+	
 	To Do: Add Marksman weapons - these were giving numberous Cfg not found errors.
 		Add routine to add optics and possible NVG
 		
