@@ -6,7 +6,7 @@ Modified by Ghostrider: Using code or ideas from others including Vampire, Narin
 
 sleep 10; // wait for other systems to load before initializing
 
-diag_log "[blckeagls] loading version 04-18-15 build 2.22...... >>";
+diag_log "[blckeagls] loading version 04-21-15 build 2.23...... >>";
 // Load Configuration information
 //call compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\AIconfigs.sqf";
 call compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\AIconfigs.sqf";
