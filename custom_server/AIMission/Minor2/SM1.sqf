@@ -15,7 +15,7 @@ _objects = [];
 _compositions = 
 [
 	//"resupplyCamp",
-	"redCamp",
+	//"redCamp"
 	//"medicalCamp",
 	"default"
 ];
@@ -90,7 +90,7 @@ if (blck_useStatic) then
 	};	
 };
 waitUntil{{isPlayer _x && _x distance _crate < 10 && vehicle _x == _x  } count playableunits > 0};
-[_objects, blck_aiCleanUpTimer] call blck_cleanupObjects;
+[_objects, blck_aiCleanUpTimer] spawn blck_cleanupObjects;
 [_endMsg] call blck_MessagePlayers;
 diag_log "[blckeagls] End of RED mission SM1";
 MissionGoMinor2 = false;

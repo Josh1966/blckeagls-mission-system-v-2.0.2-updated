@@ -45,7 +45,7 @@ Change log
 	- Replaced armed pickups with static MG or Grenade launcher
 	- Added script that forces the nearest AI to man static gun if the gunner is killed
 	- Added a routine to cleanup spawned objects such as machine guns or base objects
-	- Removed weapons fitted with sights from AI and crates as these were causing BE addweaponcargo issues. One that one can now run the default BE filter for addweaponcargo.txt
+	- Removed weapons fitted with sights from AI and crates as these were causing BE addweaponcargo issues. One can now run the default BE filter for addweaponcargo.txt
 	- Added new a category of items for the crates: optics which is configurable
 	- Added code which permits one to add customize mission with respect to the mission messages and items that spawn. This involved adding 'compositions' defined in arrays. See the examples in the composition folder for each mission class for examples.
 	- Unused code removed

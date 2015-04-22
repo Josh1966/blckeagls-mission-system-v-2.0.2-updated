@@ -2,7 +2,7 @@
   Code by blckeagls
   Modified by Ghostrider
 */
-private ["_coords","_crate","_aiGroup","_numAIGrp","_arc","_dir","_dist","_xpos","_ypos","_newPos","_objects","_startMsg","_endMsg","_missionObjs","_compositions","_missionCfg","_compSel"];
+private ["_coords","_crate","_aiGroup","_numAIGrp","_arc","_dir","_dist","_xpos","_ypos","_newPos","_objects","_startMsg","_endMsg","_mapLabel","_missionObjs","_compositions","_missionCfg","_compSel"];
 diag_log "[blckeagls] Starting ORANGE mission SM1";
 
 _coords = _this select 0;
@@ -15,7 +15,7 @@ _objects = [];
 // a listing of mission compositions for this mission set.
 _compositions = 
 [
-	"resupplyCamp",
+	//"resupplyCamp"
 	//"redCamp"
 	//"medicalCamp"
 	"default"
@@ -115,7 +115,7 @@ if (blck_useStatic) then
 //Waits until player gets near the _crate to end mission
 waitUntil{{isPlayer _x && _x distance _crate < 10 && vehicle _x == _x } count playableunits > 0};
 
-[_objects, blck_aiCleanUpTimer] call blck_cleanupObjects;
+[_objects, blck_aiCleanUpTimer] spawn blck_cleanupObjects;
 
 //Announces that the mission is complete
 [_endMsg] call blck_MessagePlayers;
