@@ -1,4 +1,5 @@
-// Spawns a vehicle or emplaced weapons, man's it, then destroys it when all its AI are dead
+// Spawns a vehicle or emplaced weapons, man's it, and destroys it when the AI gets out.
+// Not used retained for future uses
 
 private["_pos","_emplaced","_aiGroup","_safepos","_ai","_ai1","_slot","_veh","_i"];
 
@@ -11,13 +12,14 @@ if (!(_emplaced in blck_staticWeapons)) exitWith {diag_log "spawnEmplaced -- >> 
 //diag_log format["spawnEmplaced.sqf -- >> emplaced = %1",_emplaced];
 
 
-//Finds a safe positon in area to spawn
+//Finds a safe position in area to spawn
 	_safepos = [_pos,0,27,0,0,20,0] call BIS_fnc_findSafePos;
 
 //Spawns a AI Vehicle
 		_veh = createVehicle[_emplaced, _safepos, [], 0, "NONE"];
-		_veh setVariable["LASTLOGOUT_EPOCH",1000000000000];
 		_veh setVariable["LAST_CHECK",1000000000000];
+		// This should fix the issue with players dismantling static weapons and running off with a 50 cal.
+		_veh addEventHandler ["GetOut",{(_this select 0) setDamage 1;}];
 		//So Vehicle doesnt despawn
 		EPOCH_VehicleSlotsLimit = EPOCH_VehicleSlotsLimit + 1;
 		EPOCH_VehicleSlots pushBack str(EPOCH_VehicleSlotsLimit);
@@ -37,8 +39,7 @@ if (!(_emplaced in blck_staticWeapons)) exitWith {diag_log "spawnEmplaced -- >> 
 // For Ai to move into vehicle
 		_gunner = _aiGroup select 0;
 		_gunner moveingunner _veh;
-		//diag_log "spawnEmplaced.sqf --- >>> gun manned";
-		// add this weapon to the que for the vehicle monitor
-		[_veh] spawn blck_vehicleMonitor;
+		// ?? Is vehicle monitor needed now ?
+		//[_veh] spawn blck_vehicleMonitor;
 		//diag_log "spawnEmplaced.sqf --- >>> vehicle monitor spawned";		
 _veh;

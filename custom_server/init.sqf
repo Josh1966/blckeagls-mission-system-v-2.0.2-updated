@@ -1,19 +1,26 @@
 /*
 AI Mission Compiled by blckeagls @ Zombieville.net
 Code was modified by blckeagls using other peoples code.  Been over a year, don't have their names anymore.  
-Modified by Ghostrider: Using code or ideas from others including Vampire, Narines, KiloSwiss, blckeagls, theFUCHS, lazylink, Mark311
+Code was modified by Narines fixing several bugs.
+Modified by Ghostrider with thanks to ctbcrwker for input, testing, and troubleshooting.
+Credits to Vampire, Narines, KiloSwiss, blckeagls, theFUCHS, lazylink, Mark311 who wrote mission systems upon which this one is based and who's code is used with modification in some parts of this addon.
+
+Thanks to cyncrwler for testing and bug fixes.
 */
+private ["_version","_versionDate"];
+blck_version = "Build 3.0";
+blck_versionDate = "4-27-2015";
 
-sleep 10; // wait for other systems to load before initializing
+sleep 30; // wait for other systems to load before initializing
 
-diag_log "[blckeagls] loading version 04-21-15 build 2.23...... >>";
+diag_log format["[blckeagls] loading version %1 build %2 ...... >>",blck_versionDate,blck_version];
 // Load Configuration information
 //call compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\AIconfigs.sqf";
 call compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\AIconfigs.sqf";
 
 // Get information about the map
 sleep 5;
-[] execVM "\q\addons\custom_server\AIMission\findWorld.sqf";
+execVM "\q\addons\custom_server\AIMission\findWorld.sqf";
 sleep 5;
 // compile functions
 call compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\AIfunctions.sqf";
@@ -29,4 +36,6 @@ execVM "\q\addons\custom_server\AIMission\configOverrides.sqf";
 
 diag_log "[blckeagls] >>--- Completed initialization"; 
 sleep 30;
-{"blckeagles Mission system has been started"] call blck_MessagePlayers;
+
+blck_Initialized = true;
+

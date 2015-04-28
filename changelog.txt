@@ -1,5 +1,78 @@
-Change log
 
+	Build 3.0 4-25-15 - substantial redesign of some parts of the code
+	Thank you cyncrwler for help with many issues including testing and troubleshooting
+
+	- added: Marksman DLC weapons and ammo added to crates and AI Weapons.
+	- added blck_Initialized variable which can be used to check if the mission system is fully loaded.
+	- added: blck_useNVG option which when true will cause AI to spawn with NVG when it is dark. NVG will be removed from AI bodies when they are killed (the deletion of NVG from AI is not yet working).
+	- added: blck_useSmokeAtCrates option when when true will spawn a smoking object near the crate.
+
+	- changed: a new start_blck.sqf which must be used to replace the existing start_blck.sqf in yoru mission.pbo. 
+    	- Changed: reduced the number of times AI will try to man static weapons to 1.
+
+	- Changed: complete re-working of the system for selecting and adding weapons and ammo to AI which includes adding HE grenade rounds if the AI spawn with an M203 equiped weapon
+	- Changed: Complete re-working of the code for adding items to AI which includes adding food and drink;  
+		
+	- fixed: added a getOut event handler to static weapons which should prevent players from accessing them. vehicleMonitor is not presently used.
+	- fixed: FAK or grenade are now added based on chance, and the situation whereby AI would be loaded with many grenades has been fixed.
+
+	- Known Issues: 
+		missions and helicrashes sometimes spawn together. When they do, the mission loot and AI will not spawn. Only a server restart will correct this.
+		AI do not use their launchers.
+
+	- To Do: Enable a penalty for running over AI. Complete projects for adding compositions at missions. 
+
+	Build 2.23 4-21-15
+	- corrected a minor error that delayed messages announcing that missions were over and also the timely spawning of the next mission of that type (Blue, Red, Green etc).
+
+	Build 2.22 4-19-15
+	- vehicleMonitor.sqf reverted to older bug-free version for now.
+	- Addressed undefined variable errors in addons\addmarker.sqf and other addmarker scripts in the client's addons folder.
+			
+	Build 2.21 4-18-15
+	- Adjustedments to AI skills
+	- Fixed bugs in AIFunctions.sqf related to checking whether spawn points are in blacklisted zones.
+
+	Build 2.2 4-15-2015
+	- Replaced armed pickups with static MG or Grenade launcher
+	- Added script that forces the nearest AI to man static gun if the gunner is killed
+	- Added a routine to cleanup spawned objects such as machine guns or base objects
+	- Removed weapons fitted with sights from AI and crates as these were causing BE addweaponcargo issues. One can now run the default BE filter for addweaponcargo.txt
+	- Added new a category of items for the crates: optics which is configurable
+	- Added code which permits one to add customize mission with respect to the mission messages and items that spawn. This involved adding 'compositions' defined in arrays. See the examples in the composition folder for each mission class for examples.
+	- Unused code removed
+	- typo in routine to identify the map corrected
+	- pre-configured mission.pbo's updated to Epoch 0.3.0.2	
+
+	build 2.0 3-28-15
+	- changed the type of vehicle spawned to B_G_Offroad_01_armed_EPOCH for compatability with Epoch 0.3.0.10-2015
+	- updated mission files to Epoch 0.3.0.1
+	- added checks for additional maps including panthera
+
+	build 1.2 2-10-2015
+	- calls to spawn vehicles and load AI into them removed from spawnai.sqf
+	- calls to spawn vehicles loaded with AI added to each of the mission files
+	- spawnVehicle.sqf redone to add a for loop that spawns _noVeh vehicles loaded with AI.
+	- The number of vehicles to be spawned is set in AIconfigs.sqf on lines 64 - 67.
+
+	build 1.1a 2-6-15
+	- several typo's corrected
+	- removed a few lines that log debug info to the RPT.
+
+	build 1.1 2-5-15
+	- added the ability to black list certain locations
+	- added the ability to black list spawn sites
+	- added a basic map detection routine which defines map size and center - needs refinement for stratis and chernarus
+	- marker colors and sizes changed to improve visibility. 
+	- messages broadcast clientside using systemChat
+
+	build 1.0	
+	- set up timers for each mission class
+	- added user-configurable settings for the mission timer for each mission type
+	- added beverage and food list to items to be added to crates in AIConfig.
+	- added the function for alerting AI to killer location to AIKilled
+	- AIKilled added to precompiled scripts for performance enhancement
+		
 	build alpha
 	- added AIFunctions.sqf in which functions are defined and frequently used .sqf are precompiled
 	- code revised to call precompiled functions where possible
@@ -11,62 +84,3 @@ Change log
 	- all variables, including loot tables and lists of weapons, were moved to AIConfig.sqf
 	- coding refinements including moving most code into memory as precompiled code, and moving some code to functions.
 	- AIfunctions.sqf and AIConfig.sqf added which contain functions an configuration information, respectively.
-
-	build 1.0	
-	- set up timers for each mission class
-	- added user-configurable settings for the mission timer for each mission type
-	- added beverage and food list to items to be added to crates in AIConfig.
-	- added the function for alerting AI to killer location to AIKilled
-	- AIKilled added to precompiled scripts for performance enhancement
-
-	build 1.1 2-5-15
-	- added the ability to black list certain locations
-	- added the ability to black list spawn sites
-	- added a basic map detection routine which defines map size and center - needs refinement for stratis and chernarus
-	- marker colors and sizes changed to improve visibility. 
-	- messages broadcast clientside using systemChat
-	
-	build 1.1a 2-6-15
-	- several typo's corrected
-	- removed a few lines that log debug info to the RPT.
-	
-	build 1.2 2-10-2015
-	- calls to spawn vehicles and load AI into them removed from spawnai.sqf
-	- calls to spawn vehicles loaded with AI added to each of the mission files
-	- spawnVehicle.sqf redone to add a for loop that spawns _noVeh vehicles loaded with AI.
-	- The number of vehicles to be spawned is set in AIconfigs.sqf on lines 64 - 67.
-
-	build 2.0 3-28-15
-	- changed the type of vehicle spawned to B_G_Offroad_01_armed_EPOCH for compatability with Epoch 0.3.0.10-2015
-	- updated mission files to Epoch 0.3.0.1
-	- added checks for additional maps including panthera
-
-	Build 2.2 4-15-2015
-	- Replaced armed pickups with static MG or Grenade launcher
-	- Added script that forces the nearest AI to man static gun if the gunner is killed
-	- Added a routine to cleanup spawned objects such as machine guns or base objects
-	- Removed weapons fitted with sights from AI and crates as these were causing BE addweaponcargo issues. One can now run the default BE filter for addweaponcargo.txt
-	- Added new a category of items for the crates: optics which is configurable
-	- Added code which permits one to add customize mission with respect to the mission messages and items that spawn. This involved adding 'compositions' defined in arrays. See the examples in the composition folder for each mission class for examples.
-	- Unused code removed
-	- typo in routine to identify the map corrected
-	- pre-configured mission.pbo's updated to Epoch 0.3.0.2
-	
-	Build 2.21 4-18-15
-	- Adjustedments to AI skills
-	- Fixed bugs in AIFunctions.sqf related to checking whether spawn points are in blacklisted zones.
-	
-	Build 2.22 4-18-15
-	- Addressed undefined variable errors in addons\addmarker.sqf and other addmarker scripts in the client's addons folder.
-	
-	Build 2.22 4-19-15
-	- vehicleMonitor.sqf reverted to older bug-free version for now.
-	
-	Build 2.23 4-21-15
-	- corrected a minor error that delayed messages announcing that missions were over and also the timely spawning of the next mission of that type (Blue, Red, Green etc).
-	
-	To Do: Add Marksman weapons - these were giving numberous Cfg not found errors.
-		Add routine to add optics and possible NVG
-		
-	
-	

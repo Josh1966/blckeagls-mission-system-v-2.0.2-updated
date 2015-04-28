@@ -13,7 +13,7 @@ switch (_blck_WorldName) do {// These may need some adjustment - including a tes
 		blck_mapCenter = [6322,7801,0]; 
 		blck_mapRange = 12000; 
 		if (blck_blacklistSpawns) then {
-			//diag_log "Spawn black list locations added for Altis";
+			diag_log "Spawn black list locations added for Altis";
 			blck_locationBlackList = blck_locationBlackList + [[[14939,15083,0],1000],[[23600, 18000,0],1000],[[23600,18000,0],1000]];
 		};
 	}; // Add Central, East and West respawns/traders 
@@ -29,7 +29,7 @@ switch (_blck_WorldName) do {// These may need some adjustment - including a tes
 	case "chernarus":{
 		diag_log "Chernarus-specific settings loaded";
 		blck_mapCenter = [7100, 7750, 0]; //centerPosition = {7100, 7750, 300};
-		blck_mapRange = 6000;
+		blck_mapRange = 5300;
 		if (blck_blacklistSpawns) then {
 			blck_locationBlackList = blck_locationBlackList + [[[4569.52, 4524.24, 0.201431],800],[[12077.8, 5121.92, 0.00144958],800],[[10688.6, 9428.98, 0.00144958],800]];
 			diag_log "Spawn black list locations added for Chernarus";
@@ -42,7 +42,7 @@ switch (_blck_WorldName) do {// These may need some adjustment - including a tes
 		blck_mapRange = 14400;
 		if (blck_blacklistSpawns) then {
 			blck_locationBlackList = blck_locationBlackList + [[[10058.346680,9015.847656,117.542267],800],[[13812.688477, 6877.921387,80.874428],800],[[13812.661133, 6877.968262,80.876938],800]];
-			//diag_log "Spawn black list locations added for Bornholm";
+			diag_log "Spawn black list locations added for Bornholm";
 		};
 	};
 	case "tavi":{blck_mapCenter = [10370, 11510, 0];blck_mapRange = 14090;};

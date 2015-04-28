@@ -9,16 +9,18 @@
 
 blck_spawnGroup = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\spawnGroup.sqf";
 blck_spawnAI = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\spawnUnit.sqf";
-blck_spawnAIVehicle = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\spawnVehicle.sqf";
+//blck_spawnAIVehicle = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\spawnVehicle.sqf";
 blck_MessagePlayers = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\AIM.sqf";
 blck_AIKilled = "\q\addons\custom_server\AIMission\AIKilled.sqf"; //compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\AIKilled.sqf";
 blck_setupWaypoints = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\setWaypoints.sqf";
 blck_vehicleMonitor = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\vehicleMonitor.sqf";
 blck_spawnEmplacedWeapon = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\spawnEmplaced.sqf";
 blck_cleanupObjects = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\cleanUpObjects.sqf";
-blck_spawnCompositionObjects = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\spawnCmpObj.sqf";
-blck_findClosest = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\fn_selectClosest.sqf"; 
+blck_spawnCompositionObjects = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\spawnComposition.sqf";
 blck_fillBoxes = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\fillBoxes.sqf"; 
+blck_smokeAtCrates = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\smokeAtCrate.sqf"; 
+blck_removeGear = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\removeGear.sqf"; 
+blck_spawnCrate = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\spawnCrate.sqf"; 
 
 // Define map marker coordinates
 Ccoords = [0,0,0];

@@ -7,7 +7,7 @@
 	1) figure out how to detect the case when AI is killed by being run over and penalize the player
 	2) reward players who make legitimate kills
 */
-private ["_unit","_killer","_startTime","_grpUnits","_alertDist","_intelligence"];
+private ["_unit","_killer","_startTime","_grpUnits","_alertDist","_intelligence","_weapons"];
 _unit = _this select 0;
 _killer = _this select 1;
 
@@ -47,12 +47,40 @@ if (blck_launcherCleanup) then
 	};
 };
 
+if (blck_useNVG) then
+{
+	if (_unit getVariable ["hasNVG",false]) then
+	{
+		_unit unassignitem "NVG_EPOCH"; _unit removeweapon "NVG_EPOCH";
+	};
+};
+/*
+if (blck_RunGear) then // Adapted from KiloSwiss
+{
+	private ["_vehicle"];
+	
+	_vehicle = vehicle _killer;
+
+	if(_vehicle isKindOf "Car")then{
+		if(abs speed _vehicle > 0)then{
+			if(_vehicle distance _unit < 10)then{
+				if(isEngineOn _vehicle || !isNull (driver _vehicle))then{
+					diag_log "AIKilled.sqf -- >> Vehicle being damaged";
+					blck_vehDamage = _vehicle;
+					(owner _vehicle) publicVariableClient "blck_vehDamage";
+					{deleteVehicle _x}forEach nearestObjects [(getPosATL _unit), ['GroundWeaponHolder','WeaponHolderSimulated','WeaponHolder'], 3];
+					[_unit] call blck_removeGear;
+				};
+			};
+		};
+	};
+}:
+*/
 [_unit] joinSilent grpNull;
 
 // unit cleanup moved here
 _unit spawn {
-	//diag_log "AI Cleanup script spawned";
-	_this setOwner 1;
+	//_this setOwner 1;
 	sleep blck_aiCleanUpTimer;
 	deleteVehicle _this;
 };

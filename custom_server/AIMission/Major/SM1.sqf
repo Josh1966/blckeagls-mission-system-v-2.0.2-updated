@@ -44,8 +44,9 @@ _missionObjs = _missionCfg select 1;
 waitUntil{ {isPlayer _x && _x distance _coords <= blck_TriggerDistance /*&& vehicle _x == _x*/} count playableunits > 0 };
 
 //Creates the crate
+// Should move this to a function eventually
 _crate = objNull;
-_crate = createVehicle ["Box_NATO_Wps_F",[(_coords select 0) - 3, _coords select 1,0],[], 0, "CAN_COLLIDE"];
+_crate = createVehicle ["Box_NATO_Wps_F",_coords,[], 0, "CAN_COLLIDE"];
 
 //Sets variables (not sure if needed but left just incase so cleanup doesnt happen
 _crate setVariable ["Mission",1,true];
@@ -53,6 +54,14 @@ _crate setVariable ["ObjectID","1",true];
 _crate setVariable ["permaLoot",true,true];
 
 _objects = [_coords, _missionObjs] call blck_spawnCompositionObjects;
+
+if (blck_useSmokeAtCrates) then  // spawn a fire and smoke near the crate
+{
+	private ["_temp"];
+	_temp = [_coords] call blck_smokeAtCrates;
+	diag_log format["[major\sm1.sqf] temporary items are %1", _temp];
+	_objects = _objects + _temp;
+};
 
 //Fills the crate with items
 // Parameters here are [_crate, _lootArray, num weapons to add, num items from the magazines array to add, num items from the item array to add]
