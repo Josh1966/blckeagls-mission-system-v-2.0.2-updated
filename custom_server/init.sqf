@@ -8,12 +8,12 @@ Credits to Vampire, Narines, KiloSwiss, blckeagls, theFUCHS, lazylink, Mark311 w
 Thanks to cyncrwler for testing and bug fixes.
 */
 private ["_version","_versionDate"];
-blck_version = "Build 3.0";
-blck_versionDate = "4-27-2015";
+_blck_version = "Build 3.1";
+_blck_versionDate = "5-10-2015";
 
 sleep 30; // wait for other systems to load before initializing
 
-diag_log format["[blckeagls] loading version %1 build %2 ...... >>",blck_versionDate,blck_version];
+diag_log format["[blckeagls] loading version %1 build %2 ...... >>",_blck_versionDate,_blck_version];
 // Load Configuration information
 //call compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\AIconfigs.sqf";
 call compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\AIconfigs.sqf";
