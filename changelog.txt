@@ -1,7 +1,3 @@
-	Build 3.1 5-10-15
-	- moved code for spawning the loot crate to a separate function
-	- changed the method for setting the position of the crate to setPosATL to try to solve the issues with some crates spawning underground.
-
 
 	Build 3.0 4-25-15 - substantial redesign of some parts of the code
 	Thank you cyncrwler for help with many issues including testing and troubleshooting
