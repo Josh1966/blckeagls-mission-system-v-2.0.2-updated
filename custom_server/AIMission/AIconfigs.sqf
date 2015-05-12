@@ -43,7 +43,7 @@ This file contains most constants that define the behavior and loot for mission 
 	blck_AIGrps_Minor2 = 3;
 	
 	//This defines how long after an AI dies that it's body disappears.
-	blck_aiCleanUpTimer = 900; // in seconds
+	blck_aiCleanUpTimer = 1200; // in seconds
 	
 	// Time the marker remains after completing the mission in seconds - experimental not yet implemented
 	blck_MarkerPeristTime = 120;
@@ -74,8 +74,6 @@ This file contains most constants that define the behavior and loot for mission 
 
 	blck_useStatic = true;
 	blck_staticWeapons = ["B_HMG_01_high_F","B_GMG_01_high_F"];  // [0.50 cal, grenade launcher]
-
-
 	
 	blck_useLaunchers = false;
 	//blck_launcherTypes = ["launch_NLAW_F","launch_RPG32_F","launch_B_Titan_F","launch_I_Titan_F","launch_O_Titan_F","launch_B_Titan_short_F","launch_I_Titan_short_F","launch_O_Titan_short_F"];
@@ -86,10 +84,10 @@ This file contains most constants that define the behavior and loot for mission 
 	//Define loot for crates
 	// Consolidated to make it easier to compare settings
 	// values are: number of things from the weapons, magazines, optics, items and backpacks arrays to add, respectively.
-	blck_lootCountsMajor = [8,12,8,24,1]; // Orange
-	blck_lootCountsMajor2 = [7,10,6,18,1]; // Green
-	blck_lootCountsMinor2 = [6,8,4,12,1];  // Red	
-	blck_lootCountsMinor = [5,6,3,8,1];	  // Blue
+	blck_lootCountsMajor = [8,24,8,12,1]; // Orange
+	blck_lootCountsMajor2 = [7,20,6,10,1]; // Green
+	blck_lootCountsMinor2 = [6,12,4,6,1];  // Red	
+	blck_lootCountsMinor = [5,16,3,8,1];	  // Blue
 
 	
 	blck_BoxLoot_Major = 
@@ -137,7 +135,7 @@ This file contains most constants that define the behavior and loot for mission 
 				["LMG_Mk200_F","200Rnd_65x39_cased_Box_Tracer"],
 				["Arifle_MX_SW_F","100Rnd_65x39_caseless_mag_Tracer"],
 				["Arifle_MX_SW_Black_F","100Rnd_65x39_caseless_mag_Tracer"],
-				["LMG_Zafir_F","150Rnd_762x51_Box_Tracer"],
+				["LMG_Zafir_F","150Rnd_762x54_Box_Tracer"],
 				["MMG_01_hex_F","150Rnd_93x64_Mag"],
 				["MMG_01_tan_F","150Rnd_93x64_Mag"],
 				["MMG_02_black_F","150Rnd_93x64_Mag"],
@@ -164,7 +162,7 @@ This file contains most constants that define the behavior and loot for mission 
 				["CircuitParts",2,3],
 				["WoodLog_EPOCH",5,10],
 				["ItemCorrugatedLg",1,6],
-				["ItemCorrugated",3,6],
+				["ItemCorrugated",3,10],
 				["ItemMixOil",1,2],
 				["MortarBucket",5,10],
 				["PartPlankPack",10,12],
@@ -172,7 +170,6 @@ This file contains most constants that define the behavior and loot for mission 
 				["3rnd_HE_Grenade_Shell",3,6],
 				["EnergyPackLg",1,3],
 				["30Rnd_65x39_caseless_green",3,6],
-				["30Rnd_556x45_Stanag",3,6],
 				["30Rnd_556x45_Stanag",3,6],
 				["30Rnd_45ACP_Mag_SMG_01",3,6],
 				["20Rnd_556x45_UW_mag",3,6],
@@ -184,11 +181,12 @@ This file contains most constants that define the behavior and loot for mission 
 				["HandGrenade",1,4],
 				["EnergyPack",2,5],
 				// Marksman Pack Ammo
-				["150Rnd_93x64_Mag",1,4],
 				["10Rnd_338_Mag",1,4],
+				["10Rnd_338_Mag",1,4],				
 				["10Rnd_127x54_Mag" ,1,4],
 				["10Rnd_127x54_Mag",1,4],
-				["10Rnd_93x64_DMR_05_Mag" ,1,4]
+				["10Rnd_93x64_DMR_05_Mag" ,1,4],
+				["10Rnd_93x64_DMR_05_Mag" ,1,4]				
 			],			
 			[  // Optics
 				["optic_SOS",1,2],["optic_LRPS",1,2],["optic_DMS",1,2],["optic_Aco",1,3],["optic_ACO_grn",1,3],["optic_Holosight",1,3],["acc_flashlight",1,3],["acc_pointer_IR",1,3],
@@ -255,7 +253,7 @@ This file contains most constants that define the behavior and loot for mission 
 				["LMG_Mk200_F","200Rnd_65x39_cased_Box_Tracer"],
 				["Arifle_MX_SW_F","100Rnd_65x39_caseless_mag_Tracer"],
 				["Arifle_MX_SW_Black_F","100Rnd_65x39_caseless_mag_Tracer"],
-				["LMG_Zafir_F","150Rnd_762x51_Box_Tracer"],
+				["LMG_Zafir_F","150Rnd_762x54_Box_Tracer"],
 				["MMG_01_hex_F","150Rnd_93x64_Mag"],
 				["srifle_DMR_02_camo_F","10Rnd_338_Mag"],
 				["srifle_DMR_03_F","10Rnd_338_Mag"],		
@@ -272,11 +270,11 @@ This file contains most constants that define the behavior and loot for mission 
 				["CircuitParts",2,5],
 				["WoodLog_EPOCH",10,20],
 				["ItemCorrugatedLg",1,3],
-				["ItemCorrugated",2,6],
+				["ItemCorrugated",2,9],
 				["ItemMixOil",1,2],
 				["MortarBucket",3,6],
 				["PartPlankPack",10,12],
-				["ItemLockbox",1,2],
+				["ItemLockbox",1,3],
 				["3rnd_HE_Grenade_Shell",2,4],
 				["EnergyPackLg",1,2],
 				["30Rnd_65x39_caseless_green",3,6],
@@ -292,11 +290,12 @@ This file contains most constants that define the behavior and loot for mission 
 				["HandGrenade",1,3],
 				["EnergyPack",2,5],
 				// Marksman Pack Ammo				
-				["150Rnd_93x64_Mag",1,4],
 				["10Rnd_338_Mag",1,4],
+				["10Rnd_338_Mag",1,4],				
 				["10Rnd_127x54_Mag" ,1,4],
 				["10Rnd_127x54_Mag",1,4],
-				["10Rnd_93x64_DMR_05_Mag" ,1,4]				
+				["10Rnd_93x64_DMR_05_Mag" ,1,4],
+				["10Rnd_93x64_DMR_05_Mag" ,1,4]					
 			],			
 			[  // Optics
 				["optic_SOS",1,2],["optic_LRPS",1,2],["optic_DMS",1,2],["optic_Aco",1,3],["optic_ACO_grn",1,3],["optic_Holosight",1,3],["acc_flashlight",1,3],["acc_pointer_IR",1,3],
@@ -363,16 +362,16 @@ This file contains most constants that define the behavior and loot for mission 
 				["LMG_Mk200_F","200Rnd_65x39_cased_Box_Tracer"],
 				["Arifle_MX_SW_F","100Rnd_65x39_caseless_mag_Tracer"],
 				["Arifle_MX_SW_Black_F","100Rnd_65x39_caseless_mag_Tracer"],
-				["LMG_Zafir_F","150Rnd_762x51_Box_Tracer"]		
+				["LMG_Zafir_F","150Rnd_762x54_Box_Tracer"]		
 			],
 			[//Magazines
 				["CinderBlocks",2,6],
-				["jerrycan_epoch",1,2],
+				["jerrycan_epoch",1,3],
 				["lighter_epoch",1,1],
 				["CircuitParts",2,3],
 				["WoodLog_EPOCH",10,20],
 				["ItemCorrugatedLg",0,4],
-				["ItemCorrugated",1,4],
+				["ItemCorrugated",3,6],
 				["ItemMixOil",1,2],
 				["MortarBucket",1,8],
 				["PartPlankPack",10,12],
@@ -464,13 +463,13 @@ This file contains most constants that define the behavior and loot for mission 
 				["LMG_Mk200_F","200Rnd_65x39_cased_Box_Tracer"],
 				["Arifle_MX_SW_F","100Rnd_65x39_caseless_mag_Tracer"],
 				["Arifle_MX_SW_Black_F","100Rnd_65x39_caseless_mag_Tracer"],
-				["LMG_Zafir_F","150Rnd_762x51_Box_Tracer"],
+				["LMG_Zafir_F","150Rnd_762x54_Box_Tracer"],
 				["MMG_01_hex_F","150Rnd_93x64_Mag"],
 				["srifle_DMR_04_Tan_F","10Rnd_338_Mag"],
 				["srifle_DMR_06_camo_F","10Rnd_338_Mag"]
 			],
 			[//Magazines
-				["CinderBlocks",2,7], ["jerrycan_epoch",1,2],["lighter_epoch",1,1],["CircuitParts",2,6],["WoodLog_EPOCH",10,20],["ItemCorrugatedLg",0,5],["ItemCorrugated",1,6],["ItemMixOil",1,2],
+				["CinderBlocks",2,7], ["jerrycan_epoch",1,3],["lighter_epoch",1,1],["CircuitParts",2,6],["WoodLog_EPOCH",10,20],["ItemCorrugatedLg",0,5],["ItemCorrugated",3,7],["ItemMixOil",1,2],
 				["MortarBucket",2,5],["PartPlankPack",10,12],["ItemLockbox",1,2],["EnergyPackLg",0,1],
 				
 				["3rnd_HE_Grenade_Shell",1,5],["30Rnd_65x39_caseless_green",3,6],["30Rnd_556x45_Stanag",3,6],["30Rnd_556x45_Stanag",3,6],["30Rnd_45ACP_Mag_SMG_01",3,6],["20Rnd_556x45_UW_mag",3,6],
@@ -736,7 +735,8 @@ This file contains most constants that define the behavior and loot for mission 
 	blck_AIAlertDistance = [150,200,250,300];
 	blck_AIIntelligence = [0.5, 0.5, 2, 4];  // experimental - unused at present
 	
-
+	blck_crateTypes = ["Box_NATO_Wps_F"];  // for future use
+	
 	diag_log "[blckeagls] Configurations Loaded";
 
 	true;

@@ -1,3 +1,9 @@
+	Build 3.1 5-11-15
+	Changed: method for spawning crates to try to prevent crates from being spawned underground.
+	Other Changes:
+	- code for spawning crates was moved to a function (spawnCrate.sqf)
+	- code to prevent cleanup of crates was simplified
+	- Files modified: AIFunctions.sqf, SM1.sqf in each of the mission folders.
 
 	Build 3.0 4-25-15 - substantial redesign of some parts of the code
 	Thank you cyncrwler for help with many issues including testing and troubleshooting

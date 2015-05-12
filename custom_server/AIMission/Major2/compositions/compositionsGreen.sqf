@@ -34,7 +34,7 @@ _redCamp =
 	],
 	[
 		["Land_CampingChair_V1_F",[1.32227,2.07813,8.2016e-005]], 
- 
+
 		["Land_BagFence_Round_F",[-34.3232,10.1035,0.00181007]]
 	]
 ];

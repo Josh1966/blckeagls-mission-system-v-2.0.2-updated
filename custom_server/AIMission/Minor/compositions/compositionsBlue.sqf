@@ -21,7 +21,6 @@ _resupplyCamp =
 	],
 	[
 		["TK_WarfareBVehicleServicePoint_Base_EP1",[-5.41016,2.13477,0]], 
-
 		["Land_BagBunker_Small_F",[28.3711,15.5703,0]]
 	]
 ];

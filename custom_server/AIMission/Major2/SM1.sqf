@@ -47,14 +47,7 @@ publicVariable "C2coords";
 waitUntil{ {isPlayer _x && _x distance _coords <= blck_TriggerDistance /*&& vehicle _x == _x*/} count playableunits > 0 };
 
 //Creates the crate
-_crate = objNull;
-_crate = createVehicle ["Box_NATO_Wps_F",_coords,[], 0, "CAN_COLLIDE"];
-
-//Sets variables (not sure if needed but left just incase so cleanup doesnt happen
-_crate setVariable ["Mission",1,true];
-_crate setVariable ["ObjectID","1",true];
-_crate setVariable ["permaLoot",true,true];
-
+_crate = [_coords] call blck_spawnCrate;
 
 [_crate,blck_BoxesLoot_Major2,blck_lootCountsMajor2 select 0, blck_lootCountsMajor2 select 1, blck_lootCountsMajor2 select 2, blck_lootCountsMajor2 select 3, blck_lootCountsMajor2 select 4] call blck_fillBoxes;
 _objects = [_coords, _missionObjs] call blck_spawnCompositionObjects;
@@ -63,7 +56,7 @@ if (blck_useSmokeAtCrates) then  // spawn a fire and smoke near the crate
 {
 	private ["_temp"];
 	_temp = [_coords] call blck_smokeAtCrates;
-	diag_log format["[major2\sm1.sqf] temporary items are %1", _temp];
+	//diag_log format["[major2\sm1.sqf] temporary items are %1", _temp];
 	_objects = _objects + _temp;
 };
 

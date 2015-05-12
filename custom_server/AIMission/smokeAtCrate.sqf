@@ -25,10 +25,11 @@ _fire = createVehicle [_smokeSource, _posFire, [], 0, "can_collide"];
 _fire setVariable ["LAST_CHECK", (diag_tickTime + 14400)];
 _fire setPos _posFire;
 _fire setDir floor(random(360));
-_objs = _objs + [_fire];
+
 _smoke = createVehicle [_smokeTrail, _posFire, [], 0, "can_collide"];  // "test_EmptyObjectForSmoke" createVehicle _posFire;  
 _smoke setVariable ["LAST_CHECK", (diag_tickTime + 14400)];
 _smoke attachto [_fire, [0,0,-1]]; 
-_objs = _objs + [_smoke];
 
+_objs = _objs + [_fire,_smoke];
+//diag_log format ["--smokeAtCrate.sqf:: _objs = %1",_objs];
 _objs
