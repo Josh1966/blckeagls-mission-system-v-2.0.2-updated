@@ -52,7 +52,6 @@ if (blck_useSmokeAtCrates) then  // spawn a fire and smoke near the crate
 {
 	private ["_temp"];
 	_temp = [_coords] call blck_smokeAtCrates;
-	//diag_log format["[major\sm1.sqf] temporary items are %1", _temp];
 	_objects = _objects + _temp;
 };
 
