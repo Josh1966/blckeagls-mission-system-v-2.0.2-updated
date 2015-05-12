@@ -71,7 +71,7 @@ if (blck_useStatic) then
 {
 	if (blck_SpawnVeh_Minor2 == 1) then
 	{
-		_aiGroup = [_coords,3,4,"RED"] call blck_spawnGroup;
+		_aiGroup = [_coords,1,1,"RED"] call blck_spawnGroup;
 		blck_AIMinor2 = blck_AIMinor2 + _aiGroup;
 		_veh = [_coords,_aiGroup,blck_staticWeapons call BIS_fnc_selectRandom] call blck_spawnEmplacedWeapon;
 		_objects = _objects + [_veh];
@@ -88,7 +88,7 @@ if (blck_useStatic) then
 			_xpos = (_coords select 0) + sin (_dir) * _dist;
 			_ypos = (_coords select 1) + cos (_dir) * _dist;
 			_newPos = [_xpos,_ypos,0];		
-			_aiGroup = [_newPos,3,4,"RED"] call blck_spawnGroup;
+			_aiGroup = [_coords,1,1,"RED"] call blck_spawnGroup;
 			blck_AIMinor2 = blck_AIMinor2 + _aiGroup;
 			_veh = [_newPos,_aiGroup,blck_staticWeapons call BIS_fnc_selectRandom] call blck_spawnEmplacedWeapon;
 			_objects = _objects + [_veh];
