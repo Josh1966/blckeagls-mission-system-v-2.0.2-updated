@@ -21,13 +21,13 @@ if (!(_emplaced in blck_staticWeapons)) exitWith {diag_log "spawnEmplaced -- >> 
 		// This should fix the issue with players dismantling static weapons and running off with a 50 cal.
 		_veh addEventHandler ["GetOut",{(_this select 0) setDamage 1;}];
 		//So Vehicle doesnt despawn
-		EPOCH_VehicleSlotsLimit = EPOCH_VehicleSlotsLimit + 1;
-		EPOCH_VehicleSlots pushBack str(EPOCH_VehicleSlotsLimit);
-		_slot = EPOCH_VehicleSlots select 0;
-		_veh setVariable ['VEHICLE_SLOT',_slot,true];
-		EPOCH_VehicleSlots = EPOCH_VehicleSlots - [_slot];
-		EPOCH_VehicleSlotCount = count EPOCH_VehicleSlots;
-		publicVariable 'EPOCH_VehicleSlotCount';
+		//EPOCH_VehicleSlotsLimit = EPOCH_VehicleSlotsLimit + 1;
+		//EPOCH_VehicleSlots pushBack str(EPOCH_VehicleSlotsLimit);
+		//_slot = EPOCH_VehicleSlots select 0;
+		//_veh setVariable ['VEHICLE_SLOT',_slot,true];
+		//EPOCH_VehicleSlots = EPOCH_VehicleSlots - [_slot];
+		//EPOCH_VehicleSlotCount = count EPOCH_VehicleSlots;
+		//publicVariable 'EPOCH_VehicleSlotCount';
 		_veh call EPOCH_server_setVToken;
 		//Creates vehicle inventory
 		clearWeaponCargoGlobal    _veh;
