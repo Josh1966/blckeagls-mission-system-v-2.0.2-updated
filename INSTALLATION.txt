@@ -11,7 +11,7 @@ I assume that you already have created an init.sqf, or used one provided with an
 
 Unpack your mission pbo. Open the folder you just created.
 Open this directory and copy the debug folder and file called start_black.sqf from MPMissions into the folder you just created by unpacking your mission pbo.
-Add the following to the top of your init.sqf:
+Add the following to the your init.sqf:
 
 	#include "start_blck.sqf";
 
