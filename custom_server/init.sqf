@@ -8,8 +8,8 @@ Credits to Vampire, Narines, KiloSwiss, blckeagls, theFUCHS, lazylink, Mark311 w
 Thanks to cyncrwler for testing and bug fixes.
 */
 private ["_version","_versionDate"];
-_blck_version = "Build 3.1";
-_blck_versionDate = "5-10-2015";
+_blck_version = "Build 3.2";
+_blck_versionDate = "5-21-2015";
 
 sleep 30; // wait for other systems to load before initializing
 
