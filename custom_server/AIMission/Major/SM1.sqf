@@ -16,9 +16,9 @@ _mines = [];
 // a listing of mission compositions for this mission set.
 _compositions = 
 [
-	//"resupplyCamp",
-	//"redCamp",
-	//"medicalCamp"
+	"resupplyCamp",
+	"redCamp",
+	"medicalCamp"
 	//"default"
 ];
 

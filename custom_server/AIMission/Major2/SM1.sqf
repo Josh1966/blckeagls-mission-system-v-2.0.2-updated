@@ -15,9 +15,9 @@ _mines = [];
 
 _compositions = 
 [
-	//"resupplyCamp",
-	//"redCamp",
-	//"medicalCamp"
+	"resupplyCamp",
+	"redCamp",
+	"medicalCamp"
 	//"default"
 ];
 

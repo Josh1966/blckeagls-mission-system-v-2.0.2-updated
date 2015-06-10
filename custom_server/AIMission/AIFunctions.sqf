@@ -6,7 +6,7 @@
 	
 	Functions and global variables that should not be modified are provided here
 */
-blck_debugON = false;
+blck_debugON = true;
 	
 blck_spawnGroup = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\spawnGroup.sqf";
 blck_spawnAI = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\spawnUnit.sqf";
