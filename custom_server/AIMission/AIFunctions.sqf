@@ -6,7 +6,8 @@
 	
 	Functions and global variables that should not be modified are provided here
 */
-
+blck_debugON = false;
+	
 blck_spawnGroup = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\spawnGroup.sqf";
 blck_spawnAI = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\spawnUnit.sqf";
 //blck_spawnAIVehicle = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\spawnVehicle.sqf";
@@ -16,12 +17,18 @@ blck_setupWaypoints = compile preprocessFileLineNumbers "\q\addons\custom_server
 blck_vehicleMonitor = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\vehicleMonitor.sqf";
 blck_spawnEmplacedWeapon = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\spawnEmplaced.sqf";
 blck_cleanupObjects = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\cleanUpObjects.sqf";
-blck_spawnCompositionObjects = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\spawnComposition.sqf";
+blck_spawnCompositionObjects = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\otl7_Mapper.sqf";
 blck_fillBoxes = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\fillBoxes.sqf"; 
 blck_smokeAtCrates = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\smokeAtCrate.sqf"; 
 blck_removeGear = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\removeGear.sqf"; 
 blck_spawnCrate = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\spawnCrate.sqf"; 
+blck_spawnMines = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\spawnMines.sqf"; 
+blck_clearMines = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\clearMines.sqf"; 
+blck_FindSafePosn = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\findSafePosn.sqf"; 
 
+//Minimum distance for AI To spawn away form another AI
+MinDistanceFromMission = 1000;
+	
 // Define map marker coordinates
 Ccoords = [0,0,0];
 C2coords = [0,0,0];
@@ -41,6 +48,8 @@ blck_AIMajor2 = [];
 blck_AIMinor = [];
 blck_AIMinor2 = [];
 
+blck_cleanupCompositionTimer = 900;  // Time after mission completion at which items in the composition are deleted.
+blck_AICleanUpTimer = 600;  // Time after mission completion at which any remaining live AI are deleted.
 
 // radius within whih missions are triggered. The trigger causes the crate and AI to spawn.
 blck_TriggerDistance = 1000;
@@ -60,35 +69,6 @@ blck_waitTimer = {
 	true
 };
 
-// self explanatory. Checks to see if the position is in either a black listed location or near a player spawn. 
-// As written this relies on BIS_fnc_findSafePos to ensure that the spawn point is not on water or an excessively steep slope. 
-// The parameter for slope needs verification
-blck_FindSafePosn = {
-	private["_findNew","_coords","_blackListCenter","_blackListRadius"];
-	_findNew = true;
-	while {_findNew} do {
-		_findNew = false;
-		//[_centerForSearch,_minDistFromCenter,_maxDistanceFromCenter,_minDistanceFromNearestObj,_waterMode,_maxTerainGradient,_shoreMode] call BIS_fnc_findSafePos
-		// https://community.bistudio.com/wiki/BIS_fnc_findSafePos
-		_coords = [blck_mapCenter,0,blck_mapRange,30,0,10,0] call BIS_fnc_findSafePos;
-		{
-			if ((_x distance _coords) < MinDistanceFromMission) then {
-				_FindNew = true;
-			};
-		} forEach AllMissionCoords;
-		{
-			_blackListCenter = _x select 0;
-			_blackListRadius = _x select 1;
-			if ( (_blackListCenter distance _coords) < _blackListRadius) exitWith
-			{
-				_FindNew = true;
-			};
-			//};
-		} forEach blck_locationBlackList;
-	};
-	_coords;
-};
-
 // Its purpose is to delete any alive AI associated with a completed mission.
 // one passes an array of units
 blck_AICleanup = {
@@ -96,7 +76,7 @@ blck_AICleanup = {
 
 	if (count _this < 1) exitWith {diag_log "----<<<<  function blck_UnitsCleanup >>>---- no parameters passed";};
 	_aiUnits = _this select 0;
-	sleep blck_aiCleanUpTimer;
+	sleep blck_AICleanUpTimer;
 	if (count _aiUnits >= 1) then {
 		{
 			//diag_log format["---->>>> blckAICleanup Group of unit to be deleted is %1 and its unit count is %2", group _x, count units group _x];

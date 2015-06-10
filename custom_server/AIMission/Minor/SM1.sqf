@@ -5,11 +5,12 @@
   See \Major\SM1.sqf for comments  
 */
 
-private ["_coords","_crate","_aiGroup","_numAIGrp","_arc","_dir","_dist","_xpos","_ypos","_newPos","_objects","_startMsg","_endMsg","_missionObjs","_compositions","_missionCfg","_compSel"];
+private ["_coords","_crate","_aiGroup","_numAIGrp","_arc","_dir","_dist","_xpos","_ypos","_newPos","_objects","_startMsg","_endMsg","_missionObjs","_compositions","_missionCfg","_compSel","_mines"];
 diag_log "[blckeagls] Starting BLUE mission SM1";
 
 _coords = _this select 0;
 _objects = [];
+_mines = [];
 
 #include "\q\addons\custom_server\AIMission\Minor\compositions\compositionsBlue.sqf"; 
 
@@ -22,7 +23,7 @@ _compositions =
 ];
 
 _compSel = _compositions call BIS_fnc_selectRandom;
-
+diag_log format["[blckeagls] Blue Mission composition = %1 ",_compSel];
 // Select a mission configuration and load the data into _missionCfg
 switch (_compositions call BIS_fnc_selectRandom) do 
 {
@@ -45,7 +46,8 @@ waitUntil{ {isPlayer _x && _x distance _coords <= blck_TriggerDistance /*&& vehi
 
 //Creates the crate
 _crate = [_coords] call blck_spawnCrate;
-
+// Spawn composition objects
+_objects = [_coords, round(random(360)),_missionObjs,true] call blck_spawnCompositionObjects;
 
 [_crate,blck_BoxesLoot_Minor, blck_lootCountsMinor select 0, blck_lootCountsMinor select 1, blck_lootCountsMinor select 2, blck_lootCountsMinor select 3, blck_lootCountsMinor select 4] call blck_fillBoxes;
 
@@ -55,7 +57,10 @@ if (blck_useSmokeAtCrates) then  // spawn a fire and smoke near the crate
 	_temp = [_coords] call blck_smokeAtCrates;
 	_objects = _objects + _temp;
 };
-	
+if (blck_useMines) then
+{
+	_mines = [_coords] call blck_spawnMines;
+};
 _numAIGrp = round((blck_MinAI_Minor + round(random(blck_MaxAI_Minor - blck_MinAI_Minor)))/blck_AIGrps_Minor);
 _arc = 360/blck_AIGrps_Minor;
 _dir = random 360;
@@ -74,8 +79,8 @@ if (blck_useStatic) then
 {
 	if (blck_SpawnVeh_Minor == 1) then
 	{
-		_aiGroup = [_coords,1,1,"BLUE"] call blck_spawnGroup;
-		blck_AIMinor2 = blck_AIMinor + _aiGroup;
+		_aiGroup = [_coords,1,2,"blue"] call blck_spawnGroup;
+		blck_AIMinor = blck_AIMinor + _aiGroup;
 		_veh = [_coords,_aiGroup,blck_staticWeapons call BIS_fnc_selectRandom] call blck_spawnEmplacedWeapon;
 		_objects = _objects + [_veh];
 	};
@@ -91,15 +96,16 @@ if (blck_useStatic) then
 			_xpos = (_coords select 0) + sin (_dir) * _dist;
 			_ypos = (_coords select 1) + cos (_dir) * _dist;
 			_newPos = [_xpos,_ypos,0];		
-			_aiGroup = [_coords,1,1,"BLUE"] call blck_spawnGroup;
-			blck_AIMinor2 = blck_AIMinor + _aiGroup;
+			_aiGroup = [_coords,1,1,"blue"] call blck_spawnGroup;
+			blck_AIMinor = blck_AIMinor + _aiGroup;
 			_veh = [_coords,_aiGroup,blck_staticWeapons call BIS_fnc_selectRandom] call blck_spawnEmplacedWeapon;
 			_objects = _objects + [_veh];
 		};
 	};	
 };
 waitUntil{{isPlayer _x && _x distance _crate < 20 && vehicle _x == _x  } count playableunits > 0};
-[_objects, blck_aiCleanUpTimer] spawn blck_cleanupObjects;
+[_mines] call blck_clearMines;
+[_objects, blck_cleanupCompositionTimer] spawn blck_cleanupObjects;
 [_endMsg] call blck_MessagePlayers;
 diag_log "[blckeagls] End of BLUE mission SM1";
 MissionGoMinor = false;

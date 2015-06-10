@@ -69,5 +69,6 @@ if (_blck_WorldName == "default") then {
 } else {
 	diag_log format["[blckeagls]: Worldname is %1. Map Specific Settings Defined",_blck_WorldName];
 };
+blck_townLocations = nearestLocations [blck_mapCenter, ["NameCity","NameCityCapital"], 30000];;
 
 blck_WorldName = _blck_WorldName;

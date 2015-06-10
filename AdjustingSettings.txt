@@ -16,7 +16,7 @@ blck_MinAI_Major, blck_MaxAI_Major, and related variables for other missions. Ad
 blck_AIGrps_Major, related variables for other missions: change this value to alter the number of groups of AI that spawn with that category of mission. I have aimed to have 3 to 6 AI per group with the current settings.
 
 Changing AI Skills:
-These are defined in the arrays at the bottom of AIconfig.sqf. The arrays are named based on the color of the mission marker on the map. These should be self explanatory.
+These are defined in  AIconfig.sqf. The arrays are named based on the color of the mission marker on the map. These should be self explanatory.
 
 Changing loot added to the crates.
 

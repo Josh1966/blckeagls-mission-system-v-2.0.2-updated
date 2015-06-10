@@ -2,12 +2,13 @@
   Code by blckeagls
   Modified by Ghostrider
 */
-private ["_coords","_crate","_aiGroup","_numAIGrp","_arc","_dir","_dist","_xpos","_ypos","_newPos","_objects","_startMsg","_endMsg","_mapLabel","_missionObjs","_compositions","_missionCfg","_compSel"];
+private ["_coords","_crate","_aiGroup","_numAIGrp","_arc","_dir","_dist","_xpos","_ypos","_newPos","_objects","_startMsg","_endMsg","_mapLabel","_missionObjs","_compositions","_missionCfg","_compSel","_mines"];
 diag_log "[blckeagls] Starting ORANGE mission SM1";
 
 _coords = _this select 0;
 // holds a list of objects spawned for this mission for cleanup later on.
 _objects = [];
+_mines = [];
 
 // Use include here so as not to distract from the flow of the code. The included file defines arrays specifying the parameters for each mission.
 #include "\q\addons\custom_server\AIMission\Major\compositions\compositionsOrange.sqf"; 
@@ -15,14 +16,14 @@ _objects = [];
 // a listing of mission compositions for this mission set.
 _compositions = 
 [
-	//"resupplyCamp"
-	//"redCamp"
+	//"resupplyCamp",
+	//"redCamp",
 	//"medicalCamp"
-	"default"
+	//"default"
 ];
 
 _compSel = _compositions call BIS_fnc_selectRandom;
-
+diag_log format["[blckeagls] Orange Mission composition = %1 ",_compSel];
 // Select a mission configuration and load the data into _missionCfg
 switch (_compositions call BIS_fnc_selectRandom) do 
 {
@@ -45,14 +46,19 @@ waitUntil{ {isPlayer _x && _x distance _coords <= blck_TriggerDistance /*&& vehi
 
 //Creates the crate
 _crate = [_coords] call blck_spawnCrate;
-
-_objects = [_coords, _missionObjs] call blck_spawnCompositionObjects;
+//Spawns the objects in the composition
+_objects = [_coords, round(random(360)),_missionObjs,true] call blck_spawnCompositionObjects;
 
 if (blck_useSmokeAtCrates) then  // spawn a fire and smoke near the crate
 {
 	private ["_temp"];
 	_temp = [_coords] call blck_smokeAtCrates;
 	_objects = _objects + _temp;
+};
+
+if (blck_useMines) then
+{
+	_mines = [_coords] call blck_spawnMines;
 };
 
 //Fills the crate with items
@@ -115,8 +121,8 @@ if (blck_useStatic) then
 
 //Waits until player gets near the _crate to end mission
 waitUntil{{isPlayer _x && _x distance _crate < 10 && vehicle _x == _x } count playableunits > 0};
-
-[_objects, blck_aiCleanUpTimer] spawn blck_cleanupObjects;
+[_mines] call blck_clearMines;
+[_objects, blck_cleanupCompositionTimer] spawn blck_cleanupObjects;
 
 //Announces that the mission is complete
 [_endMsg] call blck_MessagePlayers;

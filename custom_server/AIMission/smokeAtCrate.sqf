@@ -4,7 +4,7 @@ private ["_pos","_objs","_smokeSource","_smokeTrail","_fire","_posFire","_smoke"
 _objs = [];
 
 // http://www.antihelios.de/EK/Arma/index.htm
-_wrecks = ["Land_Wreck_Car2_F","Land_Wreck_Car3","Land_Wreck_Car_F","Land_Wreck_Offroad2_F","Land_Wreck_Offroad_F","Land_Tyres_F","Land_Pallets_F","Land_MetalBarrel_F"];
+_wrecks = ["Land_Wreck_Car2_F","Land_Wreck_Car3_F","Land_Wreck_Car_F","Land_Wreck_Offroad2_F","Land_Wreck_Offroad_F","Land_Tyres_F","Land_Pallets_F","Land_MetalBarrel_F"];
 _smokeSource = _wrecks call BIS_fnc_selectRandom;  
 // Use the Land_Fire_burning item if you want a bright visual cue at night but be forewarned that the flames are blinding with NVG at close range and may damage players
 _smokeTrail = "test_EmptyObjectForSmoke"; // "options are "test_EmptyObjectForFireBig", "test_EmptyObjectForSmoke"
@@ -25,6 +25,8 @@ _fire = createVehicle [_smokeSource, _posFire, [], 0, "can_collide"];
 _fire setVariable ["LAST_CHECK", (diag_tickTime + 14400)];
 _fire setPos _posFire;
 _fire setDir floor(random(360));
+//https://community.bistudio.com/wiki/setVectorUp
+_fire setVectorUp surfaceNormal position _fire;
 
 _smoke = createVehicle [_smokeTrail, _posFire, [], 0, "can_collide"];  // "test_EmptyObjectForSmoke" createVehicle _posFire;  
 _smoke setVariable ["LAST_CHECK", (diag_tickTime + 14400)];

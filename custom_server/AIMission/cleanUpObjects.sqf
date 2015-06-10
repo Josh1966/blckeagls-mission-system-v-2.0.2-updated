@@ -12,8 +12,14 @@
 	{
 		_wokka = _x;
 		//diag_log format["cleanupObjects.sqf object is typeOf %1", typeOf _x];
-		{if (typeOf _x == "#particlesource") then {deleteVehicle _x}} forEach (_wokka nearObjects 5);   deleteVehicle _wokka;  
-		//diag_log format["[cleanupObjects.sqf] Deleting object %1", _x];
+		{
+			if (typeOf _x == "#particlesource") then 
+				//diag_log format["[cleanupObjects.sqf] particle source loop: -- >>Deleting object %1", _x];
+				{deleteVehicle _x} 
+				forEach (_wokka nearObjects 5);
+			};
+			deleteVehicle _wokka;		
+
 	} forEach _buildings;
 	
 

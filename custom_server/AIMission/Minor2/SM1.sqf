@@ -4,24 +4,26 @@
   Modified by Ghostrider
 */
 //See Major/SM1.sqf for comments
-private ["_coords","_crate","_aiGroup","_numAIGrp","_arc","_dir","_dist","_xpos","_ypos","_newPos","_objects","_startMsg","_endMsg","_missionObjs","_compositions","_missionCfg","_compSel"];
+private ["_coords","_crate","_aiGroup","_numAIGrp","_arc","_dir","_dist","_xpos","_ypos","_newPos","_objects","_startMsg","_endMsg","_missionObjs","_compositions","_missionCfg","_compSel","_mines"];
 diag_log "[blckeagls] Starting RED mission SM1";
 
 _coords = _this select 0;
 _objects = [];
+_mines = [];
+
 #include "\q\addons\custom_server\AIMission\Minor2\compositions\compositionsRed.sqf"; 
 
 // a listing of mission compositions for this mission set.
 _compositions = 
 [
 	//"resupplyCamp",
-	//"redCamp"
-	//"medicalCamp",
+	//"redCamp",
+	//"medicalCamp"
 	"default"
 ];
 
 _compSel = _compositions call BIS_fnc_selectRandom;
-
+diag_log format["[blckeagls] Red Mission composition = %1 ",_compSel];
 // Select a mission configuration and load the data into _missionCfg
 switch (_compositions call BIS_fnc_selectRandom) do 
 {
@@ -41,9 +43,9 @@ _missionObjs = _missionCfg select 1;
 [_startMsg] call blck_MessagePlayers;
 waitUntil{ {isPlayer _x && _x distance _coords <= blck_TriggerDistance /*&& vehicle _x == _x*/} count playableunits > 0 };
 
-//Creates the crate
+//Creates the crate and composition objects
 _crate = [_coords] call blck_spawnCrate;
-
+_objects = [_coords, round(random(360)),_missionObjs,true] call blck_spawnCompositionObjects;
 [_crate, blck_BoxesLoot_Minor2,blck_lootCountsMinor2 select 0, blck_lootCountsMinor2 select 1, blck_lootCountsMinor2 select 2, blck_lootCountsMinor2 select 3, blck_lootCountsMinor2 select 4] call blck_fillBoxes;
 
 if (blck_useSmokeAtCrates) then  // spawn a fire and smoke near the crate
@@ -53,7 +55,10 @@ if (blck_useSmokeAtCrates) then  // spawn a fire and smoke near the crate
 	//diag_log format["[minor2\sm1.sqf] temporary items are %1", _temp];
 	_objects = _objects + _temp;
 };
-
+if (blck_useMines) then
+{
+	_mines = [_coords] call blck_spawnMines;
+};
 _numAIGrp = round((blck_MinAI_Minor2 + round(random(blck_MaxAI_Minor2 - blck_MinAI_Minor2)))/blck_AIGrps_Minor2);
 _arc = 360/blck_AIGrps_Minor2;
 _dir = random 360;
@@ -96,7 +101,8 @@ if (blck_useStatic) then
 	};	
 };
 waitUntil{{isPlayer _x && _x distance _crate < 10 && vehicle _x == _x  } count playableunits > 0};
-[_objects, blck_aiCleanUpTimer] spawn blck_cleanupObjects;
+[_mines] call blck_clearMines;
+[_objects, blck_cleanupCompositionTimer] spawn blck_cleanupObjects;
 [_endMsg] call blck_MessagePlayers;
 diag_log "[blckeagls] End of RED mission SM1";
 MissionGoMinor2 = false;
