@@ -1,4 +1,4 @@
-	Build 3.3
+	Build 3.3 6-10-15
 	Added: spawn mines in the vicinity of missions (blck_useMines = true; line 24, AIConfigs.sqf)
 	Added: Checks to prevent missions from spawning at water's edge or with 1000 meter of a town.
 	Added:  when blck_RunGear = true, AI are stripped of gear when run over or killed by a vehicle's gun, and damage is applied to the vehicle, to make up for the fact that AI can not be forced to shoot vehicles at present (line 23 of AIConfig.sqf)
@@ -6,6 +6,7 @@
 		blck_VG_Gear = true; // When set to true, AI that have been killed by a gun on  a vehicle will be stripped of gear and the vehicle will be given blck_RunGearDamage of damage
 		blck_VK_GunnerDamage = true;  // When true vehicles are damaged if they are in blck_forbidenVehicles. 
 
+	Turrets on static weapons are locked now which prevents players from disassembling them.	
 	Changed: unused code removed
 	Changed: variable that sets the time delay to cleanup of ai corpses to blck_bodyCleanUpTimer (line 46 of AIConfigs.sqf)
 	Change: rather than spawing a cleanup routine to delete AI bodies, they are marked for cleanup by the default Epoch cleanup engine.

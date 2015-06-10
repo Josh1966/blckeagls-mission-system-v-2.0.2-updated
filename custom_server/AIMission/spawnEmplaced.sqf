@@ -17,6 +17,7 @@ clearWeaponCargoGlobal    _veh;
 clearMagazineCargoGlobal  _veh;
 clearBackpackCargoGlobal  _veh;
 clearItemCargoGlobal      _veh;
+_veh lock 3;  // lock for players
 //_veh addEventHandler ["Fired",{[_this select 0,getNumber (configFile/"CfgAmmo"/(_this select 4)/"explosive")] spawn {if (_this select 1==1) then {sleep 12};_this select 0 setVehicleAmmo 0.5}}]
 		
 // For Ai to move into vehicle
