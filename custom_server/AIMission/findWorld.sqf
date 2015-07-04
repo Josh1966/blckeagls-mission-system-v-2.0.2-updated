@@ -45,6 +45,14 @@ switch (_blck_WorldName) do {// These may need some adjustment - including a tes
 			diag_log "Spawn black list locations added for Bornholm";
 		};
 	};
+	case "Esseker":{
+		diag_log "Esseker-specific settings loaded";
+		blck_mapCenter = [6144, 6144, 0]; //centerPosition = {7100, 7750, 300};
+		blck_mapRange = 5300;
+		if (blck_blacklistSpawns) then {
+		blck_locationBlackList = blck_locationBlackList + [[[6802,0,5187],300],[[10134,0.1,7979],300],[[4014,0,9223],300]];
+		diag_log "Spawn black list locations added for Esseker";
+	};
 	case "tavi":{blck_mapCenter = [10370, 11510, 0];blck_mapRange = 14090;};
 	case "lingor":{blck_mapCenter = [4400, 4400, 0];blck_mapRange = 4400;};
 	case "namalsk":{blck_mapCenter = [4352, 7348, 0]};
