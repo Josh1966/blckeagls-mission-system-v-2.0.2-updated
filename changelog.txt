@@ -4,7 +4,8 @@
 	Changed: positioning of static weapons and smoking wrecks was adjusted outward a bit.
 
 	**Known Issues: The smoking object is not deleted upon mission completion
-	
+			AI Drivers sometimes run over the AI at missions.
+
 	To Do list:
 	Add paratroops as reinforcement as an option.
 	Add a map marker that shows the location of completed missions.
