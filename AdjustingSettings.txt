@@ -5,32 +5,6 @@ First, create a backup of all files.
 Second, if your rpt log shows errors after a change, revert to the defaults and try again.
 Third, most settings are in AIconfig.sqf. 
 
-** Below is a listing of settings you might want to change:
-
-blck_locationBlackList - To black list additional locations, add them here using the following format: [[xpos, ypos, 0], distance]
-
-blck_blacklistSpawns - set this to true to block missions from spawning within 800-100 m of the spawns
-
-blck_MinAI_Major, blck_MaxAI_Major, and related variables for other missions. Adjustments of the number of AI spawning at each mission change the values for these parameters as you need. Should be self explanatory.
-
-blck_AIGrps_Major, related variables for other missions: change this value to alter the number of groups of AI that spawn with that category of mission. I have aimed to have 3 to 6 AI per group with the current settings.
-
-Changing AI Skills:
-These are defined in the arrays at the bottom of AIconfig.sqf. The arrays are named based on the color of the mission marker on the map. These should be self explanatory.
-
-Changing loot added to the crates.
-
-The number of items in each category (weapons, magazines, optics, items, backpacks) to be added to the crate is specified in a variable just above the array for the loot.
-
-example: blck_lootCountsMajor = [4,10,12,12,3];
-In the above example, 4 weapons, 10 items from the magazines array, 12 optics, 12 things from the items array  and 3 backpacks will be added to the crate. Adjust to your own liking.
-
-Loot for each mission type is specified in a large array. Loot is organized based on how Arma treats the items (e.g., weapons, items or magazines).
-
-The chance that any item will be selected by the loot randomizer is equal for all loot within a specific category. for example, all weapons listed have an equal chance of being added.
-Entries in the table for weapons include [weapon name, ammo name].
-Those for items and magazines include the name, minimum and maximum number to be added.
-There is plenty of room here for further modification.
 
 
 

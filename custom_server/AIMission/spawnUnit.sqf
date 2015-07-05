@@ -1,18 +1,15 @@
 /*
 	Code by blckeagls
 	Modified by Ghostrider
-	Logic for adding AI Ammo, GL Shells and Attachments by Vampire.
+	Logic for adding AI Ammo, GL Shells and Attachments addapted from that by Vampire.
 	Code to delete dead AI bodies moved to AIKilled.sqf
 	Everything having to do with spawning and configuring an AI should happen here
 */
 
 //Defines private variables so they don't interfere with other scripts
 private ["_pos","_i","_weap","_ammo","_other","_skin","_aiGroup","_ai1","_magazines","_players","_owner","_ownerOnline","_nearEntities","_skillLevel","_aiSkills","_specialItems",
-		"_Launcher","_launcherRound","_Vests","_vest","_index","_WeaponAttachments","_Meats","_Drink","_Food","_aiConsumableItems","_weaponList","_ammoChoices","_attachment","_attachments"];
+		"_Launcher","_launcherRound","_vest","_index","_WeaponAttachments","_Meats","_Drink","_Food","_aiConsumableItems","_weaponList","_ammoChoices","_attachment","_attachments"];
 
-_Vests = [
-"V_1_EPOCH","V_2_EPOCH","V_3_EPOCH","V_4_EPOCH","V_5_EPOCH","V_6_EPOCH","V_7_EPOCH","V_8_EPOCH","V_9_EPOCH","V_10_EPOCH","V_11_EPOCH","V_12_EPOCH","V_13_EPOCH","V_14_EPOCH","V_15_EPOCH","V_16_EPOCH","V_17_EPOCH","V_18_EPOCH","V_19_EPOCH","V_20_EPOCH","V_21_EPOCH","V_22_EPOCH","V_23_EPOCH","V_24_EPOCH","V_25_EPOCH","V_26_EPOCH","V_27_EPOCH","V_28_EPOCH","V_29_EPOCH","V_30_EPOCH","V_31_EPOCH","V_32_EPOCH","V_33_EPOCH","V_34_EPOCH","V_35_EPOCH","V_36_EPOCH","V_37_EPOCH","V_38_EPOCH","V_39_EPOCH","V_40_EPOCH"
-];
 _WeaponAttachments = [
 "acc_flashlight","acc_pointer_IR","optic_Arco","optic_Hamr","optic_Aco","optic_ACO_grn","optic_Aco_smg","optic_ACO_grn_smg","optic_Holosight","optic_Holosight_smg","optic_SOS",
 "optic_MRCO","optic_DMS","optic_Yorris","optic_MRD","optic_LRPS","optic_NVS","optic_Nightstalker","optic_tws","optic_tws_mg","muzzle_snds_H","muzzle_snds_L","muzzle_snds_M",
@@ -31,28 +28,21 @@ _Food = [
 ];
 _aiConsumableItems = _Meats + _Drink + _Food;
 
-//Gets variables passed from spawnai.sqf/spawnai1.sqf
 _pos = _this select 0;  // Position at which to spawn AI
 _weaponList = _this select 1;
 _aiGroup = _this select 2;  // Group to which AI belongs
 _skillLevel = [_this,3,"red"] call BIS_fnc_param;   // Assign a skill level in case one was not passed."blue", "red", "green", "orange"
 _Launcher = [_this, 4, "none"] call BIS_fnc_param; // Set launchers to "none" if no setting was passed.
 
-//Creating the AI Unit
 _ai1 = ObjNull;
-//Creates the AI unit from the _skin passed to it
 "i_g_soldier_unarmed_f" createUnit [_pos, _aiGroup, "_ai1 = this", 0.7, "COLONEL"];
-//Cleans the AI to a fresh spawn
-removeBackpackGlobal _ai1;
-removeAllItemsWithMagazines  _ai1;
-// Dress the AI in a randomly chosen skin.
+[_ai1] call blck_removeGear;
 _skin = blck_SkinList call BIS_fnc_selectRandom;
-//_ai1 AddUniform _skin;
 _ai1 forceAddUniform _skin;
 
 //Stops the AI from being cleaned up
-_ai1 setVariable["LASTLOGOUT_EPOCH",1000000000000];
-_ai1 setVariable["LAST_CHECK",1000000000000];
+_ai1 setVariable["LASTLOGOUT_EPOCH",14400];
+_ai1 setVariable["LAST_CHECK",14400];
 
 //Sets AI Tactics
 _ai1 enableAI "TARGET";
@@ -64,10 +54,10 @@ _ai1 allowDammage true;
 _ai1 setBehaviour "COMBAT";
 _ai1 setunitpos "AUTO";
 
-sleep 1; //For some reason without this sometimes they don't spawn the weapon on them
+sleep 0.1; //For some reason without this sometimes they don't spawn the weapon on them
 
 // Add a vest to AI for storage
-_vest = _Vests call BIS_fnc_selectRandom;
+_vest = blck_vests call BIS_fnc_selectRandom;
 _ai1 addVest _vest;
 
 // Add a primary weapon : Vampires logic used here.
@@ -98,7 +88,7 @@ if ((floor(random(10))) <= 3) then {
 	_ai1 addPrimaryWeaponItem _attachment;
 };
 */
-sleep 1; //For some reason without this sometimes they don't spawn the weapon on them
+sleep 0.1; //For some reason without this sometimes they don't spawn the weapon on them
 
 //adds 3 random items to AI.  _other = ["ITEM","COUNT"]
 _i = 0;
@@ -121,7 +111,7 @@ if (_Launcher != "none") then
 	_ai1 addWeaponGlobal _Launcher;
 	_launcherRound = getArray (configFile >> "CfgWeapons" >> _Launcher >> "magazines") select 0;
 	//diag_log format["[spawnUnit.sqf] Launcher round is %1",_launcherRound];
-	for "_i" from 1 to 3 do 
+	for "_i" from 1 to 4 do 
 	{
 		//diag_log format["[spawnUnit.saf] Adding Launcher Round %1 ",_launcherRound];
 		_ai1 addItemToVest _launcherRound;
@@ -143,7 +133,7 @@ else
 _ai1 addeventhandler ["fired", {(_this select 0) setvehicleammo 1;}];
 
 // Do something if AI is killed
-_ai1 addEventHandler ["Killed",{ [(_this select 0), (_this select 1)] execVM blck_AIKilled; }]; // changed to reduce number of concurrent threads, but also works as spawn blck_AIKilled; }];
+_ai1 addEventHandler ["Killed",{ [(_this select 0), (_this select 1)] execVM blck_EH_AIKilled;}]; // changed to reduce number of concurrent threads, but also works as spawn blck_AIKilled; }];
 
 switch (_skillLevel) do 
 {
@@ -160,5 +150,6 @@ _intelligence = blck_AIIntelligence select _index;
 [_ai1,_aiSkills] call blck_setSkill;
 _ai1 setVariable ["alertDist",_alertDist,true];
 _ai1 setVariable ["intelligence",_intelligence,true];
+_ai1 setVariable ["Mission",_skillLevel,true];
 
 _ai1

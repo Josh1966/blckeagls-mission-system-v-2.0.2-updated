@@ -5,7 +5,7 @@
 	Fill a crate with items
 */
 
-	private["_crate","_boxLoot","_wepCnt","_magCnt","_itemCnt","_opticsCnt","_a1","_item","_low","_high","_diff","_bkcPckCnt"];
+	private["_crate","_boxLoot","_wepCnt","_magCnt","_itemCnt","_opticsCnt","_a1","_item","_diff","_bkcPckCnt"];
 
 	_crate = _this select 0;
 	_boxLoot = _this select 1; // Array of [[weapons],[magazines],[items]]

@@ -50,29 +50,21 @@ if (blck_debugON) then
 {
 	diag_log "[blckeagls] Debug seting is ON, Custom configurations used";
 	
-	blck_cleanupCompositionTimer = 15;  // Time after mission completion at which items in the composition are deleted.
-	blck_AICleanUpTimer = 25;  // Time after mission completion at which any remaining live AI are deleted.
-	blck_bodyCleanUpTimer = 300;
-	
-	//Minimum Spawn time between missions in seconds
-		blck_TMin_Major = 5; // Orange
-		blck_TMin_Major2 = 4; // Green
-		blck_TMin_Minor = 2;  // Blue
-		blck_TMin_Minor2 = 3; // Red
+	blck_cleanupCompositionTimer = 5;  // Time after mission completion at which items in the composition are deleted.
+	blck_AICleanUpTimer = 10;  // Time after mission completion at which any remaining live AI are deleted.
+	blck_bodyCleanUpTimer = 15;
+
+	blck_TMin_Major = 5;
+	blck_TMin_Major2 = 6;
+	blck_TMin_Minor = 7;
+	blck_TMin_Minor2 = 8;
 	
 	//Maximum Spawn time between missions in seconds
-		blck_TMax_Major = 10;
-		blck_TMax_Major2 = 8;
-		blck_TMax_Minor = 4;
-		blck_TMax_Minor2 = 6;
-		
-		blck_aiCleanUpTimer = 30; // in seconds
-		
-		blck_SpawnVeh_Major = 4;
-		blck_SpawnVeh_Major2 = 3;
-		blck_SpawnVeh_Minor = 1;
-		blck_SpawnVeh_Minor2 = 2;
-		
+	blck_TMax_Major = 10;
+	blck_TMax_Major2 = 11;
+	blck_TMax_Minor = 12;
+	blck_TMax_Minor2 = 13;
+	
 		blck_SkillsBlue = [
 		["aimingAccuracy",0.01],
 		["aimingShake",0.01],

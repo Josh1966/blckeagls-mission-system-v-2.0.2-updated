@@ -1,39 +1,32 @@
-	// Load additional AI from the group into the vehicle or weapon whenever the AI manning the gun is killed
-	
-	private ["_veh","_unit","_units","_count"];
-	
-	// an array of units [unit1, unit 2 ... unitN]
-	_veh = _this select 0;
-	_count = 0;
-	//diag_log format["vehicleMonitor started for vehicle %2: aiGroup contains %1","void",_veh];
-	waitUntil { count crew _veh > 0};
-	//diag_log "vehicle Manned";
-	while {(alive _veh) && _count < 20} do {
+private ["_veh","_unit","_units","_count","_group","_driver","_gunner","_cargo"];
+_veh = _this select 0;
+
+_count = 0;
+
+waitUntil { count crew _veh > 0};
+//diag_log "vehicle Manned";
+while { (getDammage _veh < 1.0)} do 
+{		//diag_log format["vehicleMonitor: vehicle crew consists of %1", crew _veh];
+		//diag_log format["vehicleMonitor: number of crew alive is %1", {alive  _x} count crew _veh];
 		_veh setVehicleAmmo 1;
 		_veh setFuel 1;
-		_i = 0;
-		while {(({alive _x} count crew _veh) < 1) && _count < 3} do 
-		{
-			//diag_log format["vehicleMonitor detected weapon Unmanned, searching for new unit to man it, aiGroup contains %1","void"];
-			//  position nearEntities [typeName, radius]
-			_units = _veh nearEntities ["i_g_soldier_unarmed_f",50];
-			//_unit = (getPos _veh) nearestObject "i_g_soldier_unarmed_f";
-			_count = _count + 1;
-			//diag_log format["vehicleMonitor found alive units %1",_units];
-			if (count _units > 0) then
+		sleep 10;
+		if ({alive  _x} count crew _veh < 1) then { _veh setDamage 1.1;};
+		if (!alive gunner _veh) then { 
 			{
-				_unit = _units select 0;
-				//diag_log format["vehicleMonitor identified a new gunner %1",_unit];
-				_unit moveTo getPosATL _veh;
-				sleep 10;
-				_unit moveingunner _veh;
-				//diag_log format["vehicleMonitor manned the weapon with a new gunner %1",_unit];
-			};
+				if (_x != driver _veh) exitWith {_x moveingunner _veh;};
+			} forEach crew _veh;
 		};
-		sleep 5;
-		
-	};
-	_veh setDamage 1;
+		if (!alive gunner _veh) then {driver _veh moveingunner _veh;};
+		if (!alive driver _veh) then {
+			{
+				if (_x != gunner _veh) exitWith { _x moveindriver _veh;};
+			} forEach crew _veh;
+		};
+		//diag_log format["vehicleMonitor.sqf: driver is %1; gunner is %2", driver _veh, gunner _veh];
+};
+//diag_log format["vehiclemonitor.sqf all crew for vehicle %1 are dead",_veh];
+_veh setDamage 1;
 
-
+_veh setVariable ["LAST_CHECK", (diag_tickTime + 60)];
 

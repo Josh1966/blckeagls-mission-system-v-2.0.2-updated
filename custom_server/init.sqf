@@ -8,20 +8,21 @@ Credits to Vampire, Narines, KiloSwiss, blckeagls, theFUCHS, lazylink, Mark311 w
 Thanks to cyncrwler for testing and bug fixes.
 */
 private ["_version","_versionDate"];
-_blck_version = "Build 3.31";
-_blck_versionDate = "7-4-2015";
+_blck_version = "Build 3.4";
+_blck_versionDate = "7-5-2015";
 
 sleep 30; // wait for other systems to load before initializing
 
 diag_log format["[blckeagls] loading version %1 build %2 ...... >>",_blck_versionDate,_blck_version];
 // Load Configuration information
-//call compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\AIconfigs.sqf";
+
 call compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\AIconfigs.sqf";
 
 // Get information about the map
 sleep 5;
 execVM "\q\addons\custom_server\AIMission\findWorld.sqf";
 sleep 5;
+
 // compile functions
 call compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\AIfunctions.sqf";
 
@@ -29,13 +30,17 @@ call compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\AIfunc
 execVM "\q\addons\custom_server\AIMission\configOverrides.sqf";
 
 //Start the mission timers
-[] execVM "\q\addons\custom_server\AIMission\Major\majorTimer.sqf"; //Starts major mission system
-[] execVM "\q\addons\custom_server\AIMission\Major2\major2Timer.sqf";//Starts major mission system 2
-[] execVM "\q\addons\custom_server\AIMission\Minor\minorTimer.sqf";//Starts minor mission system
-[] execVM "\q\addons\custom_server\AIMission\Minor2\minor2Timer.sqf";//Starts minor mission system 2
+[] execVM "\q\addons\custom_server\AIMission\Major\majorTimer.sqf"; //Starts major mission system (Orange Map Markers)
+[] execVM "\q\addons\custom_server\AIMission\Major2\major2Timer.sqf";//Starts major mission system 2 (Green Map Markers)
+[] execVM "\q\addons\custom_server\AIMission\Minor\minorTimer.sqf";//Starts minor mission system (Blue Map Markers)
+[] execVM "\q\addons\custom_server\AIMission\Minor2\minor2Timer.sqf";//Starts minor mission system 2 (Red Map Markers)
 
 diag_log "[blckeagls] >>--- Completed initialization"; 
-sleep 30;
+sleep 15;
 
 blck_Initialized = true;
+
+diag_log format["[blckeagls] Mission system settings:blck_debugON = %4 blck_useSmokeAtCrates = %1 blck_useMines = %2 blck_useStatic = %3 blck_useVehiclePatrols %4",blck_useSmokeAtCrates,blck_useMines,blck_useStatic,blck_debugON,blck_useVehiclePatrols];
+diag_log format["[blckeagls] AI Settings: blck_useNVG = %1  blck_useLaunchers = %2",blck_useNVG,blck_useLaunchers];
+diag_log format["[blckeagls] AI Runover and other Vehicle Kill settings: blck_RunGear = %1 blck_VG_Gear =%2 blck_VK_RunoverDamage = %3 blck_VK_GunnerDamage = %4",blck_RunGear,blck_VG_Gear,blck_VK_RunoverDamage,blck_VK_GunnerDamage];
 

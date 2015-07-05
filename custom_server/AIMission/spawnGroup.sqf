@@ -5,14 +5,17 @@
 */
 //Sets Private Variables to they don't interfere when this script is called more than once
 private["_pos","_weaponlist","_ammolist","_skinlist","_itemlist","_randomNumberWeapon","_randomNumberSkin","_randomNumberItem","_numbertospawn","_whichweap","_whichitem","_whichskin","_weapon","_ammo","_item",
-		"_skin","_i","_skillLevel","_aiGroup","_numai1","_numai2","_safepos","_wppos","_xpos","_ypos","_wpradius","_wpnum","_oldpos","_newpos","_x","_wp","_useLauncher","_launcherType","_aiSkills"];	
+		"_skin","_i","_skillLevel","_aiGroup","_numai1","_numai2","_safepos","_wppos","_xpos","_ypos","_wpradius","_wpnum","_oldpos","_newpos","_x","_wp","_useLauncher","_launcherType","_aiSkills","_center",
+		"_minDist","_maxDist"];	
 		
 //Gets variables passed from SM1.sqf
 _pos = _this select 0;
 _numai1 = [_this,1,5] call BIS_fnc_param;
 _numai2 = [_this,2,10] call BIS_fnc_param;
 _skillLevel = [_this,3,"blue"] call BIS_fnc_param; // "blue", "red", "green", "orange"
-_emplacedWeapon = [_this, 4, "null"] call BIS_fnc_param;
+_center = _this select 4;
+_minDist = [_this,5,20] call BIS_fnc_param; 
+_maxDist = [_this,6,35] call BIS_fnc_param;
 
 //Spawns correct number of AI
 if (_numai2 > _numai1) then {
@@ -64,7 +67,7 @@ while {_i < _numbertospawn} do {
 	//Spawns the AI unit
 	[_safepos,_weaponList,_aiGroup,_skillLevel,_launcherType] call blck_spawnAI;
 };
-[_aiGroup] call blck_setupWaypoints;
+[_pos,_minDist,_maxDist,_aiGroup] call blck_setupWaypoints;
 _aiGroup selectLeader (units _aiGroup select 0);
 // return the group spawned so that this can be used for mission clean up or triggers regarding completion
 units _aiGroup;

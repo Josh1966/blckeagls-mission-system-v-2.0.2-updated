@@ -1,3 +1,31 @@
+	Build 3.4
+	Added Configuration information for Esseker
+	Added an option to spawn AI vehicles around the mission. By default these are armed pickups but other vehicles can be used by changing the vehicle types in blck_AI_Vehicles on line 38 of AIConfigs.sqf. If you spawn them i suggest you turn off spawning of mines.
+	Changed: positioning of static weapons and smoking wrecks was adjusted outward a bit.
+	Known Issues: The smoking object is not deleted upon mission completion
+	
+	To Do list:
+	Add paratroops as reinforcement as an option.
+	Add a map marker that shows the location of completed missions.
+	
+	Build 3.31 7-4-15
+	Added Configuration information for Esseker
+
+	Build 3.3 6-10-15
+	Added: spawn mines in the vicinity of missions (blck_useMines = true; line 24, AIConfigs.sqf)
+	Added: Checks to prevent missions from spawning at water's edge or with 1000 meter of a town.
+	Added:  when blck_RunGear = true, AI are stripped of gear when run over or killed by a vehicle's gun, and damage is applied to the vehicle, to make up for the fact that AI can not be forced to shoot vehicles at present (line 23 of AIConfig.sqf)
+	Added: several optional disincentives to running over or gunning down AI from vehicles
+		blck_VG_Gear = true; // When set to true, AI that have been killed by a gun on  a vehicle will be stripped of gear and the vehicle will be given blck_RunGearDamage of damage
+		blck_VK_GunnerDamage = true;  // When true vehicles are damaged if they are in blck_forbidenVehicles. 
+
+	Turrets on static weapons are locked now which prevents players from disassembling them.	
+	Changed: unused code removed
+	Changed: variable that sets the time delay to cleanup of ai corpses to blck_bodyCleanUpTimer (line 46 of AIConfigs.sqf)
+	Change: rather than spawing a cleanup routine to delete AI bodies, they are marked for cleanup by the default Epoch cleanup engine.
+	Changed: variables in AIConfig.sqf are grouped by function and more documentation was added.
+	Changes: other code updates and optimizations.
+	Fixed: Bodies of dead AI were sometimes being deleted too early.
 	
 	Build 3.2 5-21-15
 	- Bug fix for static weapons.

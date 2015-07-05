@@ -3,9 +3,8 @@
 	Spawn coordinates were pulled from the config.cfg
 */
 private["_blck_WorldName"];
-// Lets get the map name for mission location purposes
+
 _blck_WorldName = toLower format ["%1", worldName];
-//diag_log format ["[findWorld.sqf] World Name is = %1", _blck_WorldName];
 
 switch (_blck_WorldName) do {// These may need some adjustment - including a test for shore or water should help as well to avoid missions spawning on water.
 	case "altis":{
@@ -80,4 +79,5 @@ if (_blck_WorldName == "default") then {
 	diag_log format["[blckeagls]: Worldname is %1. Map Specific Settings Defined",_blck_WorldName];
 };
 blck_townLocations = nearestLocations [blck_mapCenter, ["NameCity","NameCityCapital"], 30000];
+//diag_log format["findWorld.sqf blck_townLocations = %1",blck_townLocations];
 blck_WorldName = _blck_WorldName;
