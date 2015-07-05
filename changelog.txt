@@ -2,7 +2,8 @@
 	Added Configuration information for Esseker
 	Added an option to spawn AI vehicles around the mission. By default these are armed pickups but other vehicles can be used by changing the vehicle types in blck_AI_Vehicles on line 38 of AIConfigs.sqf. If you spawn them i suggest you turn off spawning of mines.
 	Changed: positioning of static weapons and smoking wrecks was adjusted outward a bit.
-	Known Issues: The smoking object is not deleted upon mission completion
+
+	**Known Issues: The smoking object is not deleted upon mission completion
 	
 	To Do list:
 	Add paratroops as reinforcement as an option.
