@@ -6,7 +6,7 @@
 	
 	Functions and global variables that should not be modified are provided here
 */
-blck_debugON = false;
+blck_debugON = true;
 	
 blck_spawnGroup = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\spawnGroup.sqf";
 blck_spawnGroups = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\spawnGroups.sqf";
@@ -29,7 +29,6 @@ blck_clearMines = compile preprocessFileLineNumbers "\q\addons\custom_server\AIM
 blck_FindSafePosn = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\findSafePosn.sqf"; 
 blck_playerGetInAIVehicle = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\decomissionAIVehicle.sqf";
 blck_EH_vehicleHit = compile preprocessFileLineNumbers "\q\addons\custom_server\AIMission\decomissionAIVehicle.sqf";
-
 //Minimum distance for AI To spawn away form another AI
 MinDistanceFromMission = 1000;
 	

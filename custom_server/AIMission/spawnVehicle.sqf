@@ -1,14 +1,25 @@
 //Debug information 
+fn_setWaypoints =
+{
+	_group = _this select 0;  // The group to which waypoints should be assigned
+	_center = _this select 1;  // center of the mission area
+	
+	while {(count (waypoints _group)) > 0} do
+	{
+		deleteWaypoint ((waypoints _group) select 0);
+	};
+	[_center,50,100,_group] call blck_setupWaypoints;
+};
 
-private["_pos","_noVehPatrols","_level","_vehType","_minDis","_maxDis","_dir","_arc","_xpos","_ypos","_newpos","_vehType","_safepos","_units","_dist","_aiGroup","_numAI","_veh","_theUnit"];
+private["_pos","_noVehPatrols","_level","_vehType","_minDis","_maxDis","_dir","_arc","_xpos","_ypos","_newpos","_vehType","_safepos","_units","_dist","_aiGroup","_numAI","_veh","_grp"];
 
 //Gets position information from spawnai1.sqf
-_pos = _this select 0;
-_noVehPatrols = [_this,1,1] call BIS_fnc_param;
-_minDis = [_this,2,30] call BIS_fnc_param;
-_maxDis = [_this,3,45] call BIS_fnc_param;
-_level = [_this,4,"red"] call BIS_fnc_param;
-_numAI = [_this,5,3] call BIS_fnc_param;
+_pos = _this select 0; // Center of the mission area
+_noVehPatrols = [_this,1,1] call BIS_fnc_param; // number of vehicles to spawn
+_minDis = [_this,2,30] call BIS_fnc_param;  // minimum distance from the center of the mission for vehicle waypoints
+_maxDis = [_this,3,45] call BIS_fnc_param;  // maximum distance from the center of the mission for vehicle waypoints
+_level = [_this,4,"red"] call BIS_fnc_param;  // difficulty level of the AI
+_numAI = [_this,5,3] call BIS_fnc_param;  // Number of AI to spawn 
 
 _units = [];
 _dir = round(random(360));
@@ -18,11 +29,11 @@ for "_i" from 1 to _noVehPatrols do
 {	
 	// spread out the spawn points for the vehicles
 	_dir = _dir + _arc;
+	if (_dir > 360) then {_dir = _dir - 360;};  // for conceptual purposes.
 	_dist = round(_minDis + (random(_maxDis - _minDis)));
 	_xpos = (_pos select 0) + sin (_dir) * _dist;
 	_ypos = (_pos select 1) + cos (_dir) * _dist;
 	_newpos = [_xpos,_ypos,0];	
-
 	
 	// Spawn the vehicle
 	_vehType = [blck_AI_Vehicles] call BIS_fnc_selectRandom;
@@ -43,7 +54,10 @@ for "_i" from 1 to _noVehPatrols do
 	// Spawn AI to man the vehicle
 	_aiGroup = [_safepos,_numAI,_numAI,_level,_pos,_minDis,_maxDis] call blck_spawnGroup;	
 	_units = _units + _aiGroup;
-	//diag_log format["spawnVehicle.sqf: _aiGroup is %1", _aiGroup];
+	// delete any waypoints that may have been assigned and add new waypoints along the periphery of the mission area
+	_grp = group (_aiGroup select 0);
+	diag_log format["spawnVehicle.sqf: typeName of _grp is %1", typeName _grp];
+	//[_pos, _grp] call fn_setWaypoints;
 
 	//Moves 3 AI units into vehicle
 	(_aiGroup select 0) moveingunner _veh;
@@ -64,6 +78,7 @@ for "_i" from 1 to _noVehPatrols do
 	clearBackpackCargoGlobal  _veh;
 	clearItemCargoGlobal       _veh;
 	_veh setVehicleLock "LOCKEDPLAYER";
+	
 	[_veh] spawn blck_vehicleMonitor;
 };
 

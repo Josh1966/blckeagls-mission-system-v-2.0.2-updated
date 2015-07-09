@@ -17,7 +17,7 @@ if (blck_WorldName == "bornholm") then
 };
 if (blck_WorldName == "chernarus") then 
 {  // 6022.8906,23.348747,17387.381
-	blck_SpawnVeh_Major = 3;
+	blck_SpawnVeh_Major = 2;
 	blck_SpawnVeh_Major2 = 2;
 	blck_SpawnVeh_Minor = -1;
 	blck_SpawnVeh_Minor2 = 1; //1;
@@ -25,7 +25,7 @@ if (blck_WorldName == "chernarus") then
 };
 if (blck_WorldName == "altis") then 
 {  // 6022.8906,23.348747,17387.381
-	blck_SpawnVeh_Major = 3;
+	blck_SpawnVeh_Major = 2;
 	blck_SpawnVeh_Major2 = 2;
 	blck_SpawnVeh_Minor = -1;
 	blck_SpawnVeh_Minor2 = 1;
@@ -37,13 +37,13 @@ if (blck_WorldName == "altis") then
 //================================ ESSEKER ==============================
 if (blck_WorldName == "Esseker") then 
 { // 6022.8906,23.348747,17387.381
-blck_SpawnVeh_Major = 3;
-blck_SpawnVeh_Major2 = 2;
-blck_SpawnVeh_Minor = -1;
-blck_SpawnVeh_Minor2 = 1; //1;
-blck_locationBlackList = blck_locationBlackList + [[[6802,0,5187],300],[[10134,0.1,7979],300],[[4014,0,9223],300]]; //
+	blck_SpawnVeh_Major = 3;
+	blck_SpawnVeh_Major2 = 2;
+	blck_SpawnVeh_Minor = -1;
+	blck_SpawnVeh_Minor2 = 1; //1;
+	blck_locationBlackList = blck_locationBlackList + [[[6802,0,5187],300],[[10134,0.1,7979],300],[[4014,0,9223],300]]; //
 
-diag_log "[DBD Clan] --- >>> Loading config overides for Esseker";
+	diag_log "[DBD Clan] --- >>> Loading config overides for Esseker";
 };
 //================================ ESSEKER ==============================
 if (blck_debugON) then 

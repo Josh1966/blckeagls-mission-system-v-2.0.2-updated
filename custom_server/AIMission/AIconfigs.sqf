@@ -9,7 +9,7 @@ This file contains most constants that define the behavior and loot for mission 
 	BLACKLIST LOCATIONS
 	
 	**************************************************************/
-	// if true then missions will not spawn within 1000 m of spawn points for Altis, Bornholm, Cherno or stratis. 
+	// if true then missions will not spawn within 1000 m of spawn points for Altis, Bornholm, Cherno, Esseker or stratis. 
 	blck_blacklistSpawns = true;
 	// list of locations that are protected against mission spawns	
 	blck_locationBlackList = [
@@ -25,14 +25,17 @@ This file contains most constants that define the behavior and loot for mission 
 	***********************************************************/
 	blck_useSmokeAtCrates = true;  // When true, a smoking wreck will be spawned near the loot crate: Note that due to collisions with mission or other objects, the smoke may not always spawn.
 	blck_RunGear = true;	// When set to true, AI that have been run over will ve stripped of gear, and the vehicle will be given blck_RunGearDamage of damage.
-	blck_RunGearDamage = 0.1;
-	blck_VG_Gear = true; // When set to true, AI that have been killed by a gun on  a vehicle will be stripped of gear and the vehicle will be given blck_RunGearDamage of damage
+	blck_RunGearDamage = 0.2;
+	blck_VG_Gear = true; // When set to true, AI that have been killed by a player in a vehicle in the list of forbidden vehicles will be stripped of gear and the vehicle will be given blck_RunGearDamage of damage
 	blck_VK_RunoverDamage = true; // when the AI was run over blck_RunGearDamage of damage will be applied to the killer's vehicle.
 	blck_VK_GunnerDamage = true; // when the AI was killed by a gunner on a vehicle that is is in the list of forbidden vehicles, blck_RunGearDamage of damage will be applied to the killer's vehicle each time an AI is killed with a vehicle's gun.
-	blck_useMines = true;   // when true mines are spawned around the mission area. these are cleaned up when a player reaches the crate.
-	
-	blck_forbidenVehicles = ["B_MRAP_01_hmg_F","O_MRAP_02_hmg_F"]; // Add any vehicles for which you wish to forbid vehicle kills, or set this = ["LandVehicles"]; to penalize for all AI kills using guns on vehicles
+	blck_useMines = false;   // when true mines are spawned around the mission area. these are cleaned up when a player reaches the crate.
+	blck_forbidenVehicles = ["B_MRAP_01_hmg_F","O_MRAP_02_hmg_F"]; // Add any vehicles for which you wish to forbid vehicle kills, or set this = ["LandVehicles"]; to penalize for all AI kills using vehicles	
+	// For a listing of the guns mounted on various land vehicles see the following link: https://community.bistudio.com/wiki/Arma_3_CfgWeapons_Vehicle_Weapons
+	// HMG_M2 is mounted on the armed offroad that is spawned by Epoch	
+	blck_forbidenVehicleGuns = ["LMG_RCWS","LMG_M200","HMG_127","HMG_127_APC",/*"HMG_M2",*/"HMG_NSVT","GMG_40mm","GMG_UGV_40mm","autocannon_40mm_CTWS","autocannon_30mm_CTWS","autocannon_35mm","LMG_coax","autocannon_30mm"]; // Add any vehicles for which you wish to forbid vehicle kills, or set this = ["LandVehicles"]; to penalize for all AI kills using vehicles
 	blck_useVehiclePatrols = true; // When true vehicles will be spawned at missions and will patrol the mission area.
+	blck_killEmptyAIVehicles = true; // when true, the AI vehicle will be extensively damaged once all AI have gotten out.
 	blck_useStatic = true;  // When true, AI will man static weapons spawned 20-30 meters from the mission center. These are very effective against most vehicles
 	blck_staticWeapons = ["B_HMG_01_high_F","B_GMG_01_high_F"/*,"O_static_AT_F"*/];  // [0.50 cal, grenade launcher, AT Launcher]
 	blck_AI_Vehicles = ["I_G_Offroad_01_armed_F","I_G_Offroad_02_armed_F","I_G_Offroad_03_armed_F"]; // Type of vehicle spawned to defend AI bases

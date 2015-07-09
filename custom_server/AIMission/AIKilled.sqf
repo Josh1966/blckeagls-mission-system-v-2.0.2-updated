@@ -1,10 +1,8 @@
 /*
 	Based on code by blckeagls and Vampire
 	Modified by Ghostrider
-	Updated 1-26-15 
-	Because this is precompiled there is less concern about keeping comments in.
 	to do:
-	1) figure out how to detect the case when AI is killed by being run over and penalize the player
+
 	2) reward players who make legitimate kills
 */
 private ["_unit","_killer","_startTime","_grpUnits","_alertDist","_intelligence","_weapons","_killersVehicle","_handle","_launcher","_runover","_unitMission"];
@@ -101,11 +99,10 @@ if (!(isPlayer _killer)) exitWith {};
 };
 
 fn_applyVehicleDamage = {  // apply a bit of damage 
-	private["_vk"];
+	private["_vk","_vd"];
 	_vk = _this select 0;
-	_d = getDammage _vk;
-	_vk setDamage (_d + blck_RunGearDamage);
-	getDammage _vk;
+	_vd = getDammage _vk;
+	_vk setDamage (_vd + blck_RunGearDamage);
 	//diag_log format["[AIKilled.sqf] vehicle damage applied, damage now %1", getDammage _vk];
 };
 
@@ -133,22 +130,18 @@ if(typeOf _killer != typeOf (vehicle _killer)) then  // AI was killed by a vehic
 		[_unit, vehicle _killer] call fn_targetVehicle;
 	};
 };
-
-if ((typeOf _killer != "Epoch_Male_F")) then {
-	//diag_log "[AIKilled] --- >>> evaluating case where killer is player and not Epoch_Male_F";
-	//diag_log format["AIKilled -->> vehicle gunner = %1", gunner(vehicle(_killer))];	
-	//diag_log "[AIKilled.sqf] ---- >>>> AI was killed by an gun on a vehicle.";
-	// Assume that this is the case for the script logic for now
-	if (blck_VG_Gear) then {[_unit] call fn_deleteAIGear;
+//diag_log format["AIKilled.sqf -- >> killerName is %1 and he is armed with %2", name _killer, currentWeapon _killer];
+// 
+if ( (typeOf vehicle _killer) in blck_forbidenVehicles or (currentWeapon _killer) in blck_forbidenVehicleGuns) then {
+	//diag_log "[AIKilled] --- >>> evaluating case where killer is vehicle in the forbiden list or a gun in that forbiden list";
+	if (blck_VG_Gear) then {[_unit] call fn_deleteAIGear;};
 	[_unit, vehicle _killer] call fn_targetVehicle;
-	if(typeOf(vehicle _killer) in blck_forbidenVehicles)then{ // the player was not permitted to kill AI with that vehicle typeOf blck_forbidenVehicles
-		//diag_log "[AIKilled.sqf] Vehicle is in forbiddentlist !!!";
-		if (blck_VK_GunnerDamage) then {
-			[vehicle _killer] call fn_applyVehicleDamage;
-		};
+	//diag_log "[AIKilled.sqf] Vehicle is in forbiddentlist !!!";
+	if (blck_VK_GunnerDamage) then {
+		[vehicle _killer] call fn_applyVehicleDamage;
 	};   
 };
-// unit cleanup moved here
+// unit cleanup depends on epoch cleanup; this code was left in the event that the epoch-cleanup approach no longer works properly.
 /*
 _unit spawn {
 	//_this setOwner 1;

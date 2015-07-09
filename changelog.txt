@@ -1,15 +1,18 @@
+	Build 3.42
+	Fixed: Players were not penalized for killing AI using weapons on vehicles in the forbiden list.
+		When blck_VG_Gear is true, two lists are checked when an AI is killed by a player in a vehicle:
+			blck_forbidenVehicles - a list of vehicles for which a penalty should be applied
+			blck_forbidenVehicleGuns - a list of vehicle-mounted guns for which a penalty should be applied after an AI is killed by a player using that gun.
+		If either the vehicle or gun is present in these lists then blck_RunGearDamage is applied to the player's vehicle.
+	Added: Map center and range added for Australia - needs verification.
+
 	Build 3.4
 	Added Configuration information for Esseker
-	Added an option to spawn AI vehicles around the mission. By default these are armed pickups but other vehicles can be used by changing the vehicle types in blck_AI_Vehicles on line 38 of AIConfigs.sqf. If you spawn them i suggest you turn off spawning of mines.
-	Changed: positioning of static weapons and smoking wrecks was adjusted outward a bit.
+	Added an option to spawn AI vehicles around the mission. By default these are armed pickups but other vehicles can be used by changing the vehicle types in blck_AI_Vehicles on line 38 of AIConfigs.sqf.
+	Changed: A complete re-working of the code for spawning AI and static weapons to eliminate redundancy and hopefully improve performance.
+	Changed: Location of the smoking wreck was move outside the perimeter of the mission to reduce collisions with mission base objects.
+	Changed: location of static weapons was moved out to make them more effective.
 
-	**Known Issues: The smoking object is not deleted upon mission completion
-			AI Drivers sometimes run over the AI at missions.
-
-	To Do list:
-	Add paratroops as reinforcement as an option.
-	Add a map marker that shows the location of completed missions.
-	
 	Build 3.31 7-4-15
 	Added Configuration information for Esseker
 
