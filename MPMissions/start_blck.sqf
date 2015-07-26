@@ -1,6 +1,3 @@
-if (isServer) then {
-	[] ExecVM "\q\addons\custom_server\init.sqf";
-};
 "blck_Message" addPublicVariableEventHandler {/*titleText[format["%1",_this select 1],"PLAIN DOWN",1];*/systemChat format["%1",_this select 1]};
 "blck_vehDamage" addPublicVariableEventHandler { // Based on code by KiloSwiss
 	private ["_vehiclekiller","_vehiclePlayer","_status"];

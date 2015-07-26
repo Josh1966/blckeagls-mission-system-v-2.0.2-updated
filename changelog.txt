@@ -1,3 +1,7 @@
+	Build 3.42a
+	Fixed: removed unnecessary code from blck_start.sqf.
+	Removed: mission.pbo's for Epoch 0.3.0.3	
+
 	Build 3.42
 	Fixed: Players were not penalized for killing AI using weapons on vehicles in the forbiden list.
 		When blck_VG_Gear is true, two lists are checked when an AI is killed by a player in a vehicle:

@@ -2,7 +2,26 @@ Installation:
 
 1) Unpack the Zip file to a folder in a convenient location.
 2) Copy custom_server.pbo from the bin\@epochhive\addons folder to the @epochhive\addons folder in your server directory.
-3) Copy the epoch.Altis, epoch.Stratis and epoch.Chernarus from bin\MPMissions to MPMissions in your server directory.
+3) I assume that you already have created an init.sqf, or used one provided with another mod, and that it is already included it in your mission file (e.g., epoch.Altis.pbo). If not, one is provided for you in the folder MPMultiplayer.
+
+Unpack your mission pbo. Open the folder you just created.
+Open this directory and copy the debug folder and file called start_black.sqf from MPMissions into the folder you just created by unpacking your mission pbo.
+Add the following to the your init.sqf:
+
+execVM "start_blck.sqf";
+if (isServer) then {
+	[] ExecVM "\q\addons\custom_server\init.sqf";
+};
+
+If you run multiple scripts, you may have to either merge this file with the code for other mission systems or add this line above any code that executes and if (isServer) exitWith {};	
+
+Repack your mission pbo and you should be good to go.
+
+If you have already modified your scripts.txt to accomodate other addons, you will need to:
+
+5) repack your mission.pbo.
+
+Battleye Filters
 4) update the scripts.txt file in the Battleye directory in your server directory as directed below.
 
  add this on line 22, which begins 7 exec:
@@ -21,20 +40,4 @@ Installation:
 
 Customized installs:
 
-I assume that you already have created an init.sqf, or used one provided with another mod, and that it is already included it in your mission file (e.g., epoch.Altis.pbo). If not, one is provided for you in the folder MPMultiplayer.
-
-Unpack your mission pbo. Open the folder you just created.
-Open this directory and copy the debug folder and file called start_black.sqf from MPMissions into the folder you just created by unpacking your mission pbo.
-Add the following to the your init.sqf:
-
-execVM "start_blck.sqf";
-if (isServer) then {
-	[] ExecVM "\q\addons\custom_server\init.sqf";
-};
-
-If you run multiple mission systems you may have to either merge this file with the code for other mission systems or add this line above any code that executes and if (isServer) exitWith {};	
-
-Repack your mission pbo and you should be good to go.
-
-If you have already modified your scripts.txt to accomodate other addons, you will need to:
 
