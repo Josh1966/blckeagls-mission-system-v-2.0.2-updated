@@ -1,3 +1,6 @@
+Build 3.42b
+	Updated findWorld.sqf for the latest additions to Epoch.
+
 	Build 3.42a
 	Fixed: removed unnecessary code from blck_start.sqf.
 	Removed: mission.pbo's for Epoch 0.3.0.3	
