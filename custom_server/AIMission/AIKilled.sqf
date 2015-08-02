@@ -1,9 +1,8 @@
 /*
-	Based on code by blckeagls and Vampire
+	Influenced by code by blckeagls and Vampire and from Wicked AI for Arma 2.
 	Modified by Ghostrider
-	to do:
-
-	2) reward players who make legitimate kills
+	Handles actions required at the time an AI unit is killed
+	Last updated 8/1/15
 */
 private ["_unit","_killer","_startTime","_grpUnits","_alertDist","_intelligence","_weapons","_killersVehicle","_handle","_launcher","_runover","_unitMission"];
 _unit = _this select 0;
@@ -32,11 +31,11 @@ if (blck_launcherCleanup) then
 {
 	if (_launcher != "") then 
 	{
-		_launcherRounds = getArray (configFile >> "CfgWeapons" >> _Launcher >> "magazines") select 0;
+		_launcherRounds = getArray (configFile >> "CfgWeapons" >> _Launcher >> "magazines"); //0;
 		_unit removeWeapon _Launcher;
-		removeVest _unit;
+		 removeBackpack _unit;
 		{
-			if(_x == _launcherRounds) then {
+			if(_x in _launcherRounds) then {
 				_unit removeMagazine _x;
 			};
 		} count magazines _unit;
@@ -134,7 +133,7 @@ if(typeOf _killer != typeOf (vehicle _killer)) then  // AI was killed by a vehic
 // 
 if ( (typeOf vehicle _killer) in blck_forbidenVehicles or (currentWeapon _killer) in blck_forbidenVehicleGuns) then {
 	//diag_log "[AIKilled] --- >>> evaluating case where killer is vehicle in the forbiden list or a gun in that forbiden list";
-	if (blck_VG_Gear) then {[_unit] call fn_deleteAIGear;};
+	if (blck_VK_Gear) then {[_unit] call fn_deleteAIGear;};
 	[_unit, vehicle _killer] call fn_targetVehicle;
 	//diag_log "[AIKilled.sqf] Vehicle is in forbiddentlist !!!";
 	if (blck_VK_GunnerDamage) then {

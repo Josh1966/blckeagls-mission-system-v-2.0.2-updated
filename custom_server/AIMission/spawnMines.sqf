@@ -1,5 +1,8 @@
-// Spawns mines in a region centered around a specific position.
-
+/* 
+	Spawns mines in a region centered around a specific position.
+	By Ghostrider-DBD-
+	Last updated 8/2/15
+*/
 private ["_pos","_noMines","_mineTypes","_minesPlaced","_minDis","_maxDis","_closest","_radius","_xpos","_ypos","_dir","_incr","_i","_j","_posMine","_mine"];
 
 _pos = _this select 0;
@@ -24,7 +27,6 @@ for "_i" from 1 to _noMines/2 do
 		_mine = createMine ["ATMine", _posMine, [], 0];
 		_mine setVariable ["LAST_CHECK", (diag_tickTime + 14400)];
 		_mine setPos _posMine;
-		//https://community.bistudio.com/wiki/setVectorUp
 		_minesPlaced = _minesPlaced + [_mine];
 		//diag_log format["[spawnMines.sqf] mine # %2 spawned at %1",_posMine,_i];
 	};

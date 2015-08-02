@@ -1,6 +1,8 @@
 // self explanatory. Checks to see if the position is in either a black listed location or near a player spawn. 
 // As written this relies on BIS_fnc_findSafePos to ensure that the spawn point is not on water or an excessively steep slope. 
 // The parameter for slope needs verification
+// By Ghostrider-DBD-
+// Last updated 8/2/15
 
 private["_findNew","_coords","_blackListCenter","_blackListRadius","_dist","_xpos","_ypos","_newPos","_townPos"];
 

@@ -1,10 +1,43 @@
-Build 3.42b
-	Updated findWorld.sqf for the latest additions to Epoch.
+Roadmap
 
-	Build 3.42a
-	Fixed: removed unnecessary code from blck_start.sqf.
-	Removed: mission.pbo's for Epoch 0.3.0.3	
+	Build 3.6
+	Add optional paratroup reinforcements that also drop additional loot
 
+Current Build
+	Build 3.5
+	startBlack.sqf was replaced with blckClient.sqf to avoid problems due to the many changes in the client file.
+	Added: blck_useSignalEnd which, when true, causes a smoke grenade to be depolyed at the loot crate and to persist for several min (still a work in progress but seems to be fine on our servers).
+	Added: blck_labelMapMarkers in AIConfig.sqf which is a configuration option to add text label to map markers and configure how that text is shown (by an arrow or dot). 
+	Added: blck_preciseMapMarkersin AIConfig which is a configuration option that when false causes the marker to be randomly placed  somewhere around the mission area.
+	Added: blck_useSignalEnd determines whether a smoke grenade is deployed at the crate upon mission completion.
+	Added: a new type of mission marker showing the location of completed missions. This marker despawns after a time set by blck_MarkerPeristTime in the blckClient.sqf file in the mission.pbo
+	Added: The misson system now supports multiple loot chests that can be spawned in at any offset and elevation relative to the mission center so that mission designers can place them inside buildings or in other locations off the ground.  
+		Each loot chest can be loaded with a number of weapons, magazines, optics, etc defined in its configuration. The default loot configuration is that in AIConfigs.sqf but you have an option of defining other loot arrays locally for that mission.
+		The type, offset and loot table for each crate is defined in the \Compositions\Compositions.sqf file for that mission class.
+	Added: You can now spawn vehicles at mission and, if you like, add loot to them. The type of vehicle and its loot are define in \Compositions\Commpositions.sqf for that mission class.
+	Added: Compositions are now much more flexible. See configuration _default2 in \Major\Compositions for some examples. You may:
+			1) any number of spawn loot chests in any location;
+			2) load loot chests with the default gear arrays or define additional arrays specific to the mission. 
+			3) spawn vehicles and load them with loot as above.
+			4) Spawn landscapes output by objectgrabber or in the format used by this script.
+			5) Define custom static weapons to be spawned at that mission. These will be manned by 1 AI.
+			6) Define custom Vehicles to be used by AI Vehicles at each mission. These will be manned by 3 AI.
+	Added: The location of recently completed missions is shown with a black square marker.
+	Added: the types of notifications of mission events are configurable in blckClient. You may show one or more of the following types of allerts:
+			Hint, systemChat, titleText.
+	Changed: blck_SmokeAtMissions sets whether a smoking wreck is spawned near the mission. Added a variable to determine whether the wreck is next to the mission center and default crate location or random.
+	Changed: added brief delays after each object or AI is spawned. Not sure if this will help with reducing lag/network traffic spikes when a mission spawns but that was my hope.
+	Fixed: AI should now use launchers properly.
+	Fixed: blck_AIPatrolVehicles now correctly determines the default vehicles used in AI patrols at missions.
+	
+	Known issues:
+		Due to collisions objects do not always spawn. I have seen this with smoking wrecks.
+		In rare instances, loot chests seem to spawn undergound. 
+		
+	Build 3.42b
+		Added: Map dimensions for Esseker and Australia
+		Added: Spawns are included in the blacklisted locations for Australia, Esseker, and Takistan
+		
 	Build 3.42
 	Fixed: Players were not penalized for killing AI using weapons on vehicles in the forbiden list.
 		When blck_VG_Gear is true, two lists are checked when an AI is killed by a player in a vehicle:

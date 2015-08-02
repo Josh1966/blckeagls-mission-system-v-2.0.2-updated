@@ -1,43 +1,66 @@
 Installation:
 
 1) Unpack the Zip file to a folder in a convenient location.
-2) Copy custom_server.pbo from the bin\@epochhive\addons folder to the @epochhive\addons folder in your server directory.
-3) I assume that you already have created an init.sqf, or used one provided with another mod, and that it is already included it in your mission file (e.g., epoch.Altis.pbo). If not, one is provided for you in the folder MPMultiplayer.
 
-Unpack your mission pbo. Open the folder you just created.
-Open this directory and copy the debug folder and file called start_black.sqf from MPMissions into the folder you just created by unpacking your mission pbo.
-Add the following to the your init.sqf:
+2) Unpack your mission pbo. 
+3) Open the folder you just created.
+4) Copy the debug folder and file called blckClient.sqf from custom_server\MPMissions into the folder you just created by unpacking your mission pbo.
+5) Either use the init.sqf provided in custom_server\MPMissions pr add the following to the your init.sqf:
 
-execVM "start_blck.sqf";
+execVM "blckClient.sqf";
 if (isServer) then {
 	[] ExecVM "\q\addons\custom_server\init.sqf";
 };
 
-If you run multiple scripts, you may have to either merge this file with the code for other mission systems or add this line above any code that executes and if (isServer) exitWith {};	
+Be sure to add these lines above any code that reads:
 
-Repack your mission pbo and you should be good to go.
+ if (isServer) exitWith {};	
+
+Repack your mission pbo.
+
 
 If you have already modified your scripts.txt to accomodate other addons, you will need to:
 
 5) repack your mission.pbo.
 
+6) copy custom_server.pbo from custom_server\@epochhive\addons into the @epochhive\addons folder for your server.
+
+7) add the following to your scripts.txt. 
+Please note that at the time this is written (8/1/15) scripts.txt is somewhat in flux and that additional exceptions may be needed in the future. 
+
 Battleye Filters
 4) update the scripts.txt file in the Battleye directory in your server directory as directed below.
 
- add this on line 22, which begins 7 exec:
-
-	!="execVM "debug\addmarkers.sqf"; !="execVM "debug\addmarkers2.sqf";" !="execVM "debug\addmarkers75.sqf";" !="execVM "debug\addmarkers752.sqf";	!="execVM "start_black.sqf";" !="ExecVM "\q\addons\custom_server\init.sqf";"
-	
-  add this to line 41, which begins 7 deletemarker
+7 deletemarker
   
-    !="deleteMarker "MainMarker";" !="deleteMarker "MainMarker2";" !="deleteMarker "MainMarker75";" !="deleteMarker "MainMarker752";"
+    !"_MainMarker 
 	
-  Add to line 42 which begins 7 setMarker
-		!="setMarkerColor "ColorOrange";" !=setMarkerColor "ColorRed";" !="setMarkerColor "ColorRed";" 
+7 setMarker
+		!"_MainMarker"
   
-  Add to line 43 which begins 7 createMarker
-		!="_MainMarker = createMarker ["MainMarker2", C2coords];" !="_MainMarker = createMarker ["MainMarker", Ccoords];" !="_MainMarker = createMarker ["MainMarker75", Ccoords];" !="_MainMarker = createMarker ["MainMarker752", Ccoords];"
+7 createMarker
+		!"_MainMarker"
 
-Customized installs:
+8) Adjusting basic configuration settings
+a) Unpack custom_server.pbo
+b) open custom_server\AIMissions\AIConfig.sqf
+c) Modify settings as desired.
+d) Repack custom_server.pbo
+
+9) Customizing specific mission parameters.  
+Here you can override any default settings for a specific mission. 
+There are two approaches for doing this. 
+The first is to add additional pre-defined compositions to the composition file provided. 
+The second is to create additional mission modules (SM1.sqf, SM2.sqf etc) and add them to the list of mission modules called from the timer. 
+
+a) make a backup before you change anything
+b) See the composition called _default2 in custom_server\AIMissions\Major\Compositions for examples of the following:
+	- defining a custom loot array - see _crateLoot in this file for an example
+	- adding mulitple loot chests in specific locations and defining customized loot for them
+	- adding vehicles that players can take, and filling these vehicles with loot if desired
+	- configuring customized static weapons if desired
+	- configuring customized AI vehicles if desired.
+	
+	NOTE: leaving any of these arrays (loot crates, loot vehicles, static weapons, AI patrol vehicles) empty simply causes the mission spawner to revert to the defaults.
 
 

@@ -1,6 +1,7 @@
 /*
-  Code by Ghostrider
+  Code by Ghostrider-DBD-
   Spawn a collection of groups around a particular position
+  Last updated 8/2/15
 */
 //Sets Private Variables to they don't interfere when this script is called more than once
 private["_pos","_i","_skillLevel","_numai","_aiGroup","_numai1","_numai2","_xpos","_ypos","_newpos","_group","_numGroups","_minDist","_maxDist","_numai","_arc","_dir","_dist","_numAIPerGroup"];	

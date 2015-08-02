@@ -1,4 +1,6 @@
-// Spawns mines in a region centered around a specific position.
+// Immediately deletes everything in a list
+// by Ghostrider-DBD-
+// Last modified 8/2/15
 
 private ["_mines"];
 _mines = _this select 0;

@@ -1,3 +1,13 @@
+/*
+	Handle the case that all AI assigned to a vehicle are dead.
+	Allows players to enter and use the vehicle when appropriate
+	or otherwise destroys the vehicle.
+	
+	By Ghostrider-DBD-
+	for the mission system by blckeagl.
+	Last modified 7-14-15
+*/
+
 private ["_veh","_unit","_units","_count","_group","_driver","_gunner","_cargo"];
 _veh = _this select 0;
 

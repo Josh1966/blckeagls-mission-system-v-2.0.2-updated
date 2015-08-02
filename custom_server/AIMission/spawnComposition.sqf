@@ -17,6 +17,7 @@
 		_baseObj setVariable["LAST_CHECK",14400];
 		_baseObj setPos [_xpos,_ypos,,0];
 		_list = _list + [_baseObj];
+		uiSleep 0.2;
 	} forEach _objList;
 	
 	_list

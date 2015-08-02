@@ -1,9 +1,8 @@
 /*
-	Code by blckeagls
+	Original code by blckeagls
 	Modified by Ghostrider
 	Logic for adding AI Ammo, GL Shells and Attachments addapted from that by Vampire.
 	Code to delete dead AI bodies moved to AIKilled.sqf
-	Everything having to do with spawning and configuring an AI should happen here
 */
 
 //Defines private variables so they don't interfere with other scripts
@@ -54,7 +53,7 @@ _ai1 allowDammage true;
 _ai1 setBehaviour "COMBAT";
 _ai1 setunitpos "AUTO";
 
-sleep 0.1; //For some reason without this sometimes they don't spawn the weapon on them
+uiSleep 0.2; //For some reason without this sometimes they don't spawn the weapon on them
 
 // Add a vest to AI for storage
 _vest = blck_vests call BIS_fnc_selectRandom;
@@ -76,19 +75,8 @@ for "_i" from 0 to (floor(random 3)) do {
 if ((count(getArray (configFile >> "cfgWeapons" >> _weap >> "muzzles"))) > 1) then {
 	_ai1 addMagazine "1Rnd_HE_Grenade_shell";
 };
-/*
-// 30%  Chance that an attachment will be added (based on Vampire's code)
-if ((floor(random(10))) <= 3) then {
-	_attachments = (getArray (configFile >> "cfgLootTable" >> "Scopes" >> "items"));  // returns an array of arrays [[["attachment name",typeOf],integer], [...]];
-	//diag_log format["[spawnUnit.sqf] -- The attachments available for this weapon are %1",_attachments];
-	_attachment = _attachments call BIS_fnc_selectRandom; // These are 
-	diag_log format[" -- >> SpawnUnit.sqf - about to add an attachment of type %1",_attachment];  // [["attachment name","type"],1-6]
-	_attachment = _attachment select 0;
-	diag_log format["spawnUnit.sqf -- >> Attachment has been parsed to %1",_attachment];
-	_ai1 addPrimaryWeaponItem _attachment;
-};
-*/
-sleep 0.1; //For some reason without this sometimes they don't spawn the weapon on them
+
+uiSleep 0.2; //For some reason without this sometimes they don't spawn the weapon on them
 
 //adds 3 random items to AI.  _other = ["ITEM","COUNT"]
 _i = 0;
@@ -108,13 +96,17 @@ if (round(random 10) <= 9) then
 };
 if (_Launcher != "none") then
 {
+	private["_bpck"];
+	_bpck = blck_backpack call BIS_fnc_selectRandom;
+	_ai1 addBackpack _bpck; 
+	//diag_log format["spawnUnit.sqf:  Available Launcher Rounds are %1",getArray (configFile >> "CfgWeapons" >> _Launcher >> "magazines")];
 	_ai1 addWeaponGlobal _Launcher;
 	_launcherRound = getArray (configFile >> "CfgWeapons" >> _Launcher >> "magazines") select 0;
 	//diag_log format["[spawnUnit.sqf] Launcher round is %1",_launcherRound];
-	for "_i" from 1 to 4 do 
+	for "_i" from 1 to 3 do 
 	{
 		//diag_log format["[spawnUnit.saf] Adding Launcher Round %1 ",_launcherRound];
-		_ai1 addItemToVest _launcherRound;
+		_ai1 addItemToBackpack  _launcherRound call BIS_fnc_selectRandom;
 	};
 	_ai1 selectWeapon (secondaryWeapon _ai1);
 };

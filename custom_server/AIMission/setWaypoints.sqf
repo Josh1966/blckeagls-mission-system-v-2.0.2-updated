@@ -1,4 +1,7 @@
 // Sets up waypoints for a specified group.
+// By Ghostrider-DBD-
+// Last updated 8/2/15
+
 private["_pos","_minDis","_maxDis","_dist","_dir","_arc","_xpos","_ypos","_newpos","_wpradius","_wpnum","_oldpos","_group"];
 
 _pos = _this select 0; // center of the patrol area

@@ -1,5 +1,7 @@
-	// Delete objects in a list after a certain time.
-	// code to delete any smoking or on fire objects adapted from kalania 
+	// Delete a list of objects after a certain time.
+	// By Ghostrider-DBD-
+	// Last modified 8/2/15
+	// code to delete any smoking or on fire objects adapted from kalania but .. unfortunately not yet working
 	//http://forums.bistudio.com/showthread.php?165184-Delete-Fire-Effect/page1
 	// http://forums.bistudio.com/showthread.php?165184-Delete-Fire-Effect/page2
 

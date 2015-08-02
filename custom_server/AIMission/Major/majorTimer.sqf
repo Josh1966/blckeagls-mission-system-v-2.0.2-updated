@@ -1,7 +1,8 @@
 /*
-  Minor Mission timer
-  Originial code by blckeagls
+  Orange Mission timer
+  Original code by blckeagls
   Modified by Ghostrider
+  Last modified 7/11/15
 */
 // Loop to spawn Orange (Major) missions at intervals specified by blck_TMin_Major and blck_TMax_Major
 
@@ -19,25 +20,19 @@ while {true} do {
 	blck_AIMajor = [];
 	//Find a safe position on map to spawn marker and AI units
 	_coords = [] call blck_FindSafePosn;
-	AllMissionCoords = AllMissionCoords + [_coords];
-	// Display a map marker for all players
-	Ccoords = _coords;
-	publicVariable "Ccoords";	
-	execVM "debug\addmarkers.sqf";
+	_coords pushback 0;
+	//diag_log format["Major[Orange]\MajorTimer.sqf: _coords = %1",_coords];
+	AllMissionCoords set [0,_coords];
 	// select a mission from the list of available missions
 	_mission = _MajorMissions call BIS_fnc_selectRandom;
 	// Everything is ready, time to spawn the mission
-	MissionGoMajor = true;
+	blck_MissionGoMajor = true;
 	[_coords] execVM format["\q\addons\custom_server\AIMission\Major\%1.sqf",_mission];
 	// Wait until the mission script has ended. It should toggle MissionGoMajor to false so that the loop will proceed
-	waitUntil {!MissionGoMajor};
-	// Clear markers from player maps
-	// To Do: add  a delay here and possibly a marker of another type and color.
-	[] execVM "debug\remmarkers.sqf";
-	Ccoords = 0;
-	publicVariable "Ccoords";
+	waitUntil {!blck_MissionGoMajor};
 	// remove any alive AI hanging around from the last missions after waiting for the body clean up time
 	// and delete the groups they were associated with
 	_oldAI = blck_AIMajor;
 	[_oldAI] spawn blck_AICleanup;	
+	AllMissionCoords set [0,[0,0,0]];
 };

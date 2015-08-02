@@ -1,12 +1,17 @@
-// Spawns a vehicle or emplaced weapons, man's it, and destroys it when the AI gets out.
+// Spawns anemplaced weapons, man's it, and destroys it when the AI gets out.
+// by Ghostrider-DBD-
+// Last Updated 7/30/15
 
-private["_pos","_emplaced","_aiGroup","_safepos","_ai","_ai1","_slot","_vehSE","_i","_noEmplaced","_minDist","_maxDist","_level","_objSE","_unitsSE","_gunner","_dist","_dir","_arc","_xpos","_ypos","_newpos"];
+private["_pos","_emplaced","_emplacedTypes","_aiGroup","_safepos","_ai","_ai1","_slot","_vehSE","_i","_noEmplaced","_minDist","_maxDist","_level","_objSE","_unitsSE","_gunner","_dist","_dir","_arc","_xpos","_ypos","_newpos"];
 
 _pos = _this select 0;
-_noEmplaced = _this select 1;
-_minDist = _this select 2;
-_maxDist = _this select 3;
-_level = _this select 4;
+_noEmplaced = [_this,1,-1] call BIS_fnc_param;
+_emplacedTypes = _this select 2;
+_minDist = [_this,3,30] call BIS_fnc_param; 
+_maxDist = [_this,4,45] call BIS_fnc_param; 
+_level = [_this,5,"red"] call BIS_fnc_param;  
+
+if (_noEmplaced <= 0) exitWith {};
 
 _unitsSE = [];
 _dir = round(random(360));
@@ -23,7 +28,7 @@ for "_i" from 1 to _noEmplaced do
 	_newpos = [_xpos,_ypos,0];	
 	
 	_safepos = [_pos,_minDist,_maxDist,0,0,20,0] call BIS_fnc_findSafePos;
-	_emplaced = blck_staticWeapons call BIS_fnc_selectRandom;
+	_emplaced = _emplacedTypes call BIS_fnc_selectRandom;
 	_vehSE = createVehicle[_emplaced, _safepos, [], 0, "NONE"];
 	_vehSE setVariable["LAST_CHECK",14400];
 	_vehSE call EPOCH_server_setVToken;

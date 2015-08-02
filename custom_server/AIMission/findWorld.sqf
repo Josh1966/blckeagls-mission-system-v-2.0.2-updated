@@ -1,6 +1,8 @@
 /*
-	Determine the map name, set the map center and size, and return the map name.
+	Determine the map name, sets the map center and size, and returns the map name.
 	Spawn coordinates were pulled from the config.cfg
+	By Ghostrider-DBD-
+	Last updated 8/2/15
 */
 private["_blck_WorldName"];
 

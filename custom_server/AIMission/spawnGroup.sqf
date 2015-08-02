@@ -1,7 +1,8 @@
 /*
+  Spawn and configure a group
   Code by blckeagls
-  Modified by Ghostrider
-  Everythign related to a spawning a Group happens here. 
+  Modified by Ghostrider-DBD-
+  Last updated 8/2/15
 */
 //Sets Private Variables to they don't interfere when this script is called more than once
 private["_pos","_weaponlist","_ammolist","_skinlist","_itemlist","_randomNumberWeapon","_randomNumberSkin","_randomNumberItem","_numbertospawn","_whichweap","_whichitem","_whichskin","_weapon","_ammo","_item",
@@ -42,23 +43,18 @@ switch (_skillLevel) do {
 	case "orange": {_weaponList = blck_WeaponList_Orange;};
 	default {_weaponList = blck_WeaponList_Blue;};
 };
-//diag_log format["[spawnGroup.sqf] _weaponList is %1",_weaponList];
-// Select a Launcher if AI are to be equiped with one.
-if (blck_useLaunchers) then
-{
-	_launcherType = blck_launcherTypes call BIS_fnc_selectRandom;
-} else {
-	_launcherType = "none";
-};
+
 
 //Spawns the correct number of AI Groups, each with the correct number of units
 //Counter variable
 _i = 0;
 while {_i < _numbertospawn} do {
 	_i = _i + 1;
-	if ((_i > blck_launchersPerGroup)) then  // Only give launchers to the first few AI.
-	{ 
-		_launcherType = "none"
+	if (blck_useLaunchers && _i <= blck_launchersPerGroup) then
+	{
+		_launcherType = blck_launcherTypes call BIS_fnc_selectRandom;
+	} else {
+		_launcherType = "none";
 	};
 	
 	//Finds a safe positon to spawn the AI in the area given
