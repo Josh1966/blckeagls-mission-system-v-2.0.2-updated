@@ -3,7 +3,7 @@
 
 First, create a backup of all files.
 Second, if your rpt log shows errors after a change, revert to the defaults and try again.
-Third, most settings are in AIconfig.sqf. 
+Third, most settings are in AIconfig.sqf and blckClient.sqf
 
 
 
