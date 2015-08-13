@@ -1,5 +1,5 @@
 Blckegls mission system (BEMS) Ver 2.0.2
-
+Build 3.54
 Included is an updated version of blckeagls mission system. It is based on version 2.0.2 as updated by Narines. 
 This is not my work, except to update the existing mission framework.
 
