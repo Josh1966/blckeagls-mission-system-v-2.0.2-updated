@@ -8,9 +8,6 @@ Installation:
 5) Either use the init.sqf provided in custom_server\MPMissions pr add the following to the your init.sqf:
 
 execVM "blckClient.sqf";
-if (isServer) then {
-	[] ExecVM "\q\addons\custom_server\init.sqf";
-};
 
 Be sure to add these lines above any code that reads:
 
@@ -47,20 +44,9 @@ b) open custom_server\AIMissions\AIConfig.sqf
 c) Modify settings as desired.
 d) Repack custom_server.pbo
 
-9) Customizing specific mission parameters.  
-Here you can override any default settings for a specific mission. 
-There are two approaches for doing this. 
-The first is to add additional pre-defined compositions to the composition file provided. 
-The second is to create additional mission modules (SM1.sqf, SM2.sqf etc) and add them to the list of mission modules called from the timer. 
+///////////////////////////////////////////
+Further customization
 
-a) make a backup before you change anything
-b) See the composition called _default2 in custom_server\AIMissions\Major\Compositions for examples of the following:
-	- defining a custom loot array - see _crateLoot in this file for an example
-	- adding mulitple loot chests in specific locations and defining customized loot for them
-	- adding vehicles that players can take, and filling these vehicles with loot if desired
-	- configuring customized static weapons if desired
-	- configuring customized AI vehicles if desired.
-	
-	NOTE: leaving any of these arrays (loot crates, loot vehicles, static weapons, AI patrol vehicles) empty simply causes the mission spawner to revert to the defaults.
-
+The structure of the mission system allows on to script script highly varied missions. 
+The templates provided demonstrate some of the ways you can use the mission system to spawn dynamic missions with different landscapes, vehicles, etc.
 

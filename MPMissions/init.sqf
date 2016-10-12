@@ -1,10 +1,3 @@
-// Load the client
-// Place the line below at the top of your init.sqf
-execVM "blckClient.sqf";
-
-//start the mission system.
-// place the section below above any line that reads:
-// if (isServer) exitWith {};
-if (isServer) then {
-	execVM "\q\addons\custom_server\init.sqf";
-};
+// Add this to your init.sqf.
+// If you do not have a file called init.sqf in your epoch.Altis folder simply add this file to that folder and you are good to go.
+execVM "debug\blckClient.sqf";
